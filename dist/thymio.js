@@ -39249,7 +39249,12 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
- //Connect to the switch
+ // Build an http server on top of @mobsya-association/thymio-api
+// **************************************************************
+//var express = require ('express');
+//console.log ('my server is running');
+//var app = express();
+//Connect to the switch
 //We will need some way to get that url, via the launcher
 
 var client = Object(_mobsya_association_thymio_api__WEBPACK_IMPORTED_MODULE_0__["createClient"])("ws://localhost:8597");

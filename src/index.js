@@ -1,5 +1,14 @@
 import { createClient, Node, NodeStatus, Request, setup } from '@mobsya-association/thymio-api'
 
+// Build an http server on top of @mobsya-association/thymio-api
+// **************************************************************
+//var express = require ('express');
+//console.log ('my server is running');
+
+
+//var app = express();
+
+
 //Connect to the switch
 //We will need some way to get that url, via the launcher
 let client = createClient("ws://localhost:8597");

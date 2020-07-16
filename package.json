@@ -1,10 +1,11 @@
 {
-  "name": "@mobsya-association/thymio-js-api-demo",
+  "name": "@gistlabs.net/thymiohttp",
   "version": "0.1.1",
   "description": "Thymio JS API demo for Node & Browsers",
   "main": "webpack.config.js",
   "dependencies": {
     "@babel/polyfill": "^7.10.4",
+    "express": "^4.17.1",
     "webpack": "^4.43.0"
   },
   "devDependencies": {
