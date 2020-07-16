@@ -6,6 +6,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.10.4",
     "express": "^4.17.1",
+    "socket.io": "^2.3.0",
     "webpack": "^4.43.0"
   },
   "devDependencies": {
@@ -26,7 +27,8 @@
   "scripts": {
     "browser": "npm run build && echo \"Open dist/index.html with a web browser.\"",
     "start": "npm run build && node --experimental-modules --expose-wasm dist/thymio-node.js",
-    "build": "webpack"
+    "build": "webpack",
+    "server": "node thymiohttp.js"
   },
   "repository": {
     "type": "git",
