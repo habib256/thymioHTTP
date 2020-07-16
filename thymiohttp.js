@@ -4,7 +4,7 @@ var express = require('express');
 var app = express();
 var server = app.listen(3000);
 app.use(express.static('dist'));
-console.log("My Thymio socket server is running at ws://127.0.0.1:3000");
+console.log("Thymio Suite server running at ws://127.0.0.1:3000");
 
 var socket;
 var io = require('socket.io').listen(server);

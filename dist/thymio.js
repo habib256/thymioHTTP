@@ -39250,12 +39250,11 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
  //Connect to the Thymio Suite
-//We will need some way to get that url, via the launcher
+//We will need some way to get that url
 
 var client = Object(_mobsya_association_thymio_api__WEBPACK_IMPORTED_MODULE_0__["createClient"])("ws://localhost:8597");
 var selectedNode = undefined;
-var showvars = true;
-var thymioProgram = [];
+var thymioPrograms = [];
 var socket = io.connect('ws://localhost:3000');
 socket.on('thymio', thymioUpdate);
 
@@ -39272,7 +39271,7 @@ function _thymioSetup() {
             _context5.prev = 0;
             thymioSetupPrograms();
             _context5.next = 4;
-            return selectedNode.sendAsebaProgram(thymioProgram[0]);
+            return selectedNode.sendAsebaProgram(thymioPrograms[0]);
 
           case 4:
             _context5.next = 6;
@@ -39307,24 +39306,28 @@ function _thymioDraw() {
       while (1) {
         switch (_context6.prev = _context6.next) {
           case 0:
-            try {
-              if (showvars) {
-                console.log(vars);
-                showvars = false;
-              } //await selectedNode.emitEvents({ "ping": null });
+            _context6.prev = 0;
+            _context6.next = 3;
+            return selectedNode.emitEvents({
+              "ping": null
+            });
 
+          case 3:
+            socket.emit('thymio', vars);
+            _context6.next = 9;
+            break;
 
-              socket.emit('thymio', vars);
-            } catch (e) {
-              console.log(e);
-            }
+          case 6:
+            _context6.prev = 6;
+            _context6.t0 = _context6["catch"](0);
+            console.log(_context6.t0);
 
-          case 1:
+          case 9:
           case "end":
             return _context6.stop();
         }
       }
-    }, _callee5);
+    }, _callee5, null, [[0, 6]]);
   }));
   return _thymioDraw.apply(this, arguments);
 }
@@ -39343,7 +39346,7 @@ function _thymioSetupPrograms() {
       while (1) {
         switch (_context7.prev = _context7.next) {
           case 0:
-            thymioProgram.push("\nvar rgb[3]\nvar tmp[3]\nvar i = 0\nonevent ping\n    call math.rand(rgb)\n    for i in 0:2 do\n        rgb[i] = abs rgb[i]\n        rgb[i] = rgb[i] % 20\n    end\n    call leds.top(rgb[0], rgb[1], rgb[2])\n    i++\n    emit pong i\n");
+            thymioPrograms.push("\nvar rgb[3]\nvar tmp[3]\nvar i = 0\nonevent ping\n    call math.rand(rgb)\n    for i in 0:2 do\n        rgb[i] = abs rgb[i]\n        rgb[i] = rgb[i] % 20\n    end\n    call leds.top(rgb[0], rgb[1], rgb[2])\n    i++\n    emit pong i\n");
 
           case 1:
           case "end":

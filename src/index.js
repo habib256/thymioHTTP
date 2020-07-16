@@ -1,35 +1,30 @@
 import { createClient, Node, NodeStatus, Request, setup } from '@mobsya-association/thymio-api'
 
 //Connect to the Thymio Suite
-//We will need some way to get that url, via the launcher
+//We will need some way to get that url
 let client = createClient("ws://localhost:8597");
 let selectedNode = undefined
-let showvars = true;
-let thymioProgram = [];
+let thymioPrograms = [];
 
 var socket = io.connect('ws://localhost:3000');
 socket.on('thymio', thymioUpdate);
 
 async function thymioSetup() {
     try {
-        thymioSetupPrograms()
-        await selectedNode.sendAsebaProgram(thymioProgram[0])
-        await selectedNode.runProgram()
+        thymioSetupPrograms();
+        await selectedNode.sendAsebaProgram(thymioPrograms[0]);
+        await selectedNode.runProgram();
     } catch (e) {
-        console.log(e)
+        console.log(e);
     }
 }
 
 async function thymioDraw(vars) {
     try {
-        if(showvars){
-        console.log(vars);
-        showvars = false;
-        }
-        //await selectedNode.emitEvents({ "ping": null });
+        await selectedNode.emitEvents({ "ping": null });
         socket.emit('thymio', vars);
     } catch (e) {
-        console.log(e)
+        console.log(e);
     }
 }
 
@@ -38,7 +33,7 @@ function thymioUpdate (data) {
 }
 
 async function thymioSetupPrograms() {
-thymioProgram.push(`
+thymioPrograms.push(`
 var rgb[3]
 var tmp[3]
 var i = 0
@@ -59,7 +54,7 @@ function sleep(ms) {
 }
 
 client.onClose = async (event) => {
-    console.log(event)
+    console.log(event);
 }
 
 // Start monitoring for node event
