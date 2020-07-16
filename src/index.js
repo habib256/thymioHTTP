@@ -1,20 +1,13 @@
 import { createClient, Node, NodeStatus, Request, setup } from '@mobsya-association/thymio-api'
 
-// Build an http server on top of @mobsya-association/thymio-api
-// **************************************************************
-//var express = require ('express');
-//console.log ('my server is running');
-
-
-//var app = express();
-
-
-//Connect to the switch
+//Connect to the Thymio Suite
 //We will need some way to get that url, via the launcher
 let client = createClient("ws://localhost:8597");
 let selectedNode = undefined
 let showvars = true;
 let thymioProgram = [];
+
+var socket = io.connect('http://localhost:3000');
 
 async function thymioSetup() {
     try {
@@ -32,8 +25,9 @@ async function thymioDraw(vars) {
         console.log(vars);
         showvars = false;
         }
-        console.log('Javascript emit ping')
-        await selectedNode.emitEvents({ "ping": null });
+        //console.log('Javascript emit ping')
+        //await selectedNode.emitEvents({ "ping": null });
+        socket.emit('thymio', vars);
     } catch (e) {
         console.log(e)
     }
