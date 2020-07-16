@@ -39277,27 +39277,20 @@ function _thymioSetup() {
             return selectedNode.runProgram();
 
           case 6:
-            console.log('Javascript emit ping');
-            _context5.next = 9;
-            return selectedNode.emitEvents({
-              "ping": null
-            });
-
-          case 9:
-            _context5.next = 14;
+            _context5.next = 11;
             break;
 
-          case 11:
-            _context5.prev = 11;
+          case 8:
+            _context5.prev = 8;
             _context5.t0 = _context5["catch"](0);
             console.log(_context5.t0);
 
-          case 14:
+          case 11:
           case "end":
             return _context5.stop();
         }
       }
-    }, _callee4, null, [[0, 11]]);
+    }, _callee4, null, [[0, 8]]);
   }));
   return _thymioSetup.apply(this, arguments);
 }
