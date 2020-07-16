@@ -15,6 +15,7 @@ function newConnection(socket) {
     socket.on('thymio', thymioMsg);
 } 
 function thymioMsg(data) {
-   socket.broadcast.emit('thymio', data);
-    console.log(data);
+  //io.socket.emit('Hello');
+   
+   console.log(data[2]);
 }

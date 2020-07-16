@@ -39269,30 +39269,30 @@ function _thymioSetup() {
         switch (_context5.prev = _context5.next) {
           case 0:
             _context5.prev = 0;
-            // socket.on('thymio', thymioUpdate);
+            socket.on('thymio', thymioUpdate);
             thymioSetupPrograms();
-            _context5.next = 4;
+            _context5.next = 5;
             return selectedNode.sendAsebaProgram(thymioProgram[0]);
 
-          case 4:
-            _context5.next = 6;
+          case 5:
+            _context5.next = 7;
             return selectedNode.runProgram();
 
-          case 6:
-            _context5.next = 11;
+          case 7:
+            _context5.next = 12;
             break;
 
-          case 8:
-            _context5.prev = 8;
+          case 9:
+            _context5.prev = 9;
             _context5.t0 = _context5["catch"](0);
             console.log(_context5.t0);
 
-          case 11:
+          case 12:
           case "end":
             return _context5.stop();
         }
       }
-    }, _callee4, null, [[0, 8]]);
+    }, _callee4, null, [[0, 9]]);
   }));
   return _thymioSetup.apply(this, arguments);
 }
@@ -39330,7 +39330,9 @@ function _thymioDraw() {
   return _thymioDraw.apply(this, arguments);
 }
 
-function thymioUpdate() {}
+function thymioUpdate(data) {
+  console.log(data);
+}
 
 function thymioSetupPrograms() {
   return _thymioSetupPrograms.apply(this, arguments);
