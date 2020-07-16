@@ -29,7 +29,8 @@
     "browser": "npm run build && echo \"Open dist/index.html with a web browser.\"",
     "start": "npm run build && node --experimental-modules --expose-wasm dist/thymio-node.js",
     "build": "webpack",
-    "server": "node thymiohttp.js"
+    "server": "node thymiohttp.js",
+    "all" : "npm run build && node thymiohttp.js"
   },
   "repository": {
     "type": "git",
