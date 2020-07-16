@@ -7,11 +7,11 @@ let selectedNode = undefined
 let showvars = true;
 let thymioProgram = [];
 
-var socket = io.connect('http://localhost:3000');
+var socket = io.connect('ws://localhost:3000');
+socket.on('thymio', thymioUpdate);
 
 async function thymioSetup() {
     try {
-       socket.on('thymio', thymioUpdate);
         thymioSetupPrograms()
         await selectedNode.sendAsebaProgram(thymioProgram[0])
         await selectedNode.runProgram()
@@ -26,7 +26,6 @@ async function thymioDraw(vars) {
         console.log(vars);
         showvars = false;
         }
-        //console.log('Javascript emit ping')
         //await selectedNode.emitEvents({ "ping": null });
         socket.emit('thymio', vars);
     } catch (e) {
@@ -35,8 +34,7 @@ async function thymioDraw(vars) {
 }
 
 function thymioUpdate (data) {
-    console.log(data);
-
+    console.log(data[2]);
 }
 
 async function thymioSetupPrograms() {

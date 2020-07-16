@@ -39256,7 +39256,8 @@ var client = Object(_mobsya_association_thymio_api__WEBPACK_IMPORTED_MODULE_0__[
 var selectedNode = undefined;
 var showvars = true;
 var thymioProgram = [];
-var socket = io.connect('http://localhost:3000');
+var socket = io.connect('ws://localhost:3000');
+socket.on('thymio', thymioUpdate);
 
 function thymioSetup() {
   return _thymioSetup.apply(this, arguments);
@@ -39269,30 +39270,29 @@ function _thymioSetup() {
         switch (_context5.prev = _context5.next) {
           case 0:
             _context5.prev = 0;
-            socket.on('thymio', thymioUpdate);
             thymioSetupPrograms();
-            _context5.next = 5;
+            _context5.next = 4;
             return selectedNode.sendAsebaProgram(thymioProgram[0]);
 
-          case 5:
-            _context5.next = 7;
+          case 4:
+            _context5.next = 6;
             return selectedNode.runProgram();
 
-          case 7:
-            _context5.next = 12;
+          case 6:
+            _context5.next = 11;
             break;
 
-          case 9:
-            _context5.prev = 9;
+          case 8:
+            _context5.prev = 8;
             _context5.t0 = _context5["catch"](0);
             console.log(_context5.t0);
 
-          case 12:
+          case 11:
           case "end":
             return _context5.stop();
         }
       }
-    }, _callee4, null, [[0, 9]]);
+    }, _callee4, null, [[0, 8]]);
   }));
   return _thymioSetup.apply(this, arguments);
 }
@@ -39311,8 +39311,7 @@ function _thymioDraw() {
               if (showvars) {
                 console.log(vars);
                 showvars = false;
-              } //console.log('Javascript emit ping')
-              //await selectedNode.emitEvents({ "ping": null });
+              } //await selectedNode.emitEvents({ "ping": null });
 
 
               socket.emit('thymio', vars);
@@ -39331,7 +39330,7 @@ function _thymioDraw() {
 }
 
 function thymioUpdate(data) {
-  console.log(data);
+  console.log(data[2]);
 }
 
 function thymioSetupPrograms() {
