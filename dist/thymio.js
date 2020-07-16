@@ -39269,6 +39269,7 @@ function _thymioSetup() {
         switch (_context5.prev = _context5.next) {
           case 0:
             _context5.prev = 0;
+            // socket.on('thymio', thymioUpdate);
             thymioSetupPrograms();
             _context5.next = 4;
             return selectedNode.sendAsebaProgram(thymioProgram[0]);
@@ -39328,6 +39329,8 @@ function _thymioDraw() {
   }));
   return _thymioDraw.apply(this, arguments);
 }
+
+function thymioUpdate() {}
 
 function thymioSetupPrograms() {
   return _thymioSetupPrograms.apply(this, arguments);

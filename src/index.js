@@ -11,6 +11,7 @@ var socket = io.connect('http://localhost:3000');
 
 async function thymioSetup() {
     try {
+       // socket.on('thymio', thymioUpdate);
         thymioSetupPrograms()
         await selectedNode.sendAsebaProgram(thymioProgram[0])
         await selectedNode.runProgram()
@@ -31,6 +32,10 @@ async function thymioDraw(vars) {
     } catch (e) {
         console.log(e)
     }
+}
+
+function thymioUpdate () {
+
 }
 
 async function thymioSetupPrograms() {
