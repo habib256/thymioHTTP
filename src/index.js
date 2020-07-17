@@ -9,6 +9,7 @@ let thymioPrograms = [];
 
 var socket = io.connect('ws://localhost:3000');
 socket.on('thymio', thymioUpdate);
+socket.on('avance', thymioAvance);
 
 //function setup() {
 //}
@@ -37,6 +38,12 @@ async function thymioDraw(data) {
 function thymioUpdate (data) {
     //console.log(data);
     socket.emit('thymio', data);
+}
+
+async function thymioAvance (data) {
+    console.log('Avancer de',data.avance);
+    await selectedNode.emitEvents({ "avance": data.avance });
+    //socket.emit('thymio', data);
 }
 
 async function thymioSetupPrograms() {
@@ -132,12 +139,12 @@ client.onNodesChanged = async (nodes) => {
             }
             catch (e) {
                console.log(e)
-            process.exit()
+            //process.exit()
             }
         }
     } catch (e) {
         console.log(e)
-        process.exit()
+       // process.exit()
     }
 }
 
