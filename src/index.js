@@ -42,7 +42,7 @@ function thymioUpdate (data) {
 
 async function thymioAvance (data) {
     console.log('Avancer de',data.avance);
-    await selectedNode.emitEvents({ "avance": data.avance });
+    //await selectedNode.emitEvents({ "avance": data.avance });
     //socket.emit('thymio', data);
 }
 
@@ -60,6 +60,16 @@ onevent ping
     call leds.top(rgb[0], rgb[1], rgb[2])
     i++
     emit pong i
+`);
+thymioPrograms.push(`
+onevent avance
+    call motor.left.target = 255
+    call motor.right.target = 255
+    emit finish
+onevent stop
+    motor.left.target = 0
+    motor.right.target = 0
+    emit finish
 `);
 }
 
