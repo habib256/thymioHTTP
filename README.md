@@ -1,15 +1,14 @@
-# thymio-js-api-demo
+# thymioHTTP is based on thymio-js-api-demo
 
-This simple javascript application showcases how to use the Thymio API from a browser or a node-based app
-
+So this is a simple javascript node-based application that try to mimic the old obsolete asebahttp.
 
 ## Getting started
 
-### Install the switch
+### Install aseba studio
 
-TODO
+https://www.thymio.org/fr/programmer/
 
-### Install npm
+### Install node and npm
 
 Npm is a package manager for JavaScript, you will need it to work with the Thymio API
 
@@ -40,6 +39,7 @@ It can be installed with `npm -i @mobsya-association/thymio-api`.
 This demo project also depends on:
 * Webpack to orchestrate the bundling of the application for both node and browser
 * Babel to convert the code in a flavor of Javascript compatible with older versions of web browsers
+* Socket.io to talk with the include HTTP server
 
 The code is in `src` and gets compiled into `dist`.
 
