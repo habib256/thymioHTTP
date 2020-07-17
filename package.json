@@ -6,6 +6,7 @@
   "dependencies": {
     "@babel/polyfill": "^7.10.4",
     "express": "^4.17.1",
+    "p5": "^1.0.0",
     "webpack": "^4.43.0"
   },
   "devDependencies": {
@@ -30,7 +31,7 @@
     "start": "npm run build && node --experimental-modules --expose-wasm dist/thymio-node.js",
     "build": "webpack",
     "server": "node thymiohttp.js",
-    "all" : "npm run build && node thymiohttp.js"
+    "all": "npm run build && node thymiohttp.js"
   },
   "repository": {
     "type": "git",

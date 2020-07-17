@@ -1,4 +1,5 @@
 import { createClient, Node, NodeStatus, Request, setup } from '@mobsya-association/thymio-api'
+import p5 from "p5"
 
 //Connect to the Thymio Suite
 //We will need some way to get that url
@@ -8,6 +9,10 @@ let thymioPrograms = [];
 
 var socket = io.connect('ws://localhost:3000');
 socket.on('thymio', thymioUpdate);
+
+
+//var canvas = createCanvas(800,600);
+
 
 async function thymioSetup() {
     try {
