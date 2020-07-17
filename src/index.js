@@ -10,6 +10,8 @@ let thymioPrograms = [];
 var socket = io.connect('ws://localhost:3000');
 socket.on('thymio', thymioUpdate);
 socket.on('led', thymioLED);
+socket.on('avance', thymioAvance);
+socket.on('stop', thymioStop);
 
 //function setup() {
 //}
@@ -19,7 +21,7 @@ socket.on('led', thymioLED);
 async function thymioSetup() {
     try {
         thymioSetupPrograms();
-        await selectedNode.sendAsebaProgram(thymioPrograms[0]);
+        await selectedNode.sendAsebaProgram(thymioPrograms[1]);
         await selectedNode.runProgram();
     } catch (e) {
         console.log(e);
@@ -43,6 +45,16 @@ function thymioUpdate (data) {
 async function thymioLED (data) {
     console.log('LED avec paramètre',data.led);
     await selectedNode.emitEvents({ "ping": null });
+    //socket.emit('thymio', data);
+}
+async function thymioAvance (data) {
+    console.log('avance avec paramètre',data.avance);
+    await selectedNode.emitEvents({ "avance": null });
+    //socket.emit('thymio', data);
+}
+async function thymioStop (data) {
+    console.log('stop avec paramètre',data.stop);
+    await selectedNode.emitEvents({ "stop": null });
     //socket.emit('thymio', data);
 }
 
@@ -152,7 +164,7 @@ client.onNodesChanged = async (nodes) => {
                 }
 
                 await node.group.setEventsDescriptions([
-                    { name: "ping", fixed_size: 0 }, { name: "pong", fixed_size: 1 },
+                    { name: "ping", fixed_size: 0 },{ name: "avance", fixed_size: 0 },{ name: "stop", fixed_size: 0 }, { name: "pong", fixed_size: 1 },
                 ])
                 thymioSetup();
 

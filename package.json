@@ -1,7 +1,7 @@
 {
   "name": "@gistlabs.net/thymiohttp",
   "version": "0.1.1",
-  "description": "Thymio JS API demo for Node & Browsers",
+  "description": "Thymio Stuite HTTP JS API for Node & Browsers",
   "main": "webpack.config.js",
   "dependencies": {
     "@babel/polyfill": "^7.10.4",

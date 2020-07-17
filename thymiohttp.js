@@ -49,5 +49,15 @@ app.put('/nodes/led/:led', function (req, res) {
     console.log('Got a PUT request at /led',req.params);
     io.sockets.emit('led', req.params);
 });
+app.put('/nodes/avance/:avance', function (req, res) {
+    res.send('Got a PUT request at /avance');
+    console.log('Got a PUT request at /avance',req.params);
+    io.sockets.emit('avance', req.params);
+});
+app.put('/nodes/stop/:stop', function (req, res) {
+    res.send('Got a PUT request at /stop');
+    console.log('Got a PUT request at /stop',req.params);
+    io.sockets.emit('stop', req.params);
+});
 
 
