@@ -5,6 +5,7 @@
   "main": "webpack.config.js",
   "dependencies": {
     "@babel/polyfill": "^7.10.4",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "p5": "^1.0.0",
     "webpack": "^4.43.0"
