@@ -44,10 +44,10 @@ app.put('/nodes/test/:test', function (req, res) {
     res.send('Got a PUT request at /nodes');
     console.log('Got a PUT request at /nodes',req.params);
 });
-app.put('/nodes/avance/:avance', function (req, res) {
-    res.send('Got a PUT request at /nodes');
-    console.log('Got a PUT request at /nodes',req.params);
-    io.sockets.emit('avance', req.params);
+app.put('/nodes/led/:led', function (req, res) {
+    res.send('Got a PUT request at /led');
+    console.log('Got a PUT request at /led',req.params);
+    io.sockets.emit('led', req.params);
 });
 
 

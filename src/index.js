@@ -9,7 +9,7 @@ let thymioPrograms = [];
 
 var socket = io.connect('ws://localhost:3000');
 socket.on('thymio', thymioUpdate);
-socket.on('avance', thymioAvance);
+socket.on('led', thymioLED);
 
 //function setup() {
 //}
@@ -40,9 +40,9 @@ function thymioUpdate (data) {
     socket.emit('thymio', data);
 }
 
-async function thymioAvance (data) {
-    console.log('Avancer de',data.avance);
-    //await selectedNode.emitEvents({ "avance": data.avance });
+async function thymioLED (data) {
+    console.log('LED avec paramètre',data.led);
+    await selectedNode.emitEvents({ "ping": null });
     //socket.emit('thymio', data);
 }
 
@@ -62,14 +62,24 @@ onevent ping
     emit pong i
 `);
 thymioPrograms.push(`
+var rgb[3]
+var tmp[3]
+var i = 0
+onevent ping
+    call math.rand(rgb)
+    for i in 0:2 do
+        rgb[i] = abs rgb[i]
+        rgb[i] = rgb[i] % 20
+    end
+    call leds.top(rgb[0], rgb[1], rgb[2])
+    i++
+    emit pong i  
 onevent avance
-    call motor.left.target = 255
-    call motor.right.target = 255
-    emit finish
+    motor.left.target = 255
+    motor.right.target = 255  
 onevent stop
     motor.left.target = 0
     motor.right.target = 0
-    emit finish
 `);
 }
 
