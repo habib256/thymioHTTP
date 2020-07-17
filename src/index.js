@@ -10,7 +10,8 @@ let thymioPrograms = [];
 var socket = io.connect('ws://localhost:3000');
 socket.on('thymio', thymioUpdate);
 
-
+//function setup() {
+//}
 //var canvas = createCanvas(800,600);
 
 
@@ -24,17 +25,18 @@ async function thymioSetup() {
     }
 }
 
-async function thymioDraw(vars) {
+async function thymioDraw(data) {
     try {
-        await selectedNode.emitEvents({ "ping": null });
-        socket.emit('thymio', vars);
+        //await selectedNode.emitEvents({ "ping": null });
+        socket.emit('thymio', data);
     } catch (e) {
         console.log(e);
     }
 }
 
 function thymioUpdate (data) {
-    console.log(data[2]);
+    //console.log(data);
+    socket.emit('thymio', data);
 }
 
 async function thymioSetupPrograms() {
