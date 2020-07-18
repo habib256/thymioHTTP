@@ -52,7 +52,7 @@ app.put('/nodes/led/:led', function (req, res) {
     console.log('Got a PUT request at /led',req.params);
     io.sockets.emit('led', req.params);
 });
-app.put('/nodes/M_motor_both/:M_motor_both', function (req, res) {
+app.put('/nodes/M_motor_both/:speed', function (req, res) {
     res.send('Got a PUT request at /M_motor_both');
     console.log('Got a PUT request M_motor_both',req.params);
     io.sockets.emit('M_motor_both', req.params);

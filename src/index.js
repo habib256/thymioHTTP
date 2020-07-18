@@ -1,5 +1,4 @@
 import { createClient, Node, NodeStatus, Request, setup } from '@mobsya-association/thymio-api'
-//import p5 from "p5"
 
 //Connect to the Thymio Suite
 //We will need some way to get that url
@@ -12,11 +11,6 @@ socket.on('thymio', thymioUpdate);
 socket.on('led', thymioLED);
 socket.on('M_motor_both', thymioM_motor_both);
 socket.on('stop', thymioStop);
-
-//function setup() {
-//}
-//var canvas = createCanvas(800,600);
-
 
 async function thymioSetup() {
     try {
@@ -48,9 +42,8 @@ async function thymioLED(data) {
     //socket.emit('thymio', data);
 }
 async function thymioM_motor_both(data) {
-    console.log('M_motor_both avec paramètre', data.M_motor_both);
+    console.log('M_motor_both avec paramètre', data.speed);
     await selectedNode.emitEvents({ "M_motor_both": null });
-    //socket.emit('thymio', data);
 }
 async function thymioStop(data) {
     console.log('stop avec paramètre', data.stop);

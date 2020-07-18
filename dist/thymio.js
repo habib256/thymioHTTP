@@ -39031,8 +39031,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
- //import p5 from "p5"
-//Connect to the Thymio Suite
+ //Connect to the Thymio Suite
 //We will need some way to get that url
 
 var client = Object(_mobsya_association_thymio_api__WEBPACK_IMPORTED_MODULE_0__["createClient"])("ws://localhost:8597");
@@ -39042,9 +39041,7 @@ var socket = io.connect('ws://localhost:3000');
 socket.on('thymio', thymioUpdate);
 socket.on('led', thymioLED);
 socket.on('M_motor_both', thymioM_motor_both);
-socket.on('stop', thymioStop); //function setup() {
-//}
-//var canvas = createCanvas(800,600);
+socket.on('stop', thymioStop);
 
 function thymioSetup() {
   return _thymioSetup.apply(this, arguments);
@@ -39152,7 +39149,7 @@ function _thymioM_motor_both() {
       while (1) {
         switch (_context8.prev = _context8.next) {
           case 0:
-            console.log('M_motor_both avec paramètre', data.M_motor_both);
+            console.log('M_motor_both avec paramètre', data.speed);
             _context8.next = 3;
             return selectedNode.emitEvents({
               "M_motor_both": null
