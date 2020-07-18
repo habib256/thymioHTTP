@@ -1,5 +1,5 @@
 import { createClient, Node, NodeStatus, Request, setup } from '@mobsya-association/thymio-api'
-import p5 from "p5"
+//import p5 from "p5"
 
 //Connect to the Thymio Suite
 //We will need some way to get that url
@@ -10,7 +10,7 @@ let thymioPrograms = [];
 var socket = io.connect('ws://localhost:3000');
 socket.on('thymio', thymioUpdate);
 socket.on('led', thymioLED);
-socket.on('avance', thymioAvance);
+socket.on('M_motor_both', thymioM_motor_both);
 socket.on('stop', thymioStop);
 
 //function setup() {
@@ -47,9 +47,9 @@ async function thymioLED(data) {
     await selectedNode.emitEvents({ "ping": null });
     //socket.emit('thymio', data);
 }
-async function thymioAvance(data) {
-    console.log('avance avec paramètre', data.avance);
-    await selectedNode.emitEvents({ "avance": null });
+async function thymioM_motor_both(data) {
+    console.log('M_motor_both avec paramètre', data.M_motor_both);
+    await selectedNode.emitEvents({ "M_motor_both": null });
     //socket.emit('thymio', data);
 }
 async function thymioStop(data) {
@@ -130,10 +130,39 @@ client.onNodesChanged = async (nodes) => {
 
                 await node.group.setEventsDescriptions([
                     { name: "ping", fixed_size: 0 },
-                    { name: "avance", fixed_size: 0 },
                     { name: "stop", fixed_size: 0 },
-                    { name: "pong", fixed_size: 1 }
-                ])
+                    { name: "pong", fixed_size: 1 },
+
+                    { name: "Q_add_motion", fixed_size: 4 },
+                    { name: "Q_cancel_motion", fixed_size: 1 },
+                    { name: "Q_motion_added", fixed_size: 5 },
+                    { name: "Q_motion_cancelled", fixed_size: 5 },
+                    { name: "Q_motion_started", fixed_size: 5 },
+                    { name: "Q_motion_ended", fixed_size: 5 },
+                    { name: "Q_motion_noneleft", fixed_size: 1 },
+                    { name: "Q_set_odometer", fixed_size: 3 },
+                    { name: "V_leds_prox_h", fixed_size: 8 },
+                    { name: "V_leds_circle", fixed_size: 8 },
+                    { name: "V_leds_top", fixed_size: 3 },
+                    { name: "V_leds_bottom", fixed_size: 4 },
+                    { name: "V_leds_prox_v", fixed_size: 2 },
+
+                    { name: "V_leds_buttons", fixed_size: 4 },
+                    { name: "V_leds_rc", fixed_size: 1 },
+                    { name: "V_leds_temperature", fixed_size: 2 },
+                    { name: "V_leds_sound", fixed_size: 1 },
+                    { name: "A_sound_freq", fixed_size: 2 },
+                    { name: "A_sound_play", fixed_size: 1 },
+                    { name: "A_sound_system", fixed_size: 1 },
+                    { name: "A_sound_replay", fixed_size: 1 },
+
+                    { name: "A_sound_record", fixed_size: 1 },
+                    { name: "M_motor_left", fixed_size: 1 },
+                    { name: "M_motor_right", fixed_size: 1 },
+                    { name: "M_motor_both", fixed_size: 0 },
+                    { name: "R_state_update", fixed_size: 27 },
+                    { name: "Q_reset", fixed_size: 0 }
+                ]);
                 thymioSetup();
 
             }
@@ -164,7 +193,7 @@ async function thymioSetupPrograms() {
         call leds.top(rgb[0], rgb[1], rgb[2])
         i++
         emit pong i  
-    onevent avance
+    onevent M_motor_both
         motor.left.target = 255
         motor.right.target = 255  
     onevent stop
@@ -174,148 +203,148 @@ async function thymioSetupPrograms() {
 
     thymioPrograms.push(`
     ##!
-##! @file thymio_motion.aesl
-##! @brief Basic motion queue for Thymio-II
-##! @mainpage Basic motion queue for Thymio-II
-##! David J Sherman - david.sherman@inria.fr
-##!
-##! This AESL program defines high-level behaviors for the Thymio-II robot that enable
-##! it to cooperate with programs like
-##! <a href="">Scratch</a>,
-##! <a href="">Snap!</a>,
-##! and <a href="">Nodejs</a>,
-##! in particular using the <a href="">asebahttp REST API</a>.
-##! The features defined here are:
-##!
-##! -# A motion queue of length 4 with a program counter (@ref Queue)
-##! -# Incoming events to change queue: Q_add_motion, Q_cancel_motion, Q_reset (@ref Motion)
-##! -# Broadcast of informative events when the motion queue changes state (@ref Queue and @ref Motion)
-##! -# Odometry (angle, x, y), updated at 100Hz (@ref Odometry)
-##! -# Incoming events for native functions: V_leds_*, A_sound_*, M_motor_* (@ref Native)
-##! -# Variables for simplified reporters (distance and angle) from prox.* (@ref Reporters)
-##! -# Broacast of compressed robot state at 10 Hz (@ref State)
-##!
-##! Events that can be used for broadcast on the Aseba bus are defined in @ref aesl_events.
-##! Constants are defined in @ref aesl_constants.
+    ##! @file thymio_motion.aesl
+    ##! @brief Basic motion queue for Thymio-II
+    ##! @mainpage Basic motion queue for Thymio-II
+    ##! David J Sherman - david.sherman@inria.fr
+    ##!
+    ##! This AESL program defines high-level behaviors for the Thymio-II robot that enable
+    ##! it to cooperate with programs like
+    ##! <a href="">Scratch</a>,
+    ##! <a href="">Snap!</a>,
+    ##! and <a href="">Nodejs</a>,
+    ##! in particular using the <a href="">asebahttp REST API</a>.
+    ##! The features defined here are:
+    ##!
+    ##! -# A motion queue of length 4 with a program counter (@ref Queue)
+    ##! -# Incoming events to change queue: Q_add_motion, Q_cancel_motion, Q_reset (@ref Motion)
+    ##! -# Broadcast of informative events when the motion queue changes state (@ref Queue and @ref Motion)
+    ##! -# Odometry (angle, x, y), updated at 100Hz (@ref Odometry)
+    ##! -# Incoming events for native functions: V_leds_*, A_sound_*, M_motor_* (@ref Native)
+    ##! -# Variables for simplified reporters (distance and angle) from prox.* (@ref Reporters)
+    ##! -# Broacast of compressed robot state at 10 Hz (@ref State)
+    ##!
+    ##! Events that can be used for broadcast on the Aseba bus are defined in @ref aesl_events.
+    ##! Constants are defined in @ref aesl_constants.
 
-# reusable temp for event handlers
-var tmp[9]
+    # reusable temp for event handlers
+    var tmp[9]
 
-##! @defgroup Queue
-##! @brief A motion queue with program counter, used by @ref Motion and @ref Odometry
-##!
-##! Every 100 Hz tick from motion event, run the motion queue and update the odometry.
-##! If the motion task at @c Qpc is active, turn the motors at the speeds @c QspL and @c QspR and
-##! decrement the @c Qtime count. Otherwise, look for a next task to perform.
-##! The active task is the @c Qid entry whose value is negative.
-##! The button LEDs show the values of @c Qpc qnd @c Qnx.
-##! The subroutines @c motion_add and @c motion cancel are called from the @c Q_* events in @ref Motion.
-##! @{
-var Qid[QUEUE]   = [ 0,0,0,0 ] ##!< [out] task id
-var Qtime[QUEUE] = [ 0,0,0,0 ] ##!< [out] remaining time
-var QspL[QUEUE]  = [ 0,0,0,0 ] ##!< [out] motor speed L
-var QspR[QUEUE]  = [ 0,0,0,0 ] ##!< [out] motor speed R
-var Qpc = 0                    ##!< [out] program counter
-var Qnx = 0                    ##!< [out] next pc
+    ##! @defgroup Queue
+    ##! @brief A motion queue with program counter, used by @ref Motion and @ref Odometry
+    ##!
+    ##! Every 100 Hz tick from motion event, run the motion queue and update the odometry.
+    ##! If the motion task at @c Qpc is active, turn the motors at the speeds @c QspL and @c QspR and
+    ##! decrement the @c Qtime count. Otherwise, look for a next task to perform.
+    ##! The active task is the @c Qid entry whose value is negative.
+    ##! The button LEDs show the values of @c Qpc qnd @c Qnx.
+    ##! The subroutines @c motion_add and @c motion cancel are called from the @c Q_* events in @ref Motion.
+    ##! @{
+    var Qid[QUEUE]   = [ 0,0,0,0 ] ##!< [out] task id
+    var Qtime[QUEUE] = [ 0,0,0,0 ] ##!< [out] remaining time
+    var QspL[QUEUE]  = [ 0,0,0,0 ] ##!< [out] motor speed L
+    var QspR[QUEUE]  = [ 0,0,0,0 ] ##!< [out] motor speed R
+    var Qpc = 0                    ##!< [out] program counter
+    var Qnx = 0                    ##!< [out] next pc
 
-##! @}
+    ##! @}
 
-##! @defgroup Reporters
-##! @brief Variables for simplified reporters (distance and angle).
-##!
-##! The individual sensor values reported by @c prox.* cannot be easily communicated using
-##! the Scratch protocol. The simplified reporters defined here combine the sensors into various
-##! useful values: distance from a single obstacle, angle from a single obstacle, in the front or
-##! in the back. The @c angle.ground reporter compares the ground sensors and can be used for
-##! line following. Under standard lighting conditions, the distances are very approximately in
-##! millimeters and the angles are very approximately in degrees.
-##! These reporters are updated at 20 Hz by the @c button event.
-##! @{
-var distance.front = 190 ##!<  [out] distance front
-var distance.back  = 125 ##!<  [out] distance back
-var angle.front    = 0 ##!<  [out] angle front
-var angle.back     = 0 ##!<  [out] angle back
-var angle.ground   = 0 ##!<  [out] angle ground
+    ##! @defgroup Reporters
+    ##! @brief Variables for simplified reporters (distance and angle).
+    ##!
+    ##! The individual sensor values reported by @c prox.* cannot be easily communicated using
+    ##! the Scratch protocol. The simplified reporters defined here combine the sensors into various
+    ##! useful values: distance from a single obstacle, angle from a single obstacle, in the front or
+    ##! in the back. The @c angle.ground reporter compares the ground sensors and can be used for
+    ##! line following. Under standard lighting conditions, the distances are very approximately in
+    ##! millimeters and the angles are very approximately in degrees.
+    ##! These reporters are updated at 20 Hz by the @c button event.
+    ##! @{
+    var distance.front = 190 ##!<  [out] distance front
+    var distance.back  = 125 ##!<  [out] distance back
+    var angle.front    = 0 ##!<  [out] angle front
+    var angle.back     = 0 ##!<  [out] angle back
+    var angle.ground   = 0 ##!<  [out] angle ground
 
-##! @}
+    ##! @}
 
-##! @defgroup Odometry
-##! @brief Odometry (angle, x, y), updated at 100Hz
-##!
-##! A simple dead reckoning is calculed from the two motor target speeds @f$ M_R @f$ and @f$ M_L @f$.
-##! Since we are updating at 100 Hz, the angles will be small and we can use the formulas from
-##! <a href="http://www-personal.engin.umich.edu/~johannb/position.htm">(Borenstein et al 1996)</a>
-##! as described by
-##! <a href="http://rossum.sourceforge.net/papers/DiffSteer/DiffSteer.html#d6">(Lucas 2000)</a>:
-##! @f[ \Delta = (M_R + M_L)/2 @f]
-##! @f[ \theta \,+\!\!= k_1 (M_R - M_L)/b @f]
-##! @f[ x \,+\!\!= k_2 \Delta \cos\theta @f]
-##! @f[ y \,+\!\!= k_2 \Delta \sin\theta @f]
-##! where @f$ b=95 @f$ mm is the wheelbase, and constants @f$ k_1=32.36 @f$, @f$ k_2=6.78\times10^{-7} @f$ scale to and from Aseba radians.
-##! @{
-var odo.delta ##!< [out] @private instantaneous speed difference
-var odo.theta = 0 ##!< [out] odometer current angle
-var odo.x = 0 ##!< [out] odometer x
-var odo.y = 0 ##!< [out] odometer y
-var odo.degree ##!< [out] odometer direction
+    ##! @defgroup Odometry
+    ##! @brief Odometry (angle, x, y), updated at 100Hz
+    ##!
+    ##! A simple dead reckoning is calculed from the two motor target speeds @f$ M_R @f$ and @f$ M_L @f$.
+    ##! Since we are updating at 100 Hz, the angles will be small and we can use the formulas from
+    ##! <a href="http://www-personal.engin.umich.edu/~johannb/position.htm">(Borenstein et al 1996)</a>
+    ##! as described by
+    ##! <a href="http://rossum.sourceforge.net/papers/DiffSteer/DiffSteer.html#d6">(Lucas 2000)</a>:
+    ##! @f[ \Delta = (M_R + M_L)/2 @f]
+    ##! @f[ \theta \,+\!\!= k_1 (M_R - M_L)/b @f]
+    ##! @f[ x \,+\!\!= k_2 \Delta \cos\theta @f]
+    ##! @f[ y \,+\!\!= k_2 \Delta \sin\theta @f]
+    ##! where @f$ b=95 @f$ mm is the wheelbase, and constants @f$ k_1=32.36 @f$, @f$ k_2=6.78\times10^{-7} @f$ scale to and from Aseba radians.
+    ##! @{
+    var odo.delta ##!< [out] @private instantaneous speed difference
+    var odo.theta = 0 ##!< [out] odometer current angle
+    var odo.x = 0 ##!< [out] odometer x
+    var odo.y = 0 ##!< [out] odometer y
+    var odo.degree ##!< [out] odometer direction
 
-##! @}
+    ##! @}
 
-##! @defgroup State
-##! @brief Broadcast of compressed robot state at 10 Hz
-##! @{
-##!
-##! The state of the robot's sensors, representing 36 words, is compressed into the 27 words of the @c R_state
-##! variable as described below.
-##! When @c R_state.do is nonzero, @c R_state is broadcast in an event of the same name (@c R_state) at 10 Hz by
-##! the @c prox event. Otherwise, clients are expected to fetch @c R_state at a frequency of their choosing.
-##! words | bits | value | words | bits | value
-##! ----- | ---- | ----- | ----- | ---- | -----
-##! 0 | 10-15 | @c acc[0]/2 + 16		  | 4     | 0-7 | @c distance.front
-##! 0 | 5-9   | @c acc[1]/2 + 16		  | 5     |     | @c motor.left.target
-##! 0 | 0-4   | @c acc[2]/2 + 16		  | 6     |     | @c motor.right.target
-##! 1 | 8-15  | @c mic.intensity/@c mic.threshold | 7     |     | @c motor.left.speed
-##! 1 | 5-7   | (reserved)                        | 8     |     | @c motor.right.speed
-##! 1 | 4     | @c button.backward   		  | 9     |     | @c odo.degree
-##! 1 | 3     | @c button.center     		  | 10    |     | @c odo.x
-##! 1 | 2     | @c button.forward    		  | 11    |     | @c odo.y
-##! 1 | 1     | @c button.left       		  | 12    |     | @c prox.comm.rx
-##! 1 | 0     | @c button.right      		  | 13    |     | @c prox.comm.tx
-##! 2 | 8-15  | @c angle.ground   		  | 14-15 |     | @c prox.ground.delta[0:1]
-##! 2 | 0-7   | @c angle.back     		  | 16-22 |     | @c prox.horizontal[0:6]
-##! 3 |       | @c angle.front                    | 23-26 |     | @c Qid[0:3]
-##! 4 | 8-15  | @c distance.back                  |       |     | @c
+    ##! @defgroup State
+    ##! @brief Broadcast of compressed robot state at 10 Hz
+    ##! @{
+    ##!
+    ##! The state of the robot's sensors, representing 36 words, is compressed into the 27 words of the @c R_state
+    ##! variable as described below.
+    ##! When @c R_state.do is nonzero, @c R_state is broadcast in an event of the same name (@c R_state) at 10 Hz by
+    ##! the @c prox event. Otherwise, clients are expected to fetch @c R_state at a frequency of their choosing.
+    ##! words | bits | value | words | bits | value
+    ##! ----- | ---- | ----- | ----- | ---- | -----
+    ##! 0 | 10-15 | @c acc[0]/2 + 16		  | 4     | 0-7 | @c distance.front
+    ##! 0 | 5-9   | @c acc[1]/2 + 16		  | 5     |     | @c motor.left.target
+    ##! 0 | 0-4   | @c acc[2]/2 + 16		  | 6     |     | @c motor.right.target
+    ##! 1 | 8-15  | @c mic.intensity/@c mic.threshold | 7     |     | @c motor.left.speed
+    ##! 1 | 5-7   | (reserved)                        | 8     |     | @c motor.right.speed
+    ##! 1 | 4     | @c button.backward   		  | 9     |     | @c odo.degree
+    ##! 1 | 3     | @c button.center     		  | 10    |     | @c odo.x
+    ##! 1 | 2     | @c button.forward    		  | 11    |     | @c odo.y
+    ##! 1 | 1     | @c button.left       		  | 12    |     | @c prox.comm.rx
+    ##! 1 | 0     | @c button.right      		  | 13    |     | @c prox.comm.tx
+    ##! 2 | 8-15  | @c angle.ground   		  | 14-15 |     | @c prox.ground.delta[0:1]
+    ##! 2 | 0-7   | @c angle.back     		  | 16-22 |     | @c prox.horizontal[0:6]
+    ##! 3 |       | @c angle.front                    | 23-26 |     | @c Qid[0:3]
+    ##! 4 | 8-15  | @c distance.back                  |       |     | @c
 
-var R_state.do = 1 ##!< flag for R_state broadcast
-var R_state[27] ##!< [out] compressed robot state
+    var R_state.do = 1 ##!< flag for R_state broadcast
+    var R_state[27] ##!< [out] compressed robot state
 
-##! @}
+    ##! @}
 
-# default value
-mic.threshold = 12
+    # default value
+    mic.threshold = 12
 
-##! @addtogroup Queue
-##! @{
+    ##! @addtogroup Queue
+    ##! @{
 
-onevent motor # loop runs at 100 Hz
-odo.delta = (motor.right.target + motor.left.target) / 2
-call math.muldiv(tmp[0], (motor.right.target - motor.left.target), 3406, 10000)
-odo.theta += tmp[0]
-call math.cos(tmp[0:1],[odo.theta,16384-odo.theta])
-call math.muldiv(tmp[0:1], [odo.delta,odo.delta],tmp[0:1], [32767,32767])
-odo.x += tmp[0]/45
-odo.y += tmp[1]/45
-odo.degree = 90 - (odo.theta / 182)
-if Qtime[Qpc] > 0 then
-	# start new motion
-	emit Q_motion_started([Qid[Qpc], Qtime[Qpc], QspL[Qpc], QspR[Qpc], Qpc])
-	Qtime[Qpc] = 0 - Qtime[Qpc] # mark as current by setting negative value
-end
-if Qtime[Qpc] < 0 then
-	# continue motion
-	motor.left.target = QspL[Qpc]
-	motor.right.target = QspR[Qpc]
-	Qtime[Qpc] += 1
+    onevent motor # loop runs at 100 Hz
+    odo.delta = (motor.right.target + motor.left.target) / 2
+    call math.muldiv(tmp[0], (motor.right.target - motor.left.target), 3406, 10000)
+    odo.theta += tmp[0]
+    call math.cos(tmp[0:1],[odo.theta,16384-odo.theta])
+    call math.muldiv(tmp[0:1], [odo.delta,odo.delta],tmp[0:1], [32767,32767])
+    odo.x += tmp[0]/45
+    odo.y += tmp[1]/45
+    odo.degree = 90 - (odo.theta / 182)
+    if Qtime[Qpc] > 0 then
+	    # start new motion
+	    emit Q_motion_started([Qid[Qpc], Qtime[Qpc], QspL[Qpc], QspR[Qpc], Qpc])
+	    Qtime[Qpc] = 0 - Qtime[Qpc] # mark as current by setting negative value
+    end
+    if Qtime[Qpc] < 0 then
+	    # continue motion
+	    motor.left.target = QspL[Qpc]
+	    motor.right.target = QspR[Qpc]
+	    Qtime[Qpc] += 1
 	if Qtime[Qpc] == 0 then
 		emit Q_motion_ended([Qid[Qpc], Qtime[Qpc], QspL[Qpc], QspR[Qpc], Qpc])
 		Qid[Qpc] = 0
