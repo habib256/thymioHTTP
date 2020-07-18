@@ -25,24 +25,23 @@ function thymioMsg(_data) {
     io.sockets.emit('thymio', data);
 
 }
-function showJSON(req, res) {
-    res.send(thymio);
-    //res.send(data);
-    console.log('Got a GET request at /nodes serving thymio static var')
-}
-function showThymioUpdate(req, res) {
-    res.send(data);
-    console.log('Got a GET request at /nodes serving thymio static var')
-}
-
 app.use(express.static('dist'));
 
 app.get('/products/:id', function (req, res, next) {
     res.json({msg: 'This is CORS-enabled for all origins!'})
   });
 app.get('/fake', showJSON);
+function showJSON(req, res) {
+    res.send(thymio);
+    //res.send(data);
+    console.log('Got a GET request at /nodes serving thymio static var')
+}
 app.get('/nodes', showThymioUpdate);
-console.log("Thymio Suite HTTP server running at ws://127.0.0.1:3000");
+function showThymioUpdate(req, res) {
+    res.send(data);
+    console.log('Got a GET request at /nodes serving thymio static var')
+}
+console.log("Thymio Suite HTTP server running at http://127.0.0.1:3000");
 
 app.put('/nodes/test/:test', function (req, res) {
     res.send('Got a PUT request at /nodes');
