@@ -186,9 +186,9 @@ async function thymioSetupPrograms() {
         call leds.top(rgb[0], rgb[1], rgb[2])
         i++
         emit pong i  
-    onevent M_motor_both
-        motor.left.target = 255
-        motor.right.target = 255  
+    onevent M_motor_both 
+        motor.left.target = 200
+        motor.right.target = 200 
     onevent stop
         motor.left.target = 0
         motor.right.target = 0
