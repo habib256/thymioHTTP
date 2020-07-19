@@ -26,7 +26,7 @@ Run `npm i` in the cloned directory to install the required dependencies.
 Run `npm run all`, then open `http://127.0.0.1:3000/` in your browser.
 The web-based version outputs in the browser's console so hit Shift+Control+K to see the thymio api in action
 
-Try `http://127.0.0.1:3000/node/` to see the thymio update data flow in json.
+Try `http://127.0.0.1:3000/nodes/` to see the thymio update data flow in json.
 
 ## Launch the Node-based application
 
