@@ -8,39 +8,75 @@ let thymioPrograms = [];
 
 var socket = io.connect('ws://localhost:3000');
 
-socket.on('led', thymioLED);
-async function thymioLED(data) {
-    console.log('LED avec paramètre', data.led);
-    await selectedNode.emitEvents({ "ping": null });
-    //socket.emit('thymio', data);
-}
-socket.on('M_motor_both', thymioM_motor_both);
-async function thymioM_motor_both(data) {
-    console.log('M_motor_both avec paramètre', data.speed);
-    let speed = Int16Array.of(data.speed);
-    console.log(speed);
-    await selectedNode.emitEvents({ "M_motor_both": speed});
-}
-socket.on('M_motor_left', thymioM_motor_left);
-async function thymioM_motor_left(data) {
-    console.log('M_motor_left avec paramètre', data.speed);
-    let speed = Int16Array.of(data.speed);
-    console.log(speed);
-    await selectedNode.emitEvents({ "M_motor_left": speed});
-}
-socket.on('M_motor_right', thymioM_motor_right);
-async function thymioM_motor_right(data) {
-    console.log('M_motor_right avec paramètre', data.speed);
-    let speed = Int16Array.of(data.speed);
-    console.log(speed);
-    await selectedNode.emitEvents({ "M_motor_right": speed});
-}
 socket.on('stop', thymioStop);
 async function thymioStop(data) {
-    console.log('stop avec paramètre', data.stop);
+    console.log('stop avec paramètre', data.args);
     await selectedNode.emitEvents({ "stop": null });
     //socket.emit('thymio', data);
 }
+
+//LEDs Events from Socket.io to Thymio
+socket.on('Led', thymioLED);
+async function thymioLED(data) {
+    console.log('LED avec paramètre', data.args);
+    await selectedNode.emitEvents({ "ping": null });
+    //socket.emit('thymio', data);
+}
+
+// Sound Events from Socket.io to Thymio
+socket.on('A_sound_system', thymioA_sound_system);
+async function thymioA_sound_system(data) {
+    let args = Int16Array.of(data.args);
+    console.log('A_sound_system avec paramètre', args);
+    await selectedNode.emitEvents({ "A_sound_system": args});
+}
+socket.on('A_sound_freq', thymioA_sound_freq);
+async function thymioA_sound_freq(data) {
+    let args = Int16Array.of(data.args);
+    console.log('A_sound_freq avec paramètres', args);
+    await selectedNode.emitEvents({ "A_sound_freq": args});
+}
+socket.on('A_sound_play', thymioA_sound_play);
+async function thymioA_sound_play(data) {
+    let args = Int16Array.of(data.args);
+    console.log('A_sound_play avec paramètre', args);
+    await selectedNode.emitEvents({ "A_sound_play": args});
+}
+socket.on('A_sound_record', thymioA_sound_record);
+async function thymioA_sound_record(data) {
+    let args = Int16Array.of(data.args);
+    console.log('A_sound_record avec paramètre', args);
+    await selectedNode.emitEvents({ "A_sound_record": args});
+}
+socket.on('A_sound_replay', thymioA_sound_replay);
+async function thymioA_sound_replay(data) {
+    let args = Int16Array.of(data.args);
+    console.log('A_sound_replay avec paramètre', args);
+    await selectedNode.emitEvents({ "A_sound_replay": args});
+}
+
+// Motors Events from Socket.io to Thymio
+socket.on('M_motor_both', thymioM_motor_both);
+async function thymioM_motor_both(data) {
+    let args = Int16Array.of(data.args);
+    console.log('M_motor_both avec paramètre', args);
+    await selectedNode.emitEvents({ "M_motor_both": args});
+}
+socket.on('M_motor_left', thymioM_motor_left);
+async function thymioM_motor_left(data) {
+    let args = Int16Array.of(data.args);
+    console.log('M_motor_left avec paramètre', args);
+    await selectedNode.emitEvents({ "M_motor_left": args});
+}
+socket.on('M_motor_right', thymioM_motor_right);
+async function thymioM_motor_right(data) {
+    let args = Int16Array.of(data.args);
+    console.log('M_motor_right avec paramètre', args);
+    await selectedNode.emitEvents({ "M_motor_right": args});
+}
+
+
+
 socket.on('thymio', thymioUpdate);
 function thymioUpdate(data) {
     //console.log(data);
@@ -73,6 +109,9 @@ async function thymioSetupPrograms() {
     var rgb[3]
     var tmp[3]
     var i = 0
+    onevent stop
+        motor.left.target = 0
+        motor.right.target = 0
     onevent ping
         call math.rand(rgb)
         for i in 0:2 do
@@ -82,6 +121,45 @@ async function thymioSetupPrograms() {
         call leds.top(rgb[0], rgb[1], rgb[2])
         i++
         emit pong i  
+
+
+    onevent V_leds_bottom
+        if event.args[0]==0 then
+            call leds.bottom.left(event.args[1],event.args[2],event.args[3])
+        else
+            call leds.bottom.right(event.args[1],event.args[2],event.args[3])
+        end
+    onevent V_leds_buttons
+        call leds.buttons(event.args[0],event.args[1],
+                          event.args[2],event.args[3])    
+    onevent V_leds_circle
+        call leds.circle(event.args[0],event.args[1],event.args[2],
+                         event.args[3],event.args[4],event.args[5],
+                         event.args[6],event.args[7])
+    onevent V_leds_prox_h
+        call leds.prox.h(event.args[0],event.args[1],event.args[2],
+                         event.args[3],event.args[4],event.args[5],
+                         event.args[6],event.args[7])
+    onevent V_leds_prox_v
+        call leds.prox.v(event.args[0],event.args[1])
+    onevent V_leds_rc
+        call leds.rc(event.args[0])   
+    onevent V_leds_sound
+        call leds.sound(event.args[0])
+    onevent V_leds_temperature
+        call leds.temperature(event.args[0],event.args[1])
+    onevent V_leds_top
+        call leds.top(event.args[0],event.args[1],event.args[2])
+    onevent A_sound_system
+        call sound.system(event.args[0])
+    onevent A_sound_freq
+        call sound.freq(event.args[0],event.args[1])
+    onevent A_sound_play
+        call sound.play(event.args[0])
+    onevent A_sound_record
+        call sound.record(event.args[0])
+    onevent A_sound_replay
+        call sound.replay(event.args[0])
     onevent M_motor_both 
         motor.left.target = event.args[0]
         motor.right.target = event.args[0] 
@@ -89,9 +167,7 @@ async function thymioSetupPrograms() {
         motor.left.target = event.args[0]
     onevent M_motor_right
         motor.right.target = event.args[0] 
-    onevent stop
-        motor.left.target = 0
-        motor.right.target = 0
+        
     `);
 
     thymioPrograms.push(`
