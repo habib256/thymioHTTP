@@ -49,7 +49,7 @@ The code is in `src` and gets compiled into `dist`.
 
 You can copy this project or get inspiration from it to start working on web-applications compatible with thymio.
 
-* [Thymio JS API](https://readthedocs.org/projects/aseba/)
+* [Thymio JS API](https://github.com/Mobsya/thymio-js-api-demo.git)
 * [Webpack](https://webpack.js.org/)
 * [NPM](https://docs.npmjs.com/)
 * [Babel](https://babeljs.io/)
