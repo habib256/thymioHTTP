@@ -57,6 +57,16 @@ app.put('/nodes/M_motor_both/:speed', function (req, res) {
     console.log('Got a PUT request M_motor_both',req.params);
     io.sockets.emit('M_motor_both', req.params);
 });
+app.put('/nodes/M_motor_left/:speed', function (req, res) {
+    res.send('Got a PUT request at /M_motor_left');
+    console.log('Got a PUT request M_motor_left',req.params);
+    io.sockets.emit('M_motor_left', req.params);
+});
+app.put('/nodes/M_motor_right/:speed', function (req, res) {
+    res.send('Got a PUT request at /M_motor_right');
+    console.log('Got a PUT request M_motor_right',req.params);
+    io.sockets.emit('M_motor_right', req.params);
+});
 app.put('/nodes/stop/:stop', function (req, res) {
     res.send('Got a PUT request at /stop');
     console.log('Got a PUT request at /stop',req.params);
