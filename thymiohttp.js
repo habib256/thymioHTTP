@@ -56,17 +56,23 @@ app.put('/nodes/V_leds_circle/:arg1/:arg2/:arg3/:arg4/:arg5/:arg6/:arg7/:arg8', 
     console.log('Got a PUT request at V_leds_circle',args);
     io.sockets.emit('V_leds_circle', args);
 });
-app.put('/nodes/V_leds_top/:arg1/:arg2:arg3', function (req, res) {
+app.put('/nodes/V_leds_top/:arg1/:arg2/:arg3', function (req, res) {
     res.send('Got a PUT request at V_leds_top');
     let args = Int16Array.of(req.params.arg1,req.params.arg2, req.params.arg3);
     console.log('Got a PUT request at V_leds_top',args);
     io.sockets.emit('V_leds_top', args);
 });
-app.put('/nodes/V_leds_bottom/:arg1/:arg2/:arg3/:arg4', function (req, res) {
-    res.send('Got a PUT request at V_leds_bottom');
-    let args = Int16Array.of(req.params.arg1,req.params.arg2,req.params.arg3,req.params.arg4);
-    console.log('Got a PUT request at V_leds_bottom',args);
-    io.sockets.emit('V_leds_bottom', args);
+app.put('/nodes/V_leds_bottom_left/:arg1/:arg2/:arg3', function (req, res) {
+    res.send('Got a PUT request at V_leds_bottom_left');
+    let args = Int16Array.of(req.params.arg1,req.params.arg2,req.params.arg3);
+    console.log('Got a PUT request at V_leds_bottom_left',args);
+    io.sockets.emit('V_leds_bottom_left', args);
+});
+app.put('/nodes/V_leds_bottom_right/:arg1/:arg2/:arg3', function (req, res) {
+    res.send('Got a PUT request at V_leds_bottom_right');
+    let args = Int16Array.of(req.params.arg1,req.params.arg2,req.params.arg3);
+    console.log('Got a PUT request at V_leds_bottom_right',args);
+    io.sockets.emit('V_leds_bottom_right', args);
 });
 app.put('/nodes/V_leds_prox_v/:arg1/:arg2', function (req, res) {
     res.send('Got a PUT request at V_leds_prox_v');

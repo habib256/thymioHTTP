@@ -15,7 +15,8 @@
 <event size="8" name="V_leds_prox_h"/>
 <event size="8" name="V_leds_circle"/>
 <event size="3" name="V_leds_top"/>
-<event size="4" name="V_leds_bottom"/>
+<event size="3" name="V_leds_bottom_left"/>
+<event size="3" name="V_leds_bottom_right"/>
 <event size="2" name="V_leds_prox_v"/>
 <event size="4" name="V_leds_buttons"/>
 <event size="1" name="V_leds_rc"/>

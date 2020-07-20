@@ -35,10 +35,15 @@ async function thymioV_leds_top(data) {
     console.log('V_leds_top avec paramètres', data);
     await selectedNode.emitEvents({ "V_leds_top": data});
 }
-socket.on('V_leds_bottom', thymioV_leds_bottom);
-async function thymioV_leds_bottom(data) {
-    console.log('V_leds_bottom avec paramètres', data);
-    await selectedNode.emitEvents({ "V_leds_bottom": data});
+socket.on('V_leds_bottom_left', thymioV_leds_bottom_left);
+async function thymioV_leds_bottom_left(data) {
+    console.log('V_leds_bottom_left avec paramètres', data);
+    await selectedNode.emitEvents({ "V_leds_bottom_left": data});
+}
+socket.on('V_leds_bottom_right', thymioV_leds_bottom_right);
+async function thymioV_leds_bottom_right(data) {
+    console.log('V_leds_bottom_right avec paramètres', data);
+    await selectedNode.emitEvents({ "V_leds_bottom_right": data});
 }
 socket.on('V_leds_prox_v', thymioV_leds_prox_v);
 async function thymioV_leds_prox_v(data) {
@@ -154,44 +159,46 @@ async function thymioSetupPrograms() {
         i++
         emit pong i  
 
-
-    onevent V_leds_bottom
-        if event.args[0]==0 then
-            call leds.bottom.left(event.args[1],event.args[2],event.args[3])
-        else
-            call leds.bottom.right(event.args[1],event.args[2],event.args[3])
-        end
-    onevent V_leds_buttons
-        call leds.buttons(event.args[0],event.args[1],
-                          event.args[2],event.args[3])    
-    onevent V_leds_circle
-        call leds.circle(event.args[0],event.args[1],event.args[2],
-                         event.args[3],event.args[4],event.args[5],
-                         event.args[6],event.args[7])
+    ##! LED THYMIO EVENTS
     onevent V_leds_prox_h
         call leds.prox.h(event.args[0],event.args[1],event.args[2],
                          event.args[3],event.args[4],event.args[5],
                          event.args[6],event.args[7])
+    onevent V_leds_circle
+        call leds.circle(event.args[0],event.args[1],event.args[2],
+                         event.args[3],event.args[4],event.args[5],
+                         event.args[6],event.args[7])
+     onevent V_leds_top
+        call leds.top(event.args[0],event.args[1],event.args[2])
+    onevent V_leds_bottom_left
+        call leds.bottom.left(event.args[0],event.args[1],event.args[2])
+    onevent V_leds_bottom_right
+        call leds.bottom.right(event.args[0],event.args[1],event.args[2])
     onevent V_leds_prox_v
         call leds.prox.v(event.args[0],event.args[1])
+    onevent V_leds_buttons
+        call leds.buttons(event.args[0],event.args[1],
+                          event.args[2],event.args[3])    
     onevent V_leds_rc
         call leds.rc(event.args[0])   
-    onevent V_leds_sound
-        call leds.sound(event.args[0])
     onevent V_leds_temperature
         call leds.temperature(event.args[0],event.args[1])
-    onevent V_leds_top
-        call leds.top(event.args[0],event.args[1],event.args[2])
-    onevent A_sound_system
-        call sound.system(event.args[0])
+    onevent V_leds_sound
+        call leds.sound(event.args[0])
+    
+    ##! SOUND THYMIO EVENTS
     onevent A_sound_freq
         call sound.freq(event.args[0],event.args[1])
     onevent A_sound_play
         call sound.play(event.args[0])
-    onevent A_sound_record
-        call sound.record(event.args[0])
+    onevent A_sound_system
+        call sound.system(event.args[0])
     onevent A_sound_replay
         call sound.replay(event.args[0])
+    onevent A_sound_record
+        call sound.record(event.args[0])
+    
+    ##! MOTOR THYMIO EVENTS
     onevent M_motor_both 
         motor.left.target = event.args[0]
         motor.right.target = event.args[1] 
@@ -290,7 +297,8 @@ client.onNodesChanged = async (nodes) => {
                     { name: "V_leds_prox_h", fixed_size: 8 },
                     { name: "V_leds_circle", fixed_size: 8 },
                     { name: "V_leds_top", fixed_size: 3 },
-                    { name: "V_leds_bottom", fixed_size: 4 },
+                    { name: "V_leds_bottom_left", fixed_size: 3 },
+                    { name: "V_leds_bottom_right", fixed_size: 3 },
                     { name: "V_leds_prox_v", fixed_size: 2 },
                     { name: "V_leds_buttons", fixed_size: 4 },
                     { name: "V_leds_rc", fixed_size: 1 },

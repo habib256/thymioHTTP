@@ -39152,22 +39152,22 @@ function _thymioV_leds_top() {
   return _thymioV_leds_top.apply(this, arguments);
 }
 
-socket.on('V_leds_bottom', thymioV_leds_bottom);
+socket.on('V_leds_bottom_left', thymioV_leds_bottom_left);
 
-function thymioV_leds_bottom(_x5) {
-  return _thymioV_leds_bottom.apply(this, arguments);
+function thymioV_leds_bottom_left(_x5) {
+  return _thymioV_leds_bottom_left.apply(this, arguments);
 }
 
-function _thymioV_leds_bottom() {
-  _thymioV_leds_bottom = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(data) {
+function _thymioV_leds_bottom_left() {
+  _thymioV_leds_bottom_left = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8(data) {
     return regeneratorRuntime.wrap(function _callee8$(_context9) {
       while (1) {
         switch (_context9.prev = _context9.next) {
           case 0:
-            console.log('V_leds_bottom avec paramètres', data);
+            console.log('V_leds_bottom_left avec paramètres', data);
             _context9.next = 3;
             return selectedNode.emitEvents({
-              "V_leds_bottom": data
+              "V_leds_bottom_left": data
             });
 
           case 3:
@@ -39177,25 +39177,25 @@ function _thymioV_leds_bottom() {
       }
     }, _callee8);
   }));
-  return _thymioV_leds_bottom.apply(this, arguments);
+  return _thymioV_leds_bottom_left.apply(this, arguments);
 }
 
-socket.on('V_leds_prox_v', thymioV_leds_prox_v);
+socket.on('V_leds_bottom_right', thymioV_leds_bottom_right);
 
-function thymioV_leds_prox_v(_x6) {
-  return _thymioV_leds_prox_v.apply(this, arguments);
+function thymioV_leds_bottom_right(_x6) {
+  return _thymioV_leds_bottom_right.apply(this, arguments);
 }
 
-function _thymioV_leds_prox_v() {
-  _thymioV_leds_prox_v = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(data) {
+function _thymioV_leds_bottom_right() {
+  _thymioV_leds_bottom_right = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9(data) {
     return regeneratorRuntime.wrap(function _callee9$(_context10) {
       while (1) {
         switch (_context10.prev = _context10.next) {
           case 0:
-            console.log('V_leds_prox_v avec paramètres', data);
+            console.log('V_leds_bottom_right avec paramètres', data);
             _context10.next = 3;
             return selectedNode.emitEvents({
-              "V_leds_prox_v": data
+              "V_leds_bottom_right": data
             });
 
           case 3:
@@ -39205,25 +39205,25 @@ function _thymioV_leds_prox_v() {
       }
     }, _callee9);
   }));
+  return _thymioV_leds_bottom_right.apply(this, arguments);
+}
+
+socket.on('V_leds_prox_v', thymioV_leds_prox_v);
+
+function thymioV_leds_prox_v(_x7) {
   return _thymioV_leds_prox_v.apply(this, arguments);
 }
 
-socket.on('V_leds_buttons', thymioV_leds_buttons);
-
-function thymioV_leds_buttons(_x7) {
-  return _thymioV_leds_buttons.apply(this, arguments);
-}
-
-function _thymioV_leds_buttons() {
-  _thymioV_leds_buttons = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10(data) {
+function _thymioV_leds_prox_v() {
+  _thymioV_leds_prox_v = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10(data) {
     return regeneratorRuntime.wrap(function _callee10$(_context11) {
       while (1) {
         switch (_context11.prev = _context11.next) {
           case 0:
-            console.log('V_leds_buttons avec paramètres', data);
+            console.log('V_leds_prox_v avec paramètres', data);
             _context11.next = 3;
             return selectedNode.emitEvents({
-              "V_leds_buttons": data
+              "V_leds_prox_v": data
             });
 
           case 3:
@@ -39233,25 +39233,25 @@ function _thymioV_leds_buttons() {
       }
     }, _callee10);
   }));
+  return _thymioV_leds_prox_v.apply(this, arguments);
+}
+
+socket.on('V_leds_buttons', thymioV_leds_buttons);
+
+function thymioV_leds_buttons(_x8) {
   return _thymioV_leds_buttons.apply(this, arguments);
 }
 
-socket.on('V_leds_rc', thymioV_leds_rc);
-
-function thymioV_leds_rc(_x8) {
-  return _thymioV_leds_rc.apply(this, arguments);
-}
-
-function _thymioV_leds_rc() {
-  _thymioV_leds_rc = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11(data) {
+function _thymioV_leds_buttons() {
+  _thymioV_leds_buttons = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11(data) {
     return regeneratorRuntime.wrap(function _callee11$(_context12) {
       while (1) {
         switch (_context12.prev = _context12.next) {
           case 0:
-            console.log('V_leds_rc avec paramètres', data);
+            console.log('V_leds_buttons avec paramètres', data);
             _context12.next = 3;
             return selectedNode.emitEvents({
-              "V_leds_rc": data
+              "V_leds_buttons": data
             });
 
           case 3:
@@ -39261,25 +39261,25 @@ function _thymioV_leds_rc() {
       }
     }, _callee11);
   }));
+  return _thymioV_leds_buttons.apply(this, arguments);
+}
+
+socket.on('V_leds_rc', thymioV_leds_rc);
+
+function thymioV_leds_rc(_x9) {
   return _thymioV_leds_rc.apply(this, arguments);
 }
 
-socket.on('V_leds_temperature', thymioV_leds_temperature);
-
-function thymioV_leds_temperature(_x9) {
-  return _thymioV_leds_temperature.apply(this, arguments);
-}
-
-function _thymioV_leds_temperature() {
-  _thymioV_leds_temperature = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee12(data) {
+function _thymioV_leds_rc() {
+  _thymioV_leds_rc = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee12(data) {
     return regeneratorRuntime.wrap(function _callee12$(_context13) {
       while (1) {
         switch (_context13.prev = _context13.next) {
           case 0:
-            console.log('V_leds_temperature avec paramètres', data);
+            console.log('V_leds_rc avec paramètres', data);
             _context13.next = 3;
             return selectedNode.emitEvents({
-              "V_leds_temperature": data
+              "V_leds_rc": data
             });
 
           case 3:
@@ -39289,26 +39289,25 @@ function _thymioV_leds_temperature() {
       }
     }, _callee12);
   }));
+  return _thymioV_leds_rc.apply(this, arguments);
+}
+
+socket.on('V_leds_temperature', thymioV_leds_temperature);
+
+function thymioV_leds_temperature(_x10) {
   return _thymioV_leds_temperature.apply(this, arguments);
 }
 
-socket.on('V_leds_sound', thymioV_leds_sound);
-
-function thymioV_leds_sound(_x10) {
-  return _thymioV_leds_sound.apply(this, arguments);
-} // Sound Events from Socket.io to Thymio
-
-
-function _thymioV_leds_sound() {
-  _thymioV_leds_sound = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee13(data) {
+function _thymioV_leds_temperature() {
+  _thymioV_leds_temperature = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee13(data) {
     return regeneratorRuntime.wrap(function _callee13$(_context14) {
       while (1) {
         switch (_context14.prev = _context14.next) {
           case 0:
-            console.log('V_leds_sound avec paramètres', data);
+            console.log('V_leds_temperature avec paramètres', data);
             _context14.next = 3;
             return selectedNode.emitEvents({
-              "V_leds_sound": data
+              "V_leds_temperature": data
             });
 
           case 3:
@@ -39318,25 +39317,26 @@ function _thymioV_leds_sound() {
       }
     }, _callee13);
   }));
+  return _thymioV_leds_temperature.apply(this, arguments);
+}
+
+socket.on('V_leds_sound', thymioV_leds_sound);
+
+function thymioV_leds_sound(_x11) {
   return _thymioV_leds_sound.apply(this, arguments);
-}
+} // Sound Events from Socket.io to Thymio
 
-socket.on('A_sound_system', thymioA_sound_system);
 
-function thymioA_sound_system(_x11) {
-  return _thymioA_sound_system.apply(this, arguments);
-}
-
-function _thymioA_sound_system() {
-  _thymioA_sound_system = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee14(data) {
+function _thymioV_leds_sound() {
+  _thymioV_leds_sound = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee14(data) {
     return regeneratorRuntime.wrap(function _callee14$(_context15) {
       while (1) {
         switch (_context15.prev = _context15.next) {
           case 0:
-            console.log('A_sound_system avec paramètre', data);
+            console.log('V_leds_sound avec paramètres', data);
             _context15.next = 3;
             return selectedNode.emitEvents({
-              "A_sound_system": data
+              "V_leds_sound": data
             });
 
           case 3:
@@ -39346,25 +39346,25 @@ function _thymioA_sound_system() {
       }
     }, _callee14);
   }));
+  return _thymioV_leds_sound.apply(this, arguments);
+}
+
+socket.on('A_sound_system', thymioA_sound_system);
+
+function thymioA_sound_system(_x12) {
   return _thymioA_sound_system.apply(this, arguments);
 }
 
-socket.on('A_sound_freq', thymioA_sound_freq);
-
-function thymioA_sound_freq(_x12) {
-  return _thymioA_sound_freq.apply(this, arguments);
-}
-
-function _thymioA_sound_freq() {
-  _thymioA_sound_freq = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee15(data) {
+function _thymioA_sound_system() {
+  _thymioA_sound_system = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee15(data) {
     return regeneratorRuntime.wrap(function _callee15$(_context16) {
       while (1) {
         switch (_context16.prev = _context16.next) {
           case 0:
-            console.log('A_sound_freq avec paramètres', data);
+            console.log('A_sound_system avec paramètre', data);
             _context16.next = 3;
             return selectedNode.emitEvents({
-              "A_sound_freq": data
+              "A_sound_system": data
             });
 
           case 3:
@@ -39374,25 +39374,25 @@ function _thymioA_sound_freq() {
       }
     }, _callee15);
   }));
+  return _thymioA_sound_system.apply(this, arguments);
+}
+
+socket.on('A_sound_freq', thymioA_sound_freq);
+
+function thymioA_sound_freq(_x13) {
   return _thymioA_sound_freq.apply(this, arguments);
 }
 
-socket.on('A_sound_play', thymioA_sound_play);
-
-function thymioA_sound_play(_x13) {
-  return _thymioA_sound_play.apply(this, arguments);
-}
-
-function _thymioA_sound_play() {
-  _thymioA_sound_play = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee16(data) {
+function _thymioA_sound_freq() {
+  _thymioA_sound_freq = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee16(data) {
     return regeneratorRuntime.wrap(function _callee16$(_context17) {
       while (1) {
         switch (_context17.prev = _context17.next) {
           case 0:
-            console.log('A_sound_play avec paramètre', data);
+            console.log('A_sound_freq avec paramètres', data);
             _context17.next = 3;
             return selectedNode.emitEvents({
-              "A_sound_play": data
+              "A_sound_freq": data
             });
 
           case 3:
@@ -39402,25 +39402,25 @@ function _thymioA_sound_play() {
       }
     }, _callee16);
   }));
+  return _thymioA_sound_freq.apply(this, arguments);
+}
+
+socket.on('A_sound_play', thymioA_sound_play);
+
+function thymioA_sound_play(_x14) {
   return _thymioA_sound_play.apply(this, arguments);
 }
 
-socket.on('A_sound_record', thymioA_sound_record);
-
-function thymioA_sound_record(_x14) {
-  return _thymioA_sound_record.apply(this, arguments);
-}
-
-function _thymioA_sound_record() {
-  _thymioA_sound_record = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee17(data) {
+function _thymioA_sound_play() {
+  _thymioA_sound_play = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee17(data) {
     return regeneratorRuntime.wrap(function _callee17$(_context18) {
       while (1) {
         switch (_context18.prev = _context18.next) {
           case 0:
-            console.log('A_sound_record avec paramètre', data);
+            console.log('A_sound_play avec paramètre', data);
             _context18.next = 3;
             return selectedNode.emitEvents({
-              "A_sound_record": data
+              "A_sound_play": data
             });
 
           case 3:
@@ -39430,26 +39430,25 @@ function _thymioA_sound_record() {
       }
     }, _callee17);
   }));
+  return _thymioA_sound_play.apply(this, arguments);
+}
+
+socket.on('A_sound_record', thymioA_sound_record);
+
+function thymioA_sound_record(_x15) {
   return _thymioA_sound_record.apply(this, arguments);
 }
 
-socket.on('A_sound_replay', thymioA_sound_replay);
-
-function thymioA_sound_replay(_x15) {
-  return _thymioA_sound_replay.apply(this, arguments);
-} // Motors Events from Socket.io to Thymio
-
-
-function _thymioA_sound_replay() {
-  _thymioA_sound_replay = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee18(data) {
+function _thymioA_sound_record() {
+  _thymioA_sound_record = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee18(data) {
     return regeneratorRuntime.wrap(function _callee18$(_context19) {
       while (1) {
         switch (_context19.prev = _context19.next) {
           case 0:
-            console.log('A_sound_replay avec paramètre', data);
+            console.log('A_sound_record avec paramètre', data);
             _context19.next = 3;
             return selectedNode.emitEvents({
-              "A_sound_replay": data
+              "A_sound_record": data
             });
 
           case 3:
@@ -39459,25 +39458,26 @@ function _thymioA_sound_replay() {
       }
     }, _callee18);
   }));
+  return _thymioA_sound_record.apply(this, arguments);
+}
+
+socket.on('A_sound_replay', thymioA_sound_replay);
+
+function thymioA_sound_replay(_x16) {
   return _thymioA_sound_replay.apply(this, arguments);
-}
+} // Motors Events from Socket.io to Thymio
 
-socket.on('M_motor_both', thymioM_motor_both);
 
-function thymioM_motor_both(_x16) {
-  return _thymioM_motor_both.apply(this, arguments);
-}
-
-function _thymioM_motor_both() {
-  _thymioM_motor_both = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee19(data) {
+function _thymioA_sound_replay() {
+  _thymioA_sound_replay = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee19(data) {
     return regeneratorRuntime.wrap(function _callee19$(_context20) {
       while (1) {
         switch (_context20.prev = _context20.next) {
           case 0:
-            console.log('M_motor_both avec paramètre', data);
+            console.log('A_sound_replay avec paramètre', data);
             _context20.next = 3;
             return selectedNode.emitEvents({
-              "M_motor_both": data
+              "A_sound_replay": data
             });
 
           case 3:
@@ -39487,25 +39487,25 @@ function _thymioM_motor_both() {
       }
     }, _callee19);
   }));
+  return _thymioA_sound_replay.apply(this, arguments);
+}
+
+socket.on('M_motor_both', thymioM_motor_both);
+
+function thymioM_motor_both(_x17) {
   return _thymioM_motor_both.apply(this, arguments);
 }
 
-socket.on('M_motor_left', thymioM_motor_left);
-
-function thymioM_motor_left(_x17) {
-  return _thymioM_motor_left.apply(this, arguments);
-}
-
-function _thymioM_motor_left() {
-  _thymioM_motor_left = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee20(data) {
+function _thymioM_motor_both() {
+  _thymioM_motor_both = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee20(data) {
     return regeneratorRuntime.wrap(function _callee20$(_context21) {
       while (1) {
         switch (_context21.prev = _context21.next) {
           case 0:
-            console.log('M_motor_left avec paramètre', data);
+            console.log('M_motor_both avec paramètre', data);
             _context21.next = 3;
             return selectedNode.emitEvents({
-              "M_motor_left": data
+              "M_motor_both": data
             });
 
           case 3:
@@ -39515,25 +39515,25 @@ function _thymioM_motor_left() {
       }
     }, _callee20);
   }));
+  return _thymioM_motor_both.apply(this, arguments);
+}
+
+socket.on('M_motor_left', thymioM_motor_left);
+
+function thymioM_motor_left(_x18) {
   return _thymioM_motor_left.apply(this, arguments);
 }
 
-socket.on('M_motor_right', thymioM_motor_right);
-
-function thymioM_motor_right(_x18) {
-  return _thymioM_motor_right.apply(this, arguments);
-}
-
-function _thymioM_motor_right() {
-  _thymioM_motor_right = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee21(data) {
+function _thymioM_motor_left() {
+  _thymioM_motor_left = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee21(data) {
     return regeneratorRuntime.wrap(function _callee21$(_context22) {
       while (1) {
         switch (_context22.prev = _context22.next) {
           case 0:
-            console.log('M_motor_right avec paramètre', data);
+            console.log('M_motor_left avec paramètre', data);
             _context22.next = 3;
             return selectedNode.emitEvents({
-              "M_motor_right": data
+              "M_motor_left": data
             });
 
           case 3:
@@ -39542,6 +39542,34 @@ function _thymioM_motor_right() {
         }
       }
     }, _callee21);
+  }));
+  return _thymioM_motor_left.apply(this, arguments);
+}
+
+socket.on('M_motor_right', thymioM_motor_right);
+
+function thymioM_motor_right(_x19) {
+  return _thymioM_motor_right.apply(this, arguments);
+}
+
+function _thymioM_motor_right() {
+  _thymioM_motor_right = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee22(data) {
+    return regeneratorRuntime.wrap(function _callee22$(_context23) {
+      while (1) {
+        switch (_context23.prev = _context23.next) {
+          case 0:
+            console.log('M_motor_right avec paramètre', data);
+            _context23.next = 3;
+            return selectedNode.emitEvents({
+              "M_motor_right": data
+            });
+
+          case 3:
+          case "end":
+            return _context23.stop();
+        }
+      }
+    }, _callee22);
   }));
   return _thymioM_motor_right.apply(this, arguments);
 }
@@ -39558,48 +39586,48 @@ function thymioSetup() {
 }
 
 function _thymioSetup() {
-  _thymioSetup = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee22() {
-    return regeneratorRuntime.wrap(function _callee22$(_context23) {
+  _thymioSetup = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee23() {
+    return regeneratorRuntime.wrap(function _callee23$(_context24) {
       while (1) {
-        switch (_context23.prev = _context23.next) {
+        switch (_context24.prev = _context24.next) {
           case 0:
-            _context23.prev = 0;
+            _context24.prev = 0;
             thymioSetupPrograms();
-            _context23.next = 4;
+            _context24.next = 4;
             return selectedNode.sendAsebaProgram(thymioPrograms[0]);
 
           case 4:
-            _context23.next = 6;
+            _context24.next = 6;
             return selectedNode.runProgram();
 
           case 6:
-            _context23.next = 11;
+            _context24.next = 11;
             break;
 
           case 8:
-            _context23.prev = 8;
-            _context23.t0 = _context23["catch"](0);
-            console.log(_context23.t0);
+            _context24.prev = 8;
+            _context24.t0 = _context24["catch"](0);
+            console.log(_context24.t0);
 
           case 11:
           case "end":
-            return _context23.stop();
+            return _context24.stop();
         }
       }
-    }, _callee22, null, [[0, 8]]);
+    }, _callee23, null, [[0, 8]]);
   }));
   return _thymioSetup.apply(this, arguments);
 }
 
-function thymioDraw(_x19) {
+function thymioDraw(_x20) {
   return _thymioDraw.apply(this, arguments);
 }
 
 function _thymioDraw() {
-  _thymioDraw = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee23(data) {
-    return regeneratorRuntime.wrap(function _callee23$(_context24) {
+  _thymioDraw = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee24(data) {
+    return regeneratorRuntime.wrap(function _callee24$(_context25) {
       while (1) {
-        switch (_context24.prev = _context24.next) {
+        switch (_context25.prev = _context25.next) {
           case 0:
             try {
               //await selectedNode.emitEvents({ "ping": null });
@@ -39610,10 +39638,10 @@ function _thymioDraw() {
 
           case 1:
           case "end":
-            return _context24.stop();
+            return _context25.stop();
         }
       }
-    }, _callee23);
+    }, _callee24);
   }));
   return _thymioDraw.apply(this, arguments);
 }
@@ -39623,21 +39651,21 @@ function thymioSetupPrograms() {
 }
 
 function _thymioSetupPrograms() {
-  _thymioSetupPrograms = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee24() {
-    return regeneratorRuntime.wrap(function _callee24$(_context25) {
+  _thymioSetupPrograms = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee25() {
+    return regeneratorRuntime.wrap(function _callee25$(_context26) {
       while (1) {
-        switch (_context25.prev = _context25.next) {
+        switch (_context26.prev = _context26.next) {
           case 0:
             // Basic Test
-            thymioPrograms.push("\n    var rgb[3]\n    var tmp[3]\n    var i = 0\n\n    onevent ping\n        call math.rand(rgb)\n        for i in 0:2 do\n            rgb[i] = abs rgb[i]\n            rgb[i] = rgb[i] % 20\n        end\n        call leds.top(rgb[0], rgb[1], rgb[2])\n        i++\n        emit pong i  \n\n\n    onevent V_leds_bottom\n        if event.args[0]==0 then\n            call leds.bottom.left(event.args[1],event.args[2],event.args[3])\n        else\n            call leds.bottom.right(event.args[1],event.args[2],event.args[3])\n        end\n    onevent V_leds_buttons\n        call leds.buttons(event.args[0],event.args[1],\n                          event.args[2],event.args[3])    \n    onevent V_leds_circle\n        call leds.circle(event.args[0],event.args[1],event.args[2],\n                         event.args[3],event.args[4],event.args[5],\n                         event.args[6],event.args[7])\n    onevent V_leds_prox_h\n        call leds.prox.h(event.args[0],event.args[1],event.args[2],\n                         event.args[3],event.args[4],event.args[5],\n                         event.args[6],event.args[7])\n    onevent V_leds_prox_v\n        call leds.prox.v(event.args[0],event.args[1])\n    onevent V_leds_rc\n        call leds.rc(event.args[0])   \n    onevent V_leds_sound\n        call leds.sound(event.args[0])\n    onevent V_leds_temperature\n        call leds.temperature(event.args[0],event.args[1])\n    onevent V_leds_top\n        call leds.top(event.args[0],event.args[1],event.args[2])\n    onevent A_sound_system\n        call sound.system(event.args[0])\n    onevent A_sound_freq\n        call sound.freq(event.args[0],event.args[1])\n    onevent A_sound_play\n        call sound.play(event.args[0])\n    onevent A_sound_record\n        call sound.record(event.args[0])\n    onevent A_sound_replay\n        call sound.replay(event.args[0])\n    onevent M_motor_both \n        motor.left.target = event.args[0]\n        motor.right.target = event.args[1] \n    onevent M_motor_left\n        motor.left.target = event.args[0]\n    onevent M_motor_right\n        motor.right.target = event.args[0] \n        \n    ");
+            thymioPrograms.push("\n    var rgb[3]\n    var tmp[3]\n    var i = 0\n\n    onevent ping\n        call math.rand(rgb)\n        for i in 0:2 do\n            rgb[i] = abs rgb[i]\n            rgb[i] = rgb[i] % 20\n        end\n        call leds.top(rgb[0], rgb[1], rgb[2])\n        i++\n        emit pong i  \n\n    ##! LED THYMIO EVENTS\n    onevent V_leds_prox_h\n        call leds.prox.h(event.args[0],event.args[1],event.args[2],\n                         event.args[3],event.args[4],event.args[5],\n                         event.args[6],event.args[7])\n    onevent V_leds_circle\n        call leds.circle(event.args[0],event.args[1],event.args[2],\n                         event.args[3],event.args[4],event.args[5],\n                         event.args[6],event.args[7])\n     onevent V_leds_top\n        call leds.top(event.args[0],event.args[1],event.args[2])\n    onevent V_leds_bottom_left\n        call leds.bottom.left(event.args[0],event.args[1],event.args[2])\n    onevent V_leds_bottom_right\n        call leds.bottom.right(event.args[0],event.args[1],event.args[2])\n    onevent V_leds_prox_v\n        call leds.prox.v(event.args[0],event.args[1])\n    onevent V_leds_buttons\n        call leds.buttons(event.args[0],event.args[1],\n                          event.args[2],event.args[3])    \n    onevent V_leds_rc\n        call leds.rc(event.args[0])   \n    onevent V_leds_temperature\n        call leds.temperature(event.args[0],event.args[1])\n    onevent V_leds_sound\n        call leds.sound(event.args[0])\n    \n    ##! SOUND THYMIO EVENTS\n    onevent A_sound_freq\n        call sound.freq(event.args[0],event.args[1])\n    onevent A_sound_play\n        call sound.play(event.args[0])\n    onevent A_sound_system\n        call sound.system(event.args[0])\n    onevent A_sound_replay\n        call sound.replay(event.args[0])\n    onevent A_sound_record\n        call sound.record(event.args[0])\n    \n    ##! MOTOR THYMIO EVENTS\n    onevent M_motor_both \n        motor.left.target = event.args[0]\n        motor.right.target = event.args[1] \n    onevent M_motor_left\n        motor.left.target = event.args[0]\n    onevent M_motor_right\n        motor.right.target = event.args[0] \n        \n    ");
             thymioPrograms.push("\n    ");
 
           case 2:
           case "end":
-            return _context25.stop();
+            return _context26.stop();
         }
       }
-    }, _callee24);
+    }, _callee25);
   }));
   return _thymioSetupPrograms.apply(this, arguments);
 }
@@ -39664,7 +39692,7 @@ client.onClose = /*#__PURE__*/function () {
     }, _callee);
   }));
 
-  return function (_x20) {
+  return function (_x21) {
     return _ref.apply(this, arguments);
   };
 }(); // Start monitoring for node event
@@ -39783,7 +39811,7 @@ client.onNodesChanged = /*#__PURE__*/function () {
                           }, _callee2);
                         }));
 
-                        return function (_x22) {
+                        return function (_x23) {
                           return _ref3.apply(this, arguments);
                         };
                       }();
@@ -39829,8 +39857,11 @@ client.onNodesChanged = /*#__PURE__*/function () {
                         name: "V_leds_top",
                         fixed_size: 3
                       }, {
-                        name: "V_leds_bottom",
-                        fixed_size: 4
+                        name: "V_leds_bottom_left",
+                        fixed_size: 3
+                      }, {
+                        name: "V_leds_bottom_right",
+                        fixed_size: 3
                       }, {
                         name: "V_leds_prox_v",
                         fixed_size: 2
@@ -39954,7 +39985,7 @@ client.onNodesChanged = /*#__PURE__*/function () {
     }, _callee3, null, [[0, 22], [2, 14, 17, 20]]);
   }));
 
-  return function (_x21) {
+  return function (_x22) {
     return _ref2.apply(this, arguments);
   };
 }();
