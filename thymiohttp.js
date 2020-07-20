@@ -45,11 +45,10 @@ function showThymioUpdate(req, res) {
 }
 console.log("Thymio Suite HTTP server running at http://127.0.0.1:3000");
 
-app.put('/nodes/ping/:arg1/:arg2/:arg3', function (req, res) {
+app.put('/nodes/ping/', function (req, res) {
     res.send('Got a PUT request at ping');
-    let args = Int16Array.of(req.params.arg1,req.params.arg2, req.params.arg3);
-    console.log('Got a PUT request at ping',args);
-    io.sockets.emit('ping', args);
+    console.log('Got a PUT request at ping');
+    io.sockets.emit('ping', null);
 });
 
 // LEDs HTTP Events to Socket.
