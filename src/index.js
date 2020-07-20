@@ -3,6 +3,7 @@ import { createClient, Node, NodeStatus, Request, setup } from '@mobsya-associat
 //Connect to the Thymio Suite
 //We will need some way to get that url
 let client = createClient("ws://localhost:8597");
+let allNodes = undefined;
 let selectedNode = undefined;
 let thymioPrograms = [];
 
@@ -10,13 +11,12 @@ var socket = io.connect('ws://localhost:3000');
 
 
 // TEST Events
-socket.on('Led', thymioLED);
-async function thymioLED(data) {
-    console.log('LED avec paramètre', data.args);
-    await selectedNode.emitEvents({ "ping": null });
-    //socket.emit('thymio', data);
+socket.on('ping', thymioPing);
+async function thymioPing(data) {
+    console.log('Ping avec paramètres', data);
+    await selectedNode.emitEvents({ "ping": data });
+    //socket.emit('allNodes', allNodes);
 }
-
 
 //LEDs Events from Socket.io to Thymio
 
@@ -119,7 +119,7 @@ async function thymioM_motor_right(data) {
 socket.on('thymio', thymioUpdate);
 function thymioUpdate(data) {
     //console.log(data);
-    socket.emit('thymio', data);
+    //socket.emit('thymio', data);
 }
 
 async function thymioSetup() {
@@ -230,6 +230,7 @@ client.onClose = async (event) => {
 //      * disconnected : The node is gone
 client.onNodesChanged = async (nodes) => {
     try {
+        allNodes = nodes;
         //Iterate over the nodes
         for (let node of nodes) {
             console.log(`${node.id} : ${node.statusAsString}`)
@@ -276,13 +277,15 @@ client.onNodesChanged = async (nodes) => {
                     console.log("events", events)
                     let { pong: pong } = events;
                     if (pong) {
-                        await sleep(1000)
-                        await node.emitEvents({ "ping": null })
+                        await sleep(1000) 
+                       //let args = Int16Array.of(0,0);
+                       //console.log( args)
+                       //await selectedNode.emitEvents({ "ping": args });
                     }
                 }
 
                 await node.group.setEventsDescriptions([
-                    { name: "ping", fixed_size: 0 },
+                    { name: "ping", fixed_size: 3 },
                     { name: "pong", fixed_size: 1 },
 
                     { name: "Q_add_motion", fixed_size: 4 },

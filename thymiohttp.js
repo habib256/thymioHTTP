@@ -1,4 +1,4 @@
-// AsebaHTTP3 via Javascript for Thymio Suite
+// ThymioHTTP via Javascript for Thymio Suite
 
 var express = require('express');
 var cors = require('cors')
@@ -39,9 +39,16 @@ function showJSON(req, res) {
 app.get('/nodes', showThymioUpdate);
 function showThymioUpdate(req, res) {
     res.send(data);
-    console.log('Got a GET request at /nodes serving thymio static var')
+    console.log('Got a GET request at /nodes serving thymio vars')
 }
 console.log("Thymio Suite HTTP server running at http://127.0.0.1:3000");
+
+app.put('/nodes/ping/:arg1/:arg2/:arg3', function (req, res) {
+    res.send('Got a PUT request at ping');
+    let args = Int16Array.of(req.params.arg1,req.params.arg2, req.params.arg3);
+    console.log('Got a PUT request at ping',args);
+    io.sockets.emit('ping', args);
+});
 
 // LEDs HTTP Events to Socket.
 app.put('/nodes/V_leds_prox_h/:arg1/:arg2/:arg3/:arg4/:arg5/:arg6/:arg7/:arg8', function (req, res) {
