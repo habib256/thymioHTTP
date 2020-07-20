@@ -39053,10 +39053,10 @@ function _thymioPing() {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
-            console.log('Ping avec paramètres', data);
+            console.log('Ping');
             _context4.next = 3;
             return selectedNode.emitEvents({
-              "ping": data
+              "ping": null
             });
 
           case 3:
@@ -39793,15 +39793,13 @@ client.onNodesChanged = /*#__PURE__*/function () {
                         console.log("events", events);
                         pong = events.pong;
 
-                        if (!pong) {
-                          _context2.next = 5;
-                          break;
+                        if (pong) {///await sleep(1000) 
+                          //let args = Int16Array.of(0,0);
+                          //console.log( args)
+                          //await selectedNode.emitEvents({ "ping": args });
                         }
 
-                        _context2.next = 5;
-                        return sleep(1000);
-
-                      case 5:
+                      case 3:
                       case "end":
                         return _context2.stop();
                     }
@@ -39817,7 +39815,7 @@ client.onNodesChanged = /*#__PURE__*/function () {
             _context3.next = 31;
             return node.group.setEventsDescriptions([{
               name: "ping",
-              fixed_size: 3
+              fixed_size: 0
             }, {
               name: "pong",
               fixed_size: 1

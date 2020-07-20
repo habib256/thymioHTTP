@@ -12,19 +12,21 @@ var data = [0];
 
 var socket;
 var io = require('socket.io').listen(server);
-io.sockets.on('connection', newConnection);
 
+io.sockets.on('connection', newConnection);
 function newConnection(_socket) {
     socket = _socket;
     console.log('new connection: ' + socket.id);
     socket.on('thymio', thymioMsg);
-    //console.log(socket);
 }
+
+//
 function thymioMsg(_data) {
     data = _data;
-    io.sockets.emit('thymio', data);
-
+   // io.sockets.emit('thymio', data);
 }
+
+
 app.use(express.static('dist'));
 
 app.get('/products/:id', function (req, res, next) {

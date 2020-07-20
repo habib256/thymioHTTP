@@ -13,9 +13,8 @@ var socket = io.connect('ws://localhost:3000');
 // TEST Events
 socket.on('ping', thymioPing);
 async function thymioPing(data) {
-    console.log('Ping avec paramètres', data);
-    await selectedNode.emitEvents({ "ping": data });
-    //socket.emit('allNodes', allNodes);
+    console.log('Ping');
+    await selectedNode.emitEvents({ "ping": null });
 }
 
 //LEDs Events from Socket.io to Thymio
@@ -277,7 +276,7 @@ client.onNodesChanged = async (nodes) => {
                     console.log("events", events)
                     let { pong: pong } = events;
                     if (pong) {
-                        await sleep(1000) 
+                        ///await sleep(1000) 
                        //let args = Int16Array.of(0,0);
                        //console.log( args)
                        //await selectedNode.emitEvents({ "ping": args });
@@ -285,7 +284,7 @@ client.onNodesChanged = async (nodes) => {
                 }
 
                 await node.group.setEventsDescriptions([
-                    { name: "ping", fixed_size: 3 },
+                    { name: "ping", fixed_size: 0 },
                     { name: "pong", fixed_size: 1 },
 
                     { name: "Q_add_motion", fixed_size: 4 },
