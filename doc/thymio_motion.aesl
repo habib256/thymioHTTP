@@ -11,6 +11,7 @@
 <event size="5" name="Q_motion_ended"/>
 <event size="1" name="Q_motion_noneleft"/>
 <event size="3" name="Q_set_odometer"/>
+
 <event size="8" name="V_leds_prox_h"/>
 <event size="8" name="V_leds_circle"/>
 <event size="3" name="V_leds_top"/>
@@ -20,13 +21,18 @@
 <event size="1" name="V_leds_rc"/>
 <event size="2" name="V_leds_temperature"/>
 <event size="1" name="V_leds_sound"/>
+
 <event size="2" name="A_sound_freq"/>
 <event size="1" name="A_sound_play"/>
 <event size="1" name="A_sound_system"/>
 <event size="1" name="A_sound_replay"/>
 <event size="1" name="A_sound_record"/>
+
+<event size="2" name="M_motor_both"/>
 <event size="1" name="M_motor_left"/>
 <event size="1" name="M_motor_right"/>
+
+
 <event size="27" name="R_state_update"/>
 <event size="0" name="Q_reset"/>
 

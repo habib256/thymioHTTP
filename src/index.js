@@ -19,20 +19,51 @@ async function thymioLED(data) {
 
 
 //LEDs Events from Socket.io to Thymio
-socket.on('V_leds_buttons', thymioV_leds_buttons);
-async function thymioV_leds_buttons(data) {
-    console.log('V_leds_buttons avec paramètres', data);
-    await selectedNode.emitEvents({ "V_leds_buttons": data});
-}
+
 socket.on('V_leds_prox_h', thymioV_leds_prox_h);
 async function thymioV_leds_prox_h(data) {
     console.log('V_leds_prox_h avec paramètres', data);
     await selectedNode.emitEvents({ "V_leds_prox_h": data});
 }
+socket.on('V_leds_circle', thymioV_leds_circle);
+async function thymioV_leds_circle(data) {
+    console.log('V_leds_circle avec paramètres', data);
+    await selectedNode.emitEvents({ "V_leds_circle": data});
+}
+socket.on('V_leds_top', thymioV_leds_top);
+async function thymioV_leds_top(data) {
+    console.log('V_leds_top avec paramètres', data);
+    await selectedNode.emitEvents({ "V_leds_top": data});
+}
+socket.on('V_leds_bottom', thymioV_leds_bottom);
+async function thymioV_leds_bottom(data) {
+    console.log('V_leds_bottom avec paramètres', data);
+    await selectedNode.emitEvents({ "V_leds_bottom": data});
+}
 socket.on('V_leds_prox_v', thymioV_leds_prox_v);
 async function thymioV_leds_prox_v(data) {
     console.log('V_leds_prox_v avec paramètres', data);
     await selectedNode.emitEvents({ "V_leds_prox_v": data});
+}
+socket.on('V_leds_buttons', thymioV_leds_buttons);
+async function thymioV_leds_buttons(data) {
+    console.log('V_leds_buttons avec paramètres', data);
+    await selectedNode.emitEvents({ "V_leds_buttons": data});
+}
+socket.on('V_leds_rc', thymioV_leds_rc);
+async function thymioV_leds_rc(data) {
+    console.log('V_leds_rc avec paramètres', data);
+    await selectedNode.emitEvents({ "V_leds_rc": data});
+}
+socket.on('V_leds_temperature', thymioV_leds_temperature);
+async function thymioV_leds_temperature(data) {
+    console.log('V_leds_temperature avec paramètres', data);
+    await selectedNode.emitEvents({ "V_leds_temperature": data});
+}
+socket.on('V_leds_sound', thymioV_leds_sound);
+async function thymioV_leds_sound(data) {
+    console.log('V_leds_sound avec paramètres', data);
+    await selectedNode.emitEvents({ "V_leds_sound": data});
 }
 
 // Sound Events from Socket.io to Thymio
@@ -78,7 +109,6 @@ async function thymioM_motor_right(data) {
     console.log('M_motor_right avec paramètre', data);
     await selectedNode.emitEvents({ "M_motor_right": data});
 }
-
 
 
 socket.on('thymio', thymioUpdate);
@@ -256,25 +286,27 @@ client.onNodesChanged = async (nodes) => {
                     { name: "Q_motion_ended", fixed_size: 5 },
                     { name: "Q_motion_noneleft", fixed_size: 1 },
                     { name: "Q_set_odometer", fixed_size: 3 },
+
                     { name: "V_leds_prox_h", fixed_size: 8 },
                     { name: "V_leds_circle", fixed_size: 8 },
                     { name: "V_leds_top", fixed_size: 3 },
                     { name: "V_leds_bottom", fixed_size: 4 },
                     { name: "V_leds_prox_v", fixed_size: 2 },
-
                     { name: "V_leds_buttons", fixed_size: 4 },
                     { name: "V_leds_rc", fixed_size: 1 },
                     { name: "V_leds_temperature", fixed_size: 2 },
                     { name: "V_leds_sound", fixed_size: 1 },
+
                     { name: "A_sound_freq", fixed_size: 2 },
                     { name: "A_sound_play", fixed_size: 1 },
                     { name: "A_sound_system", fixed_size: 1 },
                     { name: "A_sound_replay", fixed_size: 1 },
                     { name: "A_sound_record", fixed_size: 1 },
 
+                    { name: "M_motor_both", fixed_size: 2 },
                     { name: "M_motor_left", fixed_size: 1 },
                     { name: "M_motor_right", fixed_size: 1 },
-                    { name: "M_motor_both", fixed_size: 2 },
+                
 
                     { name: "R_state_update", fixed_size: 27 },
                     { name: "Q_reset", fixed_size: 0 }

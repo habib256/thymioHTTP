@@ -44,11 +44,29 @@ function showThymioUpdate(req, res) {
 console.log("Thymio Suite HTTP server running at http://127.0.0.1:3000");
 
 // LEDs HTTP Events to Socket.
-app.put('/nodes/V_leds_buttons/:arg1/:arg2/:arg3/:arg4', function (req, res) {
-    res.send('Got a PUT request at V_leds_buttons');
+app.put('/nodes/V_leds_prox_h/:arg1/:arg2/:arg3/:arg4/:arg5/:arg6/:arg7/:arg8', function (req, res) {
+    res.send('Got a PUT request at V_leds_prox_h');
+    let args = Int16Array.of(req.params.arg1,req.params.arg2,req.params.arg3,req.params.arg4,req.params.arg5,req.params.arg6,req.params.arg7,req.params.arg8);
+    console.log('Got a PUT request at V_leds_prox_h',args);
+    io.sockets.emit('V_leds_prox_h', args);
+});
+app.put('/nodes/V_leds_circle/:arg1/:arg2/:arg3/:arg4/:arg5/:arg6/:arg7/:arg8', function (req, res) {
+    res.send('Got a PUT request at V_leds_circle');
+    let args = Int16Array.of(req.params.arg1,req.params.arg2,req.params.arg3,req.params.arg4,req.params.arg5,req.params.arg6,req.params.arg7,req.params.arg8);
+    console.log('Got a PUT request at V_leds_circle',args);
+    io.sockets.emit('V_leds_circle', args);
+});
+app.put('/nodes/V_leds_top/:arg1/:arg2:arg3', function (req, res) {
+    res.send('Got a PUT request at V_leds_top');
+    let args = Int16Array.of(req.params.arg1,req.params.arg2, req.params.arg3);
+    console.log('Got a PUT request at V_leds_top',args);
+    io.sockets.emit('V_leds_top', args);
+});
+app.put('/nodes/V_leds_bottom/:arg1/:arg2/:arg3/:arg4', function (req, res) {
+    res.send('Got a PUT request at V_leds_bottom');
     let args = Int16Array.of(req.params.arg1,req.params.arg2,req.params.arg3,req.params.arg4);
-    console.log('Got a PUT request at V_leds_buttons',args);
-    io.sockets.emit('V_leds_buttons', args);
+    console.log('Got a PUT request at V_leds_bottom',args);
+    io.sockets.emit('V_leds_bottom', args);
 });
 app.put('/nodes/V_leds_prox_v/:arg1/:arg2', function (req, res) {
     res.send('Got a PUT request at V_leds_prox_v');
@@ -56,12 +74,32 @@ app.put('/nodes/V_leds_prox_v/:arg1/:arg2', function (req, res) {
     console.log('Got a PUT request at V_leds_prox_v',args);
     io.sockets.emit('V_leds_prox_v', args);
 });
-app.put('/nodes/V_leds_prox_h/:arg1/:arg2/:arg3/:arg4/:arg5/:arg6/:arg7/:arg8', function (req, res) {
-    res.send('Got a PUT request at V_leds_prox_h');
-    let args = Int16Array.of(req.params.arg1,req.params.arg2,req.params.arg3,req.params.arg4,req.params.arg5,req.params.arg6,req.params.arg7,req.params.arg8);
-    console.log('Got a PUT request at V_leds_prox_h',args);
-    io.sockets.emit('V_leds_prox_h', args);
+app.put('/nodes/V_leds_buttons/:arg1/:arg2/:arg3/:arg4', function (req, res) {
+    res.send('Got a PUT request at V_leds_buttons');
+    let args = Int16Array.of(req.params.arg1,req.params.arg2,req.params.arg3,req.params.arg4);
+    console.log('Got a PUT request at V_leds_buttons',args);
+    io.sockets.emit('V_leds_buttons', args);
 });
+app.put('/nodes/V_leds_rc/:arg1', function (req, res) {
+    res.send('Got a PUT request at V_leds_rc');
+    let args = Int16Array.of(req.params.arg1);
+    console.log('Got a PUT request at V_leds_rc',args);
+    io.sockets.emit('V_leds_rc', args);
+});
+app.put('/nodes/V_leds_temperature/:arg1/:arg2', function (req, res) {
+    res.send('Got a PUT request at V_leds_temperature');
+    let args = Int16Array.of(req.params.arg1,req.params.arg2);
+    console.log('Got a PUT request at V_leds_temperature',args);
+    io.sockets.emit('V_leds_temperature', args);
+});
+app.put('/nodes/V_leds_sound/:arg1', function (req, res) {
+    res.send('Got a PUT request at V_leds_sound');
+    let args = Int16Array.of(req.params.arg1);
+    console.log('Got a PUT request at V_leds_sound',args);
+    io.sockets.emit('V_leds_sound', args);
+});
+
+
 
 // Sound HTTP Events to Socket.io
 app.put('/nodes/A_sound_freq/:freq/:duration', function (req, res) {
