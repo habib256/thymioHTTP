@@ -377,7 +377,6 @@ async function thymioSetupPrograms() {
 
     ##! 20 Hz THYMIO REPORTER
     onevent buttons
-        
         R_state[0] = acc[0]
         R_state[1] = acc[1]
         R_state[2] = acc[2]
