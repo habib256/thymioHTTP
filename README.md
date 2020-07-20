@@ -2,7 +2,8 @@
 
 2020-07-20 VERHILLE Arnaud
 
-This is a javascript node-based application that create an HTTP access to the thymio-device-manager running under Thymio Suite 2.x
+This is a javascript node-based application that create an HTTP access to the thymio-device-manager running under Thymio Suite 2.x.
+The main goal of this project is to provide an access to the Thymio(s) from the Berkeley Snap! Scratch like programming langage.
 
 ## Getting started
 
@@ -12,12 +13,12 @@ https://www.thymio.org/fr/programmer/
 
 ### Install node and npm
 
-Npm is a package manager for JavaScript, you will need it to work with the Thymio API
+Npm is the package manager for JavaScript on Node.js , you will need it to work with the Thymio API
 
-[Learn more here](https://docs.npmjs.com/getting-started/installing-node#install-npm--manage-npm-versions).
+[Node.js](https://nodejs.org/en/).
 
 Note that despite depending on Node to install and build the Thymio JS API, it is fully compatible with browsers
-and Node.
+(Google chrome & Firefox) and Node on most operating systems (MacOS, Win$ or GNU/Linux).
 
 ### Install the dependencies
 
