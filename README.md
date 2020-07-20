@@ -2,7 +2,7 @@
 
 2020-07-20 VERHILLE Arnaud
 
-This is a javascript node-based application that create an HTTP access to the thymio-device-manager running under Thymio Suite 2.x.
+This is a javascript node-based application that create an WS access to the thymio-device-manager running under Thymio Suite 2.x.
 The main goal of this project is to provide an access to the Thymio(s) from the Berkeley Snap! Scratch like programming langage.
 
 ## Getting started
