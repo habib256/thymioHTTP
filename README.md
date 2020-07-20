@@ -2,7 +2,7 @@
 
 2020-07-20 VERHILLE Arnaud
 
-This is a javascript node-based application that create an HTTP access to the thymio-device-manager.
+This is a javascript node-based application that create an HTTP access to the thymio-device-manager running with Thymio Suite 2.x
 
 ## Getting started
 
