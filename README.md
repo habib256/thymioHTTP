@@ -1,8 +1,8 @@
-# thymioHTTP create an HTTP access to the thymio-device-manager 
+# thymioHTTP 
 
 2020-07-20 VERHILLE Arnaud
 
-This is a javascript node-based application that provide a REST interface with introspection for Aseba devices like Thymio(s).
+This is a javascript node-based application that create an HTTP access to the thymio-device-manager.
 
 ## Getting started
 
