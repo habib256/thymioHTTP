@@ -116,7 +116,7 @@ async function thymioM_motor_right(data) {
 
 socket.on('thymio', thymioUpdate);
 function thymioUpdate(data) {
-    socket.emit('thymio', data);
+    //socket.emit('thymio', data);
 }
 
 async function thymioSetup() {
@@ -131,7 +131,7 @@ async function thymioSetup() {
 
 async function thymioDraw(data) {
     try {
-        socket.emit('thymio', data);
+        //socket.emit('thymio', data);
     } catch (e) {
         console.log(e);
     }
@@ -365,9 +365,9 @@ async function thymioSetupPrograms() {
     `);
 
     thymioPrograms.push(`
-    var rgb[3]
     # reusable temp for event handlers
     var tmp[9]
+    var rgb[3]
     var i = 0
 
     var R_state.do = 1 ##! flag for R_state broadcast
@@ -380,7 +380,7 @@ async function thymioSetupPrograms() {
         R_state[0] = acc[0]
         R_state[1] = acc[1]
         R_state[2] = acc[2]
-        R_state[3] = mic.intensity/12
+        R_state[3] = mic.intensity
         R_state[4] = button.backward
         R_state[5] = button.center
         R_state[6] = button.forward
@@ -401,7 +401,7 @@ async function thymioSetupPrograms() {
         R_state[21] = prox.horizontal[4]
         R_state[22] = prox.horizontal[5]
         R_state[23] = prox.horizontal[6]
-        R_state[24] = 0
+        R_state[24] = temperature
         R_state[25] = 0
         R_state[26] = 0
         
@@ -537,7 +537,9 @@ client.onNodesChanged = async (nodes) => {
 
                 //Monitor events
                 node.onEvents = async (events) => {
-                    console.log("events", events)
+                    //console.log("events", events)
+                    // Mainly R_state_update Broadcast to socket.io
+                    socket.emit('thymio', events);
                     let { pong: pong } = events;
                     if (pong) {
                     }
