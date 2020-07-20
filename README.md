@@ -1,10 +1,12 @@
-# thymioHTTP is based on thymio-js-api-demo
+# thymioHTTP create an HTTP access to the thymio-device-manager 
 
-So this is a simple javascript node-based application that try to mimic the old obsolete asebahttp.
+2020-07-20 VERHILLE Arnaud
+
+This is a javascript node-based application that provide a REST interface with introspection for Aseba devices like Thymio(s).
 
 ## Getting started
 
-### Install aseba studio
+### Install Thymio Suite 2.x
 
 https://www.thymio.org/fr/programmer/
 
@@ -45,11 +47,21 @@ This demo project also depends on:
 
 The code is in `src` and gets compiled into `dist`.
 
+## HTTP REST API Access
+
+- GET  /nodes                                 - JSON list of all known nodes
+- GET  /nodes/:NODENAME                       - JSON attributes for :NODENAME
+- PUT  /nodes/:NODENAME                       - write new Aesl program
+- GET  /nodes/:NODENAME/:VARIABLE             - retrieve JSON value for :VARIABLE
+- POST /nodes/:NODENAME/:VARIABLE             - send new values(s) for :VARIABLE
+- POST /nodes/:NODENAME/:EVENT                - call an event :EVENT
+- GET  /events\[/:EVENT\]*                      - create SSE stream for all known nodes
+- GET  /nodes/:NODENAME/events\[/:EVENT\]*      - create SSE stream for :NODENAME
+
 ## What next.
 
-You can copy this project or get inspiration from it to start working on web-applications compatible with thymio.
-
-* [Thymio JS API](https://github.com/Mobsya/thymio-js-api-demo.git)
+* [Thymio JS API
+](https://github.com/Mobsya/thymio-js-api-demo.git)
 * [Webpack](https://webpack.js.org/)
 * [NPM](https://docs.npmjs.com/)
 * [Babel](https://babeljs.io/)
