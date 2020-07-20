@@ -8,14 +8,8 @@ let thymioPrograms = [];
 
 var socket = io.connect('ws://localhost:3000');
 
-socket.on('stop', thymioStop);
-async function thymioStop(data) {
-    console.log('stop avec paramètre', data.args);
-    await selectedNode.emitEvents({ "stop": null });
-    //socket.emit('thymio', data);
-}
 
-//LEDs Events from Socket.io to Thymio
+// TEST Events
 socket.on('Led', thymioLED);
 async function thymioLED(data) {
     console.log('LED avec paramètre', data.args);
@@ -23,56 +17,66 @@ async function thymioLED(data) {
     //socket.emit('thymio', data);
 }
 
+
+//LEDs Events from Socket.io to Thymio
+socket.on('V_leds_buttons', thymioV_leds_buttons);
+async function thymioV_leds_buttons(data) {
+    console.log('V_leds_buttons avec paramètres', data);
+    await selectedNode.emitEvents({ "V_leds_buttons": data});
+}
+socket.on('V_leds_prox_h', thymioV_leds_prox_h);
+async function thymioV_leds_prox_h(data) {
+    console.log('V_leds_prox_h avec paramètres', data);
+    await selectedNode.emitEvents({ "V_leds_prox_h": data});
+}
+socket.on('V_leds_prox_v', thymioV_leds_prox_v);
+async function thymioV_leds_prox_v(data) {
+    console.log('V_leds_prox_v avec paramètres', data);
+    await selectedNode.emitEvents({ "V_leds_prox_v": data});
+}
+
 // Sound Events from Socket.io to Thymio
 socket.on('A_sound_system', thymioA_sound_system);
 async function thymioA_sound_system(data) {
-    let args = Int16Array.of(data.args);
-    console.log('A_sound_system avec paramètre', args);
-    await selectedNode.emitEvents({ "A_sound_system": args});
+    console.log('A_sound_system avec paramètre', data);
+    await selectedNode.emitEvents({ "A_sound_system": data});
 }
 socket.on('A_sound_freq', thymioA_sound_freq);
 async function thymioA_sound_freq(data) {
-    let args = Int16Array.of(data.args);
-    console.log('A_sound_freq avec paramètres', args);
-    await selectedNode.emitEvents({ "A_sound_freq": args});
+    console.log('A_sound_freq avec paramètres', data);
+    await selectedNode.emitEvents({ "A_sound_freq": data});
 }
 socket.on('A_sound_play', thymioA_sound_play);
 async function thymioA_sound_play(data) {
-    let args = Int16Array.of(data.args);
-    console.log('A_sound_play avec paramètre', args);
-    await selectedNode.emitEvents({ "A_sound_play": args});
+    console.log('A_sound_play avec paramètre', data);
+    await selectedNode.emitEvents({ "A_sound_play": data});
 }
 socket.on('A_sound_record', thymioA_sound_record);
 async function thymioA_sound_record(data) {
-    let args = Int16Array.of(data.args);
-    console.log('A_sound_record avec paramètre', args);
-    await selectedNode.emitEvents({ "A_sound_record": args});
+    console.log('A_sound_record avec paramètre', data);
+    await selectedNode.emitEvents({ "A_sound_record": data});
 }
 socket.on('A_sound_replay', thymioA_sound_replay);
 async function thymioA_sound_replay(data) {
-    let args = Int16Array.of(data.args);
-    console.log('A_sound_replay avec paramètre', args);
-    await selectedNode.emitEvents({ "A_sound_replay": args});
+    console.log('A_sound_replay avec paramètre', data);
+    await selectedNode.emitEvents({ "A_sound_replay": data});
 }
 
 // Motors Events from Socket.io to Thymio
 socket.on('M_motor_both', thymioM_motor_both);
 async function thymioM_motor_both(data) {
-    let args = Int16Array.of(data.args);
-    console.log('M_motor_both avec paramètre', args);
-    await selectedNode.emitEvents({ "M_motor_both": args});
+    console.log('M_motor_both avec paramètre', data);
+    await selectedNode.emitEvents({ "M_motor_both": data});
 }
 socket.on('M_motor_left', thymioM_motor_left);
 async function thymioM_motor_left(data) {
-    let args = Int16Array.of(data.args);
-    console.log('M_motor_left avec paramètre', args);
-    await selectedNode.emitEvents({ "M_motor_left": args});
+    console.log('M_motor_left avec paramètre', data);
+    await selectedNode.emitEvents({ "M_motor_left": data});
 }
 socket.on('M_motor_right', thymioM_motor_right);
 async function thymioM_motor_right(data) {
-    let args = Int16Array.of(data.args);
-    console.log('M_motor_right avec paramètre', args);
-    await selectedNode.emitEvents({ "M_motor_right": args});
+    console.log('M_motor_right avec paramètre', data);
+    await selectedNode.emitEvents({ "M_motor_right": data});
 }
 
 
@@ -109,9 +113,7 @@ async function thymioSetupPrograms() {
     var rgb[3]
     var tmp[3]
     var i = 0
-    onevent stop
-        motor.left.target = 0
-        motor.right.target = 0
+
     onevent ping
         call math.rand(rgb)
         for i in 0:2 do
@@ -162,7 +164,7 @@ async function thymioSetupPrograms() {
         call sound.replay(event.args[0])
     onevent M_motor_both 
         motor.left.target = event.args[0]
-        motor.right.target = event.args[0] 
+        motor.right.target = event.args[1] 
     onevent M_motor_left
         motor.left.target = event.args[0]
     onevent M_motor_right
@@ -244,7 +246,6 @@ client.onNodesChanged = async (nodes) => {
 
                 await node.group.setEventsDescriptions([
                     { name: "ping", fixed_size: 0 },
-                    { name: "stop", fixed_size: 0 },
                     { name: "pong", fixed_size: 1 },
 
                     { name: "Q_add_motion", fixed_size: 4 },
@@ -269,11 +270,12 @@ client.onNodesChanged = async (nodes) => {
                     { name: "A_sound_play", fixed_size: 1 },
                     { name: "A_sound_system", fixed_size: 1 },
                     { name: "A_sound_replay", fixed_size: 1 },
-
                     { name: "A_sound_record", fixed_size: 1 },
+
                     { name: "M_motor_left", fixed_size: 1 },
                     { name: "M_motor_right", fixed_size: 1 },
-                    { name: "M_motor_both", fixed_size: 1 },
+                    { name: "M_motor_both", fixed_size: 2 },
+
                     { name: "R_state_update", fixed_size: 27 },
                     { name: "Q_reset", fixed_size: 0 }
                 ]);

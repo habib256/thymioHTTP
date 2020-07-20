@@ -43,65 +43,77 @@ function showThymioUpdate(req, res) {
 }
 console.log("Thymio Suite HTTP server running at http://127.0.0.1:3000");
 
-app.put('/nodes/test/:args', function (req, res) {
-    res.send('Got a PUT request at /nodes');
-    console.log('Got a PUT request at /nodes',req.params);
+// LEDs HTTP Events to Socket.
+app.put('/nodes/V_leds_buttons/:arg1/:arg2/:arg3/:arg4', function (req, res) {
+    res.send('Got a PUT request at V_leds_buttons');
+    let args = Int16Array.of(req.params.arg1,req.params.arg2,req.params.arg3,req.params.arg4);
+    console.log('Got a PUT request at V_leds_buttons',args);
+    io.sockets.emit('V_leds_buttons', args);
 });
-app.put('/nodes/stop/:args', function (req, res) {
-    res.send('Got a PUT request at /stop');
-    console.log('Got a PUT request at /stop',req.params);
-    io.sockets.emit('stop', req.params);
+app.put('/nodes/V_leds_prox_v/:arg1/:arg2', function (req, res) {
+    res.send('Got a PUT request at V_leds_prox_v');
+    let args = Int16Array.of(req.params.arg1,req.params.arg2);
+    console.log('Got a PUT request at V_leds_prox_v',args);
+    io.sockets.emit('V_leds_prox_v', args);
+});
+app.put('/nodes/V_leds_prox_h/:arg1/:arg2/:arg3/:arg4/:arg5/:arg6/:arg7/:arg8', function (req, res) {
+    res.send('Got a PUT request at V_leds_prox_h');
+    let args = Int16Array.of(req.params.arg1,req.params.arg2,req.params.arg3,req.params.arg4,req.params.arg5,req.params.arg6,req.params.arg7,req.params.arg8);
+    console.log('Got a PUT request at V_leds_prox_h',args);
+    io.sockets.emit('V_leds_prox_h', args);
 });
 
-// LEDs HTTP Events to Socket.io
-app.put('/nodes/Led/:arg1', function (req, res) {
-    res.send('Got a PUT request at led');
-    console.log('Got a PUT request at led',req.params);
-    io.sockets.emit('Led', req.params);
-});
-
-// sound HTTP Events to Socket.io
-app.put('/nodes/A_sound_system/:args', function (req, res) {
-    res.send('Got a PUT request at A_sound_system');
-    console.log('Got a PUT request A_sound_system',req.params);
-    io.sockets.emit('A_sound_system', req.params);
-});
-app.put('/nodes/A_sound_freq/:args', function (req, res) {
+// Sound HTTP Events to Socket.io
+app.put('/nodes/A_sound_freq/:freq/:duration', function (req, res) {
     res.send('Got a PUT request at A_sound_freq');
-    console.log('Got a PUT request A_sound_freq',req.params);
-    io.sockets.emit('A_sound_freq', req.params);
+    let args = Int16Array.of(req.params.freq , req.params.duration);
+    console.log('Got a PUT request A_sound_freq',args);
+    io.sockets.emit('A_sound_freq', args);
 });
 app.put('/nodes/A_sound_play/:args', function (req, res) {
     res.send('Got a PUT request at A_sound_play');
-    console.log('Got a PUT request A_sound_play',req.params);
-    io.sockets.emit('A_sound_play', req.params);
+    let args = Int16Array.of(req.params.args);
+    console.log('Got a PUT request A_sound_play', args);
+    io.sockets.emit('A_sound_play', args);
 });
-app.put('/nodes/A_sound_record/:args', function (req, res) {
-    res.send('Got a PUT request at A_sound_record');
-    console.log('Got a PUT request A_sound_record',req.params);
-    io.sockets.emit('A_sound_record', req.params);
+app.put('/nodes/A_sound_system/:args', function (req, res) {
+    res.send('Got a PUT request at A_sound_system');
+    let args = Int16Array.of(req.params.args);
+    console.log('Got a PUT request A_sound_system', args);
+    io.sockets.emit('A_sound_system',  args);
 });
 app.put('/nodes/A_sound_replay/:args', function (req, res) {
     res.send('Got a PUT request at A_sound_replay');
-    console.log('Got a PUT request A_sound_replay',req.params);
-    io.sockets.emit('A_sound_replay', req.params);
+    let args = Int16Array.of(req.params.args);
+    console.log('Got a PUT request A_sound_replay', args);
+    io.sockets.emit('A_sound_replay',  args);
+});
+app.put('/nodes/A_sound_record/:args', function (req, res) {
+    res.send('Got a PUT request at A_sound_record');
+    let args = Int16Array.of(req.params.args);
+    console.log('Got a PUT request A_sound_record', args);
+    io.sockets.emit('A_sound_record',  args);
 });
 
+
 // Motor HTTP Events to Socket.io
-app.put('/nodes/M_motor_both/:args', function (req, res) {
+app.put('/nodes/M_motor_both/:left/:right', function (req, res) {
     res.send('Got a PUT request at M_motor_both');
-    console.log('Got a PUT request M_motor_both',req.params);
-    io.sockets.emit('M_motor_both', req.params);
+    let args = Int16Array.of(req.params.left,req.params.right);
+    console.log('Got a PUT request M_motor_both',args);
+    io.sockets.emit('M_motor_both', args);
 });
 app.put('/nodes/M_motor_left/:args', function (req, res) {
     res.send('Got a PUT request at M_motor_left');
-    console.log('Got a PUT request M_motor_left',req.params);
-    io.sockets.emit('M_motor_left', req.params);
+    let args = Int16Array.of(req.params.args);
+    console.log('Got a PUT request M_motor_left',args);
+    io.sockets.emit('M_motor_left', args);
 });
 app.put('/nodes/M_motor_right/:args', function (req, res) {
     res.send('Got a PUT request at M_motor_right');
-    console.log('Got a PUT request M_motor_right',req.params);
-    io.sockets.emit('M_motor_right', req.params);
+    let args = Int16Array.of(req.params.args);
+    console.log('Got a PUT request M_motor_right',args);
+    io.sockets.emit('M_motor_right', args);
 });
 
 
