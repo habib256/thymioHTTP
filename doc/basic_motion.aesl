@@ -36,8 +36,8 @@
         R_state[22] = prox.horizontal[5]
         R_state[23] = prox.horizontal[6]
         R_state[24] = temperature
-        R_state[25] = 0
-        R_state[26] = 0
+        R_state[25] = 0     ##! FUTUR 
+        R_state[26] = 0     ##! FUTUR 
         
     ##! 10 Hz THYMIO BROADCAST STATE
     onevent prox
