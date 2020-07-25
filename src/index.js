@@ -17,6 +17,13 @@ async function thymioPing(data) {
     await selectedNode.emitEvents({ "ping": null });
 }
 
+// ODOMETER Events
+socket.on('Q_set_odometer', thymioQ_set_odometer);
+async function thymioQ_set_odometer(data) {
+    console.log('Q_set_odometer');
+    await selectedNode.emitEvents({ "Q_set_odometer": data });
+}
+
 //LEDs Events from Socket.io to Thymio
 socket.on('V_leds_prox_h', thymioV_leds_prox_h);
 async function thymioV_leds_prox_h(data) {
@@ -122,7 +129,7 @@ function thymioUpdate(data) {
 async function thymioSetup() {
     try {
         thymioSetupPrograms();
-        await selectedNode.sendAsebaProgram(thymioPrograms[1]);
+        await selectedNode.sendAsebaProgram(thymioPrograms[0]);
         await selectedNode.runProgram();
     } catch (e) {
         console.log(e);
@@ -140,6 +147,150 @@ async function thymioDraw(data) {
 async function thymioSetupPrograms() {
 
     // Basic Test
+    thymioPrograms.push(`
+    # reusable temp for event handlers
+    var tmp[9]
+    var rgb[3]
+    var i = 0
+
+    var odo.delta ##! [out] @private instantaneous speed difference
+    var odo.theta = 0 ##! [out] odometer current angle
+    var odo.x = 0 ##! [out] odometer x
+    var odo.y = 0 ##! [out] odometer y
+    var odo.degree ##! [out] odometer direction
+
+    var R_state.do = 1 ##! flag for R_state broadcast
+    var R_state[28] ##! [out] robot state
+
+    ##! THYMIO UPDATE REPORTERS ##########################################
+
+    ##! 20 Hz THYMIO REPORTER
+    onevent buttons
+        R_state[0] = acc[0]
+        R_state[1] = acc[1]
+        R_state[2] = acc[2]
+        R_state[3] = mic.intensity
+        R_state[4] = button.backward
+        R_state[5] = button.center
+        R_state[6] = button.forward
+        R_state[7] = button.left
+        R_state[8] = button.right
+        R_state[9] = motor.left.target
+        R_state[10] = motor.right.target
+        R_state[11] = motor.left.speed
+        R_state[12] = motor.right.speed
+        R_state[13] = prox.comm.rx
+        R_state[14] = prox.comm.tx
+        R_state[15] = prox.ground.delta[0]
+        R_state[16] = prox.ground.delta[1]
+        R_state[17] = prox.horizontal[0]
+        R_state[18] = prox.horizontal[1]
+        R_state[19] = prox.horizontal[2]
+        R_state[20] = prox.horizontal[3]
+        R_state[21] = prox.horizontal[4]
+        R_state[22] = prox.horizontal[5]
+        R_state[23] = prox.horizontal[6]
+        R_state[24] = temperature
+        R_state[25] = odo.degree
+        R_state[26] = odo.x
+        R_state[27] = odo.y
+        
+    ##! 10 Hz THYMIO BROADCAST STATE
+    onevent prox
+    if R_state.do==1 then
+        emit R_state_update(R_state)
+    end
+
+    ##! 100 Hz THYMIO
+    onevent motor # loop runs at 100 Hz
+        odo.delta = (motor.right.target + motor.left.target) / 2
+        call math.muldiv(tmp[0], (motor.right.target - motor.left.target), 3406, 10000)
+        odo.theta += tmp[0]
+        call math.cos(tmp[0:1],[odo.theta,16384-odo.theta])
+        call math.muldiv(tmp[0:1], [odo.delta,odo.delta],tmp[0:1], [32767,32767])
+        odo.x += tmp[0]/45
+        odo.y += tmp[1]/45
+        odo.degree = 90 - (odo.theta / 182)
+
+    ##! THYMIO INTERNAL EVENTS ##########################################
+
+    ##! PING THYMIO EVENTS
+    onevent ping
+        call math.rand(rgb)
+        for i in 0:2 do
+            rgb[i] = abs rgb[i]
+            rgb[i] = rgb[i] % 20
+        end
+        call leds.top(rgb[0], rgb[1], rgb[2])
+        i++
+        emit pong i  
+
+    ##! ODOMETER THYMIO EVENTS
+    onevent Q_set_odometer
+        odo.theta = (((event.args[0] + 360) % 360) - 90) * 182
+        odo.x = event.args[1] * 28
+        odo.y = event.args[2] * 28
+
+
+    ##! LED THYMIO EVENTS
+    onevent V_leds_prox_h
+        call leds.prox.h(event.args[0],event.args[1],event.args[2],
+                         event.args[3],event.args[4],event.args[5],
+                         event.args[6],event.args[7])
+    onevent V_leds_circle
+        call leds.circle(event.args[0],event.args[1],event.args[2],
+                         event.args[3],event.args[4],event.args[5],
+                         event.args[6],event.args[7])
+     onevent V_leds_top
+        call leds.top(event.args[0],event.args[1],event.args[2])
+    onevent V_leds_bottom_left
+        call leds.bottom.left(event.args[0],event.args[1],event.args[2])
+    onevent V_leds_bottom_right
+        call leds.bottom.right(event.args[0],event.args[1],event.args[2])
+    onevent V_leds_prox_v
+        call leds.prox.v(event.args[0],event.args[1])
+    onevent V_leds_buttons
+        call leds.buttons(event.args[0],event.args[1],
+                          event.args[2],event.args[3])    
+    onevent V_leds_rc
+        call leds.rc(event.args[0])   
+    onevent V_leds_temperature
+        call leds.temperature(event.args[0],event.args[1])
+    onevent V_leds_sound
+        call leds.sound(event.args[0])
+    
+    ##! SOUND THYMIO EVENTS
+    onevent A_sound_freq
+        call sound.freq(event.args[0],event.args[1])
+    onevent A_sound_play
+        call sound.play(event.args[0])
+    onevent A_sound_system
+        call sound.system(event.args[0])
+    onevent A_sound_replay
+        call sound.replay(event.args[0])
+    onevent A_sound_record
+        call sound.record(event.args[0])
+    
+    ##! MOTOR THYMIO EVENTS
+    onevent M_motor_both 
+        motor.left.target = event.args[0]
+        motor.right.target = event.args[1] 
+    onevent M_motor_left
+        motor.left.target = event.args[0]
+    onevent M_motor_right
+        motor.right.target = event.args[0] 
+
+
+    ##! THYMIO BEHAVIOR EVENTS
+            
+
+
+    `);
+
+
+
+    // ******************  OLD PROGRAM  *****************************
+    // ***************************************************************
     thymioPrograms.push(`
 
     var rgb[3]
@@ -167,7 +318,7 @@ async function thymioSetupPrograms() {
     var odo.degree ##!< [out] odometer direction
 
     var R_state.do = 1 ##! flag for R_state broadcast
-    var R_state[27] ##! [out] compressed robot state
+    var R_state[28] ##! [out] compressed robot state
 
     ##! THYMIO INTERNAL EVENTS ##########################################
 
@@ -363,117 +514,6 @@ async function thymioSetupPrograms() {
         emit Q_motion_noneleft([Qpc])
     
     `);
-
-    thymioPrograms.push(`
-    # reusable temp for event handlers
-    var tmp[9]
-    var rgb[3]
-    var i = 0
-
-    var R_state.do = 1 ##! flag for R_state broadcast
-    var R_state[27] ##! [out] compressed robot state
-
-    ##! THYMIO UPDATE REPORTERS ##########################################
-
-    ##! 20 Hz THYMIO REPORTER
-    onevent buttons
-        R_state[0] = acc[0]
-        R_state[1] = acc[1]
-        R_state[2] = acc[2]
-        R_state[3] = mic.intensity
-        R_state[4] = button.backward
-        R_state[5] = button.center
-        R_state[6] = button.forward
-        R_state[7] = button.left
-        R_state[8] = button.right
-        R_state[9] = motor.left.target
-        R_state[10] = motor.right.target
-        R_state[11] = motor.left.speed
-        R_state[12] = motor.right.speed
-        R_state[13] = prox.comm.rx
-        R_state[14] = prox.comm.tx
-        R_state[15] = prox.ground.delta[0]
-        R_state[16] = prox.ground.delta[1]
-        R_state[17] = prox.horizontal[0]
-        R_state[18] = prox.horizontal[1]
-        R_state[19] = prox.horizontal[2]
-        R_state[20] = prox.horizontal[3]
-        R_state[21] = prox.horizontal[4]
-        R_state[22] = prox.horizontal[5]
-        R_state[23] = prox.horizontal[6]
-        R_state[24] = temperature
-        R_state[25] = 0
-        R_state[26] = 0
-        
-    ##! 10 Hz THYMIO BROADCAST STATE
-    onevent prox
-    if R_state.do==1 then
-        emit R_state_update(R_state)
-    end
-
-
-    ##! THYMIO INTERNAL EVENTS ##########################################
-
-    ##! PING THYMIO EVENTS
-    onevent ping
-        call math.rand(rgb)
-        for i in 0:2 do
-            rgb[i] = abs rgb[i]
-            rgb[i] = rgb[i] % 20
-        end
-        call leds.top(rgb[0], rgb[1], rgb[2])
-        i++
-        emit pong i  
-
-    ##! LED THYMIO EVENTS
-    onevent V_leds_prox_h
-        call leds.prox.h(event.args[0],event.args[1],event.args[2],
-                         event.args[3],event.args[4],event.args[5],
-                         event.args[6],event.args[7])
-    onevent V_leds_circle
-        call leds.circle(event.args[0],event.args[1],event.args[2],
-                         event.args[3],event.args[4],event.args[5],
-                         event.args[6],event.args[7])
-     onevent V_leds_top
-        call leds.top(event.args[0],event.args[1],event.args[2])
-    onevent V_leds_bottom_left
-        call leds.bottom.left(event.args[0],event.args[1],event.args[2])
-    onevent V_leds_bottom_right
-        call leds.bottom.right(event.args[0],event.args[1],event.args[2])
-    onevent V_leds_prox_v
-        call leds.prox.v(event.args[0],event.args[1])
-    onevent V_leds_buttons
-        call leds.buttons(event.args[0],event.args[1],
-                          event.args[2],event.args[3])    
-    onevent V_leds_rc
-        call leds.rc(event.args[0])   
-    onevent V_leds_temperature
-        call leds.temperature(event.args[0],event.args[1])
-    onevent V_leds_sound
-        call leds.sound(event.args[0])
-    
-    ##! SOUND THYMIO EVENTS
-    onevent A_sound_freq
-        call sound.freq(event.args[0],event.args[1])
-    onevent A_sound_play
-        call sound.play(event.args[0])
-    onevent A_sound_system
-        call sound.system(event.args[0])
-    onevent A_sound_replay
-        call sound.replay(event.args[0])
-    onevent A_sound_record
-        call sound.record(event.args[0])
-    
-    ##! MOTOR THYMIO EVENTS
-    onevent M_motor_both 
-        motor.left.target = event.args[0]
-        motor.right.target = event.args[1] 
-    onevent M_motor_left
-        motor.left.target = event.args[0]
-    onevent M_motor_right
-        motor.right.target = event.args[0] 
-
-    `);
 }
 
 function sleep(ms) {
@@ -580,7 +620,7 @@ client.onNodesChanged = async (nodes) => {
                     { name: "M_motor_right", fixed_size: 1 },
                 
 
-                    { name: "R_state_update", fixed_size: 27 },
+                    { name: "R_state_update", fixed_size: 28 },
                     { name: "Q_reset", fixed_size: 0 }
                 ]);
                 thymioSetup();

@@ -45,23 +45,29 @@ function showThymioUpdate(req, res) {
 }
 console.log("Thymio Suite HTTP server running at http://127.0.0.1:3000");
 
+// PING HTTP Events to Socket.
 app.put('/nodes/ping/', function (req, res) {
     res.send('Got a PUT request at ping');
     console.log('Got a PUT request at ping');
     io.sockets.emit('ping', null);
 });
 
+// ODOMETER HTTP Events to Socket.
+app.put('/nodes/Q_set_odometer/:arg1/:arg2/:arg3', function (req, res) {
+    res.send('Got a PUT request at Q_set_odometer');
+    let args = Int16Array.of(req.params.arg1,req.params.arg2, req.params.arg3);
+    io.sockets.emit('Q_set_odometer', args);
+});
+
 // LEDs HTTP Events to Socket.
 app.put('/nodes/V_leds_prox_h/:arg1/:arg2/:arg3/:arg4/:arg5/:arg6/:arg7/:arg8', function (req, res) {
     res.send('Got a PUT request at V_leds_prox_h');
     let args = Int16Array.of(req.params.arg1,req.params.arg2,req.params.arg3,req.params.arg4,req.params.arg5,req.params.arg6,req.params.arg7,req.params.arg8);
-   // console.log('Got a PUT request at V_leds_prox_h',args);
     io.sockets.emit('V_leds_prox_h', args);
 });
 app.put('/nodes/V_leds_circle/:arg1/:arg2/:arg3/:arg4/:arg5/:arg6/:arg7/:arg8', function (req, res) {
     res.send('Got a PUT request at V_leds_circle');
     let args = Int16Array.of(req.params.arg1,req.params.arg2,req.params.arg3,req.params.arg4,req.params.arg5,req.params.arg6,req.params.arg7,req.params.arg8);
-    //console.log('Got a PUT request at V_leds_circle',args);
     io.sockets.emit('V_leds_circle', args);
 });
 app.put('/nodes/V_leds_top/:arg1/:arg2/:arg3', function (req, res) {
