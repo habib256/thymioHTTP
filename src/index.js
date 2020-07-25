@@ -20,96 +20,96 @@ async function thymioPing(data) {
 //LEDs Events from Socket.io to Thymio
 socket.on('V_leds_prox_h', thymioV_leds_prox_h);
 async function thymioV_leds_prox_h(data) {
-    console.log('V_leds_prox_h avec paramètres', data);
+    //console.log('V_leds_prox_h avec paramètres', data);
     await selectedNode.emitEvents({ "V_leds_prox_h": data});
 }
 socket.on('V_leds_circle', thymioV_leds_circle);
 async function thymioV_leds_circle(data) {
-    console.log('V_leds_circle avec paramètres', data);
+    //console.log('V_leds_circle avec paramètres', data);
     await selectedNode.emitEvents({ "V_leds_circle": data});
 }
 socket.on('V_leds_top', thymioV_leds_top);
 async function thymioV_leds_top(data) {
-    console.log('V_leds_top avec paramètres', data);
+    //console.log('V_leds_top avec paramètres', data);
     await selectedNode.emitEvents({ "V_leds_top": data});
 }
 socket.on('V_leds_bottom_left', thymioV_leds_bottom_left);
 async function thymioV_leds_bottom_left(data) {
-    console.log('V_leds_bottom_left avec paramètres', data);
+    //console.log('V_leds_bottom_left avec paramètres', data);
     await selectedNode.emitEvents({ "V_leds_bottom_left": data});
 }
 socket.on('V_leds_bottom_right', thymioV_leds_bottom_right);
 async function thymioV_leds_bottom_right(data) {
-    console.log('V_leds_bottom_right avec paramètres', data);
+    //console.log('V_leds_bottom_right avec paramètres', data);
     await selectedNode.emitEvents({ "V_leds_bottom_right": data});
 }
 socket.on('V_leds_prox_v', thymioV_leds_prox_v);
 async function thymioV_leds_prox_v(data) {
-    console.log('V_leds_prox_v avec paramètres', data);
+    //console.log('V_leds_prox_v avec paramètres', data);
     await selectedNode.emitEvents({ "V_leds_prox_v": data});
 }
 socket.on('V_leds_buttons', thymioV_leds_buttons);
 async function thymioV_leds_buttons(data) {
-    console.log('V_leds_buttons avec paramètres', data);
+    //console.log('V_leds_buttons avec paramètres', data);
     await selectedNode.emitEvents({ "V_leds_buttons": data});
 }
 socket.on('V_leds_rc', thymioV_leds_rc);
 async function thymioV_leds_rc(data) {
-    console.log('V_leds_rc avec paramètres', data);
+    //console.log('V_leds_rc avec paramètres', data);
     await selectedNode.emitEvents({ "V_leds_rc": data});
 }
 socket.on('V_leds_temperature', thymioV_leds_temperature);
 async function thymioV_leds_temperature(data) {
-    console.log('V_leds_temperature avec paramètres', data);
+    //console.log('V_leds_temperature avec paramètres', data);
     await selectedNode.emitEvents({ "V_leds_temperature": data});
 }
 socket.on('V_leds_sound', thymioV_leds_sound);
 async function thymioV_leds_sound(data) {
-    console.log('V_leds_sound avec paramètres', data);
+    //console.log('V_leds_sound avec paramètres', data);
     await selectedNode.emitEvents({ "V_leds_sound": data});
 }
 
 // Sound Events from Socket.io to Thymio
 socket.on('A_sound_system', thymioA_sound_system);
 async function thymioA_sound_system(data) {
-    console.log('A_sound_system avec paramètre', data);
+    //console.log('A_sound_system avec paramètre', data);
     await selectedNode.emitEvents({ "A_sound_system": data});
 }
 socket.on('A_sound_freq', thymioA_sound_freq);
 async function thymioA_sound_freq(data) {
-    console.log('A_sound_freq avec paramètres', data);
+    //console.log('A_sound_freq avec paramètres', data);
     await selectedNode.emitEvents({ "A_sound_freq": data});
 }
 socket.on('A_sound_play', thymioA_sound_play);
 async function thymioA_sound_play(data) {
-    console.log('A_sound_play avec paramètre', data);
+    //console.log('A_sound_play avec paramètre', data);
     await selectedNode.emitEvents({ "A_sound_play": data});
 }
 socket.on('A_sound_record', thymioA_sound_record);
 async function thymioA_sound_record(data) {
-    console.log('A_sound_record avec paramètre', data);
+    //console.log('A_sound_record avec paramètre', data);
     await selectedNode.emitEvents({ "A_sound_record": data});
 }
 socket.on('A_sound_replay', thymioA_sound_replay);
 async function thymioA_sound_replay(data) {
-    console.log('A_sound_replay avec paramètre', data);
+    //console.log('A_sound_replay avec paramètre', data);
     await selectedNode.emitEvents({ "A_sound_replay": data});
 }
 
 // Motors Events from Socket.io to Thymio
 socket.on('M_motor_both', thymioM_motor_both);
 async function thymioM_motor_both(data) {
-    console.log('M_motor_both avec paramètre', data);
+    //console.log('M_motor_both avec paramètre', data);
     await selectedNode.emitEvents({ "M_motor_both": data});
 }
 socket.on('M_motor_left', thymioM_motor_left);
 async function thymioM_motor_left(data) {
-    console.log('M_motor_left avec paramètre', data);
+    //console.log('M_motor_left avec paramètre', data);
     await selectedNode.emitEvents({ "M_motor_left": data});
 }
 socket.on('M_motor_right', thymioM_motor_right);
 async function thymioM_motor_right(data) {
-    console.log('M_motor_right avec paramètre', data);
+    //console.log('M_motor_right avec paramètre', data);
     await selectedNode.emitEvents({ "M_motor_right": data});
 }
 

@@ -39081,13 +39081,12 @@ function _thymioV_leds_prox_h() {
       while (1) {
         switch (_context5.prev = _context5.next) {
           case 0:
-            console.log('V_leds_prox_h avec paramètres', data);
-            _context5.next = 3;
+            _context5.next = 2;
             return selectedNode.emitEvents({
               "V_leds_prox_h": data
             });
 
-          case 3:
+          case 2:
           case "end":
             return _context5.stop();
         }
@@ -39109,13 +39108,12 @@ function _thymioV_leds_circle() {
       while (1) {
         switch (_context6.prev = _context6.next) {
           case 0:
-            console.log('V_leds_circle avec paramètres', data);
-            _context6.next = 3;
+            _context6.next = 2;
             return selectedNode.emitEvents({
               "V_leds_circle": data
             });
 
-          case 3:
+          case 2:
           case "end":
             return _context6.stop();
         }
@@ -39137,13 +39135,12 @@ function _thymioV_leds_top() {
       while (1) {
         switch (_context7.prev = _context7.next) {
           case 0:
-            console.log('V_leds_top avec paramètres', data);
-            _context7.next = 3;
+            _context7.next = 2;
             return selectedNode.emitEvents({
               "V_leds_top": data
             });
 
-          case 3:
+          case 2:
           case "end":
             return _context7.stop();
         }
@@ -39165,13 +39162,12 @@ function _thymioV_leds_bottom_left() {
       while (1) {
         switch (_context8.prev = _context8.next) {
           case 0:
-            console.log('V_leds_bottom_left avec paramètres', data);
-            _context8.next = 3;
+            _context8.next = 2;
             return selectedNode.emitEvents({
               "V_leds_bottom_left": data
             });
 
-          case 3:
+          case 2:
           case "end":
             return _context8.stop();
         }
@@ -39193,13 +39189,12 @@ function _thymioV_leds_bottom_right() {
       while (1) {
         switch (_context9.prev = _context9.next) {
           case 0:
-            console.log('V_leds_bottom_right avec paramètres', data);
-            _context9.next = 3;
+            _context9.next = 2;
             return selectedNode.emitEvents({
               "V_leds_bottom_right": data
             });
 
-          case 3:
+          case 2:
           case "end":
             return _context9.stop();
         }
@@ -39221,13 +39216,12 @@ function _thymioV_leds_prox_v() {
       while (1) {
         switch (_context10.prev = _context10.next) {
           case 0:
-            console.log('V_leds_prox_v avec paramètres', data);
-            _context10.next = 3;
+            _context10.next = 2;
             return selectedNode.emitEvents({
               "V_leds_prox_v": data
             });
 
-          case 3:
+          case 2:
           case "end":
             return _context10.stop();
         }
@@ -39249,13 +39243,12 @@ function _thymioV_leds_buttons() {
       while (1) {
         switch (_context11.prev = _context11.next) {
           case 0:
-            console.log('V_leds_buttons avec paramètres', data);
-            _context11.next = 3;
+            _context11.next = 2;
             return selectedNode.emitEvents({
               "V_leds_buttons": data
             });
 
-          case 3:
+          case 2:
           case "end":
             return _context11.stop();
         }
@@ -39277,13 +39270,12 @@ function _thymioV_leds_rc() {
       while (1) {
         switch (_context12.prev = _context12.next) {
           case 0:
-            console.log('V_leds_rc avec paramètres', data);
-            _context12.next = 3;
+            _context12.next = 2;
             return selectedNode.emitEvents({
               "V_leds_rc": data
             });
 
-          case 3:
+          case 2:
           case "end":
             return _context12.stop();
         }
@@ -39305,13 +39297,12 @@ function _thymioV_leds_temperature() {
       while (1) {
         switch (_context13.prev = _context13.next) {
           case 0:
-            console.log('V_leds_temperature avec paramètres', data);
-            _context13.next = 3;
+            _context13.next = 2;
             return selectedNode.emitEvents({
               "V_leds_temperature": data
             });
 
-          case 3:
+          case 2:
           case "end":
             return _context13.stop();
         }
@@ -39334,13 +39325,12 @@ function _thymioV_leds_sound() {
       while (1) {
         switch (_context14.prev = _context14.next) {
           case 0:
-            console.log('V_leds_sound avec paramètres', data);
-            _context14.next = 3;
+            _context14.next = 2;
             return selectedNode.emitEvents({
               "V_leds_sound": data
             });
 
-          case 3:
+          case 2:
           case "end":
             return _context14.stop();
         }
@@ -39362,13 +39352,12 @@ function _thymioA_sound_system() {
       while (1) {
         switch (_context15.prev = _context15.next) {
           case 0:
-            console.log('A_sound_system avec paramètre', data);
-            _context15.next = 3;
+            _context15.next = 2;
             return selectedNode.emitEvents({
               "A_sound_system": data
             });
 
-          case 3:
+          case 2:
           case "end":
             return _context15.stop();
         }
@@ -39390,13 +39379,12 @@ function _thymioA_sound_freq() {
       while (1) {
         switch (_context16.prev = _context16.next) {
           case 0:
-            console.log('A_sound_freq avec paramètres', data);
-            _context16.next = 3;
+            _context16.next = 2;
             return selectedNode.emitEvents({
               "A_sound_freq": data
             });
 
-          case 3:
+          case 2:
           case "end":
             return _context16.stop();
         }
@@ -39418,13 +39406,12 @@ function _thymioA_sound_play() {
       while (1) {
         switch (_context17.prev = _context17.next) {
           case 0:
-            console.log('A_sound_play avec paramètre', data);
-            _context17.next = 3;
+            _context17.next = 2;
             return selectedNode.emitEvents({
               "A_sound_play": data
             });
 
-          case 3:
+          case 2:
           case "end":
             return _context17.stop();
         }
@@ -39446,13 +39433,12 @@ function _thymioA_sound_record() {
       while (1) {
         switch (_context18.prev = _context18.next) {
           case 0:
-            console.log('A_sound_record avec paramètre', data);
-            _context18.next = 3;
+            _context18.next = 2;
             return selectedNode.emitEvents({
               "A_sound_record": data
             });
 
-          case 3:
+          case 2:
           case "end":
             return _context18.stop();
         }
@@ -39475,13 +39461,12 @@ function _thymioA_sound_replay() {
       while (1) {
         switch (_context19.prev = _context19.next) {
           case 0:
-            console.log('A_sound_replay avec paramètre', data);
-            _context19.next = 3;
+            _context19.next = 2;
             return selectedNode.emitEvents({
               "A_sound_replay": data
             });
 
-          case 3:
+          case 2:
           case "end":
             return _context19.stop();
         }
@@ -39503,13 +39488,12 @@ function _thymioM_motor_both() {
       while (1) {
         switch (_context20.prev = _context20.next) {
           case 0:
-            console.log('M_motor_both avec paramètre', data);
-            _context20.next = 3;
+            _context20.next = 2;
             return selectedNode.emitEvents({
               "M_motor_both": data
             });
 
-          case 3:
+          case 2:
           case "end":
             return _context20.stop();
         }
@@ -39531,13 +39515,12 @@ function _thymioM_motor_left() {
       while (1) {
         switch (_context21.prev = _context21.next) {
           case 0:
-            console.log('M_motor_left avec paramètre', data);
-            _context21.next = 3;
+            _context21.next = 2;
             return selectedNode.emitEvents({
               "M_motor_left": data
             });
 
-          case 3:
+          case 2:
           case "end":
             return _context21.stop();
         }
@@ -39559,13 +39542,12 @@ function _thymioM_motor_right() {
       while (1) {
         switch (_context22.prev = _context22.next) {
           case 0:
-            console.log('M_motor_right avec paramètre', data);
-            _context22.next = 3;
+            _context22.next = 2;
             return selectedNode.emitEvents({
               "M_motor_right": data
             });
 
-          case 3:
+          case 2:
           case "end":
             return _context22.stop();
         }
