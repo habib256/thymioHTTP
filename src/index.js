@@ -224,6 +224,9 @@ async function thymioSetupPrograms() {
         if (behavior == 1) then
             callsub behavior1
         end
+        if (behavior == 2) then
+            callsub behavior2
+        end
 
     ##! THYMIO INTERNAL EVENTS ##########################################
 
@@ -304,7 +307,7 @@ async function thymioSetupPrograms() {
     onevent B_behavior
         behavior = event.args[0]
 
-    ##! Follow a black path
+    ##! Follow a black path very fast
     sub behavior1 
         if (prox.ground.delta[1] > 400) then
             motor.left.target = 130
@@ -315,6 +318,19 @@ async function thymioSetupPrograms() {
         else
             motor.left.target = 400
             motor.right.target = 400
+        end
+
+    ##! Follow a black path slowly
+    sub behavior2 
+        if (prox.ground.delta[1] > 400) then
+            motor.left.target = 20
+            motor.right.target = 200
+        elseif (prox.ground.delta[0] > 400) then
+            motor.left.target = 200
+            motor.right.target = 20
+        else
+            motor.left.target = 100
+            motor.right.target = 100
         end  
 
 
