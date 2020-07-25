@@ -17,6 +17,13 @@ async function thymioPing(data) {
     await selectedNode.emitEvents({ "ping": null });
 }
 
+// B_behavior Events
+socket.on('B_behavior', thymioB_behavior);
+async function thymioB_behavior(data) {
+    console.log('B_behavior');
+    await selectedNode.emitEvents({ "B_behavior": data });
+}
+
 // ODOMETER Events
 socket.on('Q_set_odometer', thymioQ_set_odometer);
 async function thymioQ_set_odometer(data) {
@@ -151,6 +158,7 @@ async function thymioSetupPrograms() {
     # reusable temp for event handlers
     var tmp[9]
     var rgb[3]
+    var behavior = 0    ##! High Level Stuff
     var i = 0
 
     var odo.delta ##! [out] @private instantaneous speed difference
@@ -162,7 +170,13 @@ async function thymioSetupPrograms() {
     var R_state.do = 1 ##! flag for R_state broadcast
     var R_state[28] ##! [out] robot state
 
-    ##! THYMIO UPDATE REPORTERS ##########################################
+    ##! THYMIO UPDATE REPORTERS ##### 10Hz, 20 Hz, 100Hz ################
+
+    ##! 10 Hz THYMIO BROADCAST STATE
+    onevent prox
+        if R_state.do==1 then
+            emit R_state_update(R_state)
+        end
 
     ##! 20 Hz THYMIO REPORTER
     onevent buttons
@@ -195,11 +209,6 @@ async function thymioSetupPrograms() {
         R_state[26] = odo.x
         R_state[27] = odo.y
         
-    ##! 10 Hz THYMIO BROADCAST STATE
-    onevent prox
-    if R_state.do==1 then
-        emit R_state_update(R_state)
-    end
 
     ##! 100 Hz THYMIO
     onevent motor # loop runs at 100 Hz
@@ -211,6 +220,10 @@ async function thymioSetupPrograms() {
         odo.x += tmp[0]/45
         odo.y += tmp[1]/45
         odo.degree = 90 - (odo.theta / 182)
+
+        if (behavior == 1) then
+            callsub behavior1
+        end
 
     ##! THYMIO INTERNAL EVENTS ##########################################
 
@@ -280,9 +293,29 @@ async function thymioSetupPrograms() {
     onevent M_motor_right
         motor.right.target = event.args[0] 
 
+    ##! Reset the queue and stop motors
+    onevent Q_reset
+        motor.left.target = 0
+        motor.right.target = 0
+
 
     ##! THYMIO BEHAVIOR EVENTS
-            
+
+    onevent B_behavior
+        behavior = event.args[0]
+
+    ##! Follow a black path
+    sub behavior1 
+        if (prox.ground.delta[1] > 400) then
+            motor.left.target = 170
+            motor.right.target = 500
+        elseif (prox.ground.delta[0] > 400) then
+            motor.left.target = 500
+            motor.right.target = 170
+        else
+            motor.left.target = 400
+            motor.right.target = 400
+        end  
 
 
     `);
@@ -619,6 +652,7 @@ client.onNodesChanged = async (nodes) => {
                     { name: "M_motor_left", fixed_size: 1 },
                     { name: "M_motor_right", fixed_size: 1 },
                 
+                    { name: "B_behavior", fixed_size: 1 },
 
                     { name: "R_state_update", fixed_size: 28 },
                     { name: "Q_reset", fixed_size: 0 }

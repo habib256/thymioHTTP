@@ -52,6 +52,13 @@ app.put('/nodes/ping/', function (req, res) {
     io.sockets.emit('ping', null);
 });
 
+// BEHAVIOR HTTP Events to Socket.
+app.put('/nodes/B_behavior/:arg', function (req, res) {
+    res.send('Got a PUT request at B_behavior');
+    let args = Int16Array.of(req.params.arg);
+    io.sockets.emit('B_behavior', args);
+});
+
 // ODOMETER HTTP Events to Socket.
 app.put('/nodes/Q_set_odometer/:arg1/:arg2/:arg3', function (req, res) {
     res.send('Got a PUT request at Q_set_odometer');
