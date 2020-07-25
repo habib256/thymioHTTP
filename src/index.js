@@ -307,11 +307,11 @@ async function thymioSetupPrograms() {
     ##! Follow a black path
     sub behavior1 
         if (prox.ground.delta[1] > 400) then
-            motor.left.target = 170
+            motor.left.target = 130
             motor.right.target = 500
         elseif (prox.ground.delta[0] > 400) then
             motor.left.target = 500
-            motor.right.target = 170
+            motor.right.target = 130
         else
             motor.left.target = 400
             motor.right.target = 400
