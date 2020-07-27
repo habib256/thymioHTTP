@@ -166,7 +166,7 @@ async function thymioSetupPrograms() {
             R_state[0] = acc[0]
             R_state[1] = acc[1]
             R_state[2] = acc[2]
-            R_state[3] = mic.intensity/mic.threshold
+            R_state[3] = mic.intensity
             R_state[4] = button.backward
             R_state[5] = button.center
             R_state[6] = button.forward
@@ -300,28 +300,18 @@ async function thymioSetupPrograms() {
     ##! Follow a black path very fast
     sub behavior1 
         if (prox.ground.delta[1] > 400) then
-            motor.left.target = 130
+            motor.left.target = 100
             motor.right.target = 500
         elseif (prox.ground.delta[0] > 400) then
             motor.left.target = 500
-            motor.right.target = 130
+            motor.right.target = 100
         else
-            motor.left.target = 400
-            motor.right.target = 400
+            motor.left.target = 350
+            motor.right.target = 350
         end
 
     ##! Follow a black path slowly
-    sub behavior2 
-        if (prox.ground.delta[1] > 400) then
-            motor.left.target = 20
-            motor.right.target = 200
-        elseif (prox.ground.delta[0] > 400) then
-            motor.left.target = 200
-            motor.right.target = 20
-        else
-            motor.left.target = 100
-            motor.right.target = 100
-        end  
+    sub behavior2  
 
 
     `);
