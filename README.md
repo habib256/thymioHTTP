@@ -26,7 +26,7 @@ Note that despite depending on Node to install and build the Thymio JS API, it i
 
 Run `npm i` in the cloned directory to install the required dependencies.
 
-### Launch the web app and rhe server
+### Launch the web app and the server
 
 Run `npm run all`, then open `http://127.0.0.1:3000/` in your browser.
 The web-based version outputs in the browser's console so hit Shift+Control+K to see the thymio api in action
