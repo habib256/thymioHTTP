@@ -5,7 +5,7 @@
 The main goal of this project is to provide an access to the Thymio(s) from the [Berkeley Snap!](https://snap.berkeley.edu/), Scratch+++ like programming langage.
 This is a javascript node-based application that create an ws:// access to the thymio-device-manager running under Thymio Suite 2.x and provide an HTTP REST simple API to control the Thymio(s).
 
-
+![Screenshot](/Screenshot.png?raw=true "Screenshot")
 
 ## Getting started
 
@@ -26,7 +26,7 @@ Note that despite depending on Node to install and build the Thymio JS API, it i
 
 Run `npm i` in the cloned directory to install the required dependencies.
 
-### Launch the web app and rhe server
+### Launch the web app and the server
 
 Run `npm run all`, then open `http://127.0.0.1:3000/` in your browser.
 The web-based version outputs in the browser's console so hit Shift+Control+K to see the thymio api in action
