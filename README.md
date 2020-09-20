@@ -58,7 +58,7 @@ The code is in `src` and gets compiled into `dist`.
 
 ## Snap! DataSprite Librarie
 
-![Screenshot](/Screenshot.png?raw=true "Screenshot")
+![ThymioDataSprite.png](/ThymioDataSprite.png?raw=true "ThymioDataSprite")
 
 ## What next.
 
