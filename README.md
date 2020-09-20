@@ -56,6 +56,10 @@ The code is in `src` and gets compiled into `dist`.
 - GET  /events\[/:EVENT\]*                      - create SSE stream for all known nodes
 - GET  /nodes/:NODENAME/events\[/:EVENT\]*      - create SSE stream for :NODENAME
 
+## Snap! DataSprite Librarie
+
+![Screenshot](/Screenshot.png?raw=true "Screenshot")
+
 ## What next.
 
 * [Thymio JS API
