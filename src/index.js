@@ -152,7 +152,7 @@ async function thymioSetupPrograms() {
     var Qpc = 0                    ##!< [out] program counter
     var Qnx = 0                    ##!< [out] next pc
 
-    var R_state.do = 1 ##! flag for R_state broadcast
+    var R_state.do = 1  ##! flag for R_state broadcast
     var R_state[28] ##! [out] robot state
 
     # default value
