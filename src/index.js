@@ -174,6 +174,7 @@ async function thymioSetupPrograms() {
             R_state[21] = prox.horizontal[4]
             R_state[22] = prox.horizontal[5]
             R_state[23] = prox.horizontal[6]
+            R_state[24] = temperature
         end
         
         if (behavior == 1) then
@@ -199,7 +200,6 @@ async function thymioSetupPrograms() {
             R_state[10] = motor.right.target
             R_state[11] = motor.left.speed
             R_state[12] = motor.right.speed
-            R_state[24] = temperature
             R_state[25] = odo.degree
             R_state[26] = odo.x
             R_state[27] = odo.y
