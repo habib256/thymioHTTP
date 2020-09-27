@@ -163,19 +163,6 @@ async function thymioSetupPrograms() {
     ##! 10 Hz THYMIO BROADCAST STATE
     onevent prox
         if R_state.do==1 then
-            R_state[0] = acc[0]
-            R_state[1] = acc[1]
-            R_state[2] = acc[2]
-            R_state[3] = mic.intensity
-            R_state[4] = button.backward
-            R_state[5] = button.center
-            R_state[6] = button.forward
-            R_state[7] = button.left
-            R_state[8] = button.right
-            R_state[9] = motor.left.target
-            R_state[10] = motor.right.target
-            R_state[11] = motor.left.speed
-            R_state[12] = motor.right.speed
             R_state[13] = prox.comm.rx
             R_state[14] = prox.comm.tx
             R_state[15] = prox.ground.delta[0]
@@ -187,15 +174,37 @@ async function thymioSetupPrograms() {
             R_state[21] = prox.horizontal[4]
             R_state[22] = prox.horizontal[5]
             R_state[23] = prox.horizontal[6]
-            R_state[24] = temperature
-            R_state[25] = odo.degree
-            R_state[26] = odo.x
-            R_state[27] = odo.y
-            emit R_state_update(R_state)
+        end
+        
+        if (behavior == 1) then
+            callsub behavior1
+        end
+        if (behavior == 2) then
+            callsub behavior2
         end
 
     ##! 20 Hz THYMIO
     onevent buttons
+        if R_state.do==1 then
+            R_state[4] = button.backward
+            R_state[5] = button.center
+            R_state[6] = button.forward
+            R_state[7] = button.left
+            R_state[8] = button.right
+            R_state[0] = acc[0]
+            R_state[1] = acc[1]
+            R_state[2] = acc[2]
+            R_state[3] = mic.intensity 
+            R_state[9] = motor.left.target
+            R_state[10] = motor.right.target
+            R_state[11] = motor.left.speed
+            R_state[12] = motor.right.speed
+            R_state[24] = temperature
+            R_state[25] = odo.degree
+            R_state[26] = odo.x
+            R_state[27] = odo.y
+        end
+        emit R_state_update(R_state)
             
 
     ##! 100 Hz THYMIO
@@ -209,12 +218,6 @@ async function thymioSetupPrograms() {
         odo.y += tmp[1]/45
         odo.degree = 90 - (odo.theta / 182)
 
-        if (behavior == 1) then
-            callsub behavior1
-        end
-        if (behavior == 2) then
-            callsub behavior2
-        end
 
     ##! THYMIO INTERNAL EVENTS ##########################################
 
