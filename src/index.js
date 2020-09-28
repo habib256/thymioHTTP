@@ -153,7 +153,7 @@ async function thymioSetupPrograms() {
     var Qnx = 0                    ##!< [out] next pc
 
     var R_state.do = 1  ##! flag for R_state broadcast
-    var R_state[28] ##! [out] robot state
+    var R_state[28] ##! [out] Robot FULL State
 
     # default value
     mic.threshold = 12
@@ -321,7 +321,7 @@ async function thymioSetupPrograms() {
 
 
 
-    // ******************  OLD PROGRAM  *****************************
+    // ******************  OTHERS PROGRAMS  *****************************
     // ***************************************************************
     thymioPrograms.push(`
 
