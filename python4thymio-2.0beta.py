@@ -7,30 +7,29 @@ import json
 import time
 import requests
 
-response = requests.get ("http://127.0.0.1:3000/nodes")
+# URL du javascript ThymioHTTP
+nodeurl = "http://127.0.0.1:3000/nodes"
 
+# Fonctions pour accéder à l'interface HTTP REST de ThymioHTTP
 def avance(vitesse):
-    url = "http://127.0.0.1:3000/nodes/M_motor_both" + "/" + str(vitesse) + "/" + str(vitesse)
+    url = nodeurl + "/M_motor_both" + "/" + str(vitesse) + "/" + str(vitesse)
     r = requests.put(url)
     print (url)
 
 def moteurs(vg,vd):
-    url = "http://127.0.0.1:3000/nodes/M_motor_both" + "/" + str(vg) + "/" + str(vd)
+    url = nodeurl + "/M_motor_both" + "/" + str(vg) + "/" + str(vd)
     r = requests.put(url)
     print (url)
 
 def stop():
-    url = "http://127.0.0.1:3000/nodes/M_motor_both/0/0"
+    url = nodeurl + "/M_motor_both/0/0"
     r = requests.put(url)
     print (url)
 
 def ping():
-    url = "http://127.0.0.1:3000/nodes/ping"
+    url = nodeurl + "/ping"
     r = requests.put(url)
     print (url)
-
-print ("Tableau de capteurs du Thymio :")
-print (response.json())
 
 #######################################
 # Programmation du thymio en Python 3 #
@@ -49,3 +48,8 @@ while (compteur < repetition) :
     compteur+=1
     
 stop ()
+
+# Affiche les valeurs des capteurs du Thymio
+response = requests.get (nodeurl)
+print ("Tableau de capteurs du Thymio :")
+print (response.json())
