@@ -1,4 +1,5 @@
 # ThymioHTTP Python 3 API
+###########################
 # Vous aurez besoin d'installer request avec : "pip install requests"
 # MIT License - VERHILLE Arnaud
 
@@ -23,10 +24,17 @@ def stop():
     r = requests.put(url)
     print (url)
 
+def ping():
+    url = "http://127.0.0.1:3000/nodes/ping"
+    r = requests.put(url)
+    print (url)
+
 print ("Tableau de capteurs du Thymio :")
 print (response.json())
 
-# Programmer le thymio en Python
+#######################################
+# Programmation du thymio en Python 3 #
+#######################################
 
 repetition = 10
 compteur = 0
@@ -34,8 +42,10 @@ compteur = 0
 while (compteur < repetition) :
     avance (300)
     time.sleep(2)
+    ping()
     moteurs(200,-200)
     time.sleep(1.2)
+    ping()
     compteur+=1
     
 stop ()
