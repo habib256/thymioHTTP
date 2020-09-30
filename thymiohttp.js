@@ -48,7 +48,7 @@ console.log("Thymio Suite HTTP server running at http://127.0.0.1:3000");
 // PING HTTP Events to Socket.
 app.put('/nodes/ping/', function (req, res) {
     res.send('Got a PUT request at ping');
-    console.log('Got a PUT request at ping');
+    //console.log('Got a PUT request at ping');
     io.sockets.emit('ping', null);
 });
 
