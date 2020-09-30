@@ -1,5 +1,6 @@
-# ThymioHTTP Python 3 API
-###########################
+############################
+# ThymioHTTP Python 3 API  #
+############################
 # Vous aurez besoin d'installer request avec : "pip install requests"
 # MIT License - VERHILLE Arnaud
 
@@ -10,7 +11,9 @@ import requests
 # URL du javascript ThymioHTTP
 nodeurl = "http://127.0.0.1:3000/nodes"
 
-# Fonctions pour accéder à l'interface HTTP REST de ThymioHTTP
+################################################################
+# Fonctions pour accéder à l'interface HTTP REST de ThymioHTTP #
+################################################################
 def avance(vitesse):
     url = nodeurl + "/M_motor_both" + "/" + str(vitesse) + "/" + str(vitesse)
     r = requests.put(url)
