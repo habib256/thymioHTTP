@@ -2,7 +2,7 @@
 # ThymioHTTP Python 3 API  #
 ############################
 # Vous aurez besoin d'installer request avec : "pip install requests"
-# MIT License - VERHILLE Arnaud
+# APACHE 2.0 License - VERHILLE Arnaud
 
 import json
 import time

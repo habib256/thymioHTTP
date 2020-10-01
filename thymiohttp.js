@@ -1,4 +1,5 @@
-// ThymioHTTP via Javascript for Thymio Suite
+// ThymioHTTP via Javascript for Thymio Suite 2.X
+// APACHE 2.0 License - VERHILLE Arnaud
 
 var express = require('express');
 var cors = require('cors')

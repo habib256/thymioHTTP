@@ -1,3 +1,6 @@
+// ThymioHTTP via Javascript for Thymio Suite 2.X
+// APACHE 2.0 License - VERHILLE Arnaud
+
 import { createClient, Node, NodeStatus, Request, setup } from '@mobsya-association/thymio-api'
 
 //Connect to the Thymio Suite
