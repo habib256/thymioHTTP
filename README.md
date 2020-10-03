@@ -28,7 +28,10 @@ Run `npm i` in the cloned directory to install the required dependencies.
 
 ### Launch the web app and the server
 
-Run `npm run all`, then open `http://127.0.0.1:3000/` in your browser.
+Run `npm run all` to compile your sketch, then open `http://127.0.0.1:3000/` in your browser.
+
+Run `node thymiohttp.js` to run the server only !
+
 The web-based version outputs in the browser's console so hit Shift+Control+K to see the thymio api in action
 
 Open snap4thymio-2.0.xml or snap4thymio-DataSprite-2.0.xml file with Berkeley Snap!

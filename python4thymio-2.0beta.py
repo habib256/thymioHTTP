@@ -1,7 +1,7 @@
 ############################
 # ThymioHTTP Python 3 API  #
 ############################
-# Vous aurez besoin d'installer request avec : "pip install requests"
+# Vous aurez besoin d'installer requests avec : "pip install requests"
 # APACHE 2.0 License - VERHILLE Arnaud
 
 import json

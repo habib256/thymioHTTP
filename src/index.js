@@ -140,11 +140,18 @@ async function thymioSetupPrograms() {
 
     // Basic Test
     thymioPrograms.push(`
-    # reusable temp for event handlers
-    var tmp[9]
-    var rgb[3]
-    var i = 0
-    var behavior = 0    ##! High Level Stuff
+    ##! Basic Thymio Motion AESL 
+    ##! David J Sherman - david.sherman@inria.fr
+    ##! Arnaud Verhille - gist974arobasegmailpointcom
+    ##!
+    ##! This AESL program defines high-level behaviors for the Thymio-II robot that enable
+    ##! it to cooperate with programs like
+    ##! Snap! with Nodejs and thymioHTTP REST API
+
+    var R_state[28] ##! [out] Robot FULL State
+
+    var chronometer = 0   ##! High Level Stuff
+    var behavior = 0    
 
     var odo.delta ##! [out] @private instantaneous speed difference
     var odo.theta = 0 ##! [out] odometer current angle
@@ -155,30 +162,31 @@ async function thymioSetupPrograms() {
     var Qpc = 0                    ##!< [out] program counter
     var Qnx = 0                    ##!< [out] next pc
 
-    var R_state.do = 1  ##! flag for R_state broadcast
-    var R_state[28] ##! [out] Robot FULL State
+    # reusable temp vars for event handlers
+    var tmp[9]
+    var rgb[3]
+    var i = 0
 
     # default value
     mic.threshold = 12
 
     ##! THYMIO UPDATE REPORTERS ##### 10Hz, 20 Hz, 100Hz ################
+    ##! #################################################################   
 
     ##! 10 Hz THYMIO BROADCAST STATE
     onevent prox
-        if R_state.do==1 then
-            R_state[13] = prox.comm.rx
-            R_state[14] = prox.comm.tx
-            R_state[15] = prox.ground.delta[0]
-            R_state[16] = prox.ground.delta[1]
-            R_state[17] = prox.horizontal[0]
-            R_state[18] = prox.horizontal[1]
-            R_state[19] = prox.horizontal[2]
-            R_state[20] = prox.horizontal[3]
-            R_state[21] = prox.horizontal[4]
-            R_state[22] = prox.horizontal[5]
-            R_state[23] = prox.horizontal[6]
-            R_state[24] = temperature
-        end
+        R_state[13] = prox.comm.rx
+        R_state[14] = prox.comm.tx
+        R_state[15] = prox.ground.delta[0]
+        R_state[16] = prox.ground.delta[1]
+        R_state[17] = prox.horizontal[0]
+        R_state[18] = prox.horizontal[1]
+        R_state[19] = prox.horizontal[2]
+        R_state[20] = prox.horizontal[3]
+        R_state[21] = prox.horizontal[4]
+        R_state[22] = prox.horizontal[5]
+        R_state[23] = prox.horizontal[6]
+        R_state[24] = temperature     
         
         if (behavior == 1) then
             callsub behavior1
@@ -189,24 +197,23 @@ async function thymioSetupPrograms() {
 
     ##! 20 Hz THYMIO
     onevent buttons
-        if R_state.do==1 then
-            R_state[4] = button.backward
-            R_state[5] = button.center
-            R_state[6] = button.forward
-            R_state[7] = button.left
-            R_state[8] = button.right
-            R_state[0] = acc[0]
-            R_state[1] = acc[1]
-            R_state[2] = acc[2]
-            R_state[3] = mic.intensity 
-            R_state[9] = motor.left.target
-            R_state[10] = motor.right.target
-            R_state[11] = motor.left.speed
-            R_state[12] = motor.right.speed
-            R_state[25] = odo.degree
-            R_state[26] = odo.x
-            R_state[27] = odo.y
-        end
+        R_state[4] = button.backward
+        R_state[5] = button.center
+        R_state[6] = button.forward
+        R_state[7] = button.left
+        R_state[8] = button.right
+        R_state[0] = acc[0]
+        R_state[1] = acc[1]
+        R_state[2] = acc[2]
+        R_state[3] = mic.intensity 
+        R_state[9] = motor.left.target
+        R_state[10] = motor.right.target
+        R_state[11] = motor.left.speed
+        R_state[12] = motor.right.speed
+        R_state[25] = odo.degree
+        R_state[26] = odo.x
+        R_state[27] = odo.y
+        
         emit R_state_update(R_state)
             
 
@@ -223,6 +230,7 @@ async function thymioSetupPrograms() {
 
 
     ##! THYMIO INTERNAL EVENTS ##########################################
+    ##! #################################################################
 
     ##! PING THYMIO EVENTS
     onevent ping
@@ -233,7 +241,7 @@ async function thymioSetupPrograms() {
         end
         call leds.top(rgb[0], rgb[1], rgb[2])
         i++
-        emit pong i  
+    ##!     emit pong i  
 
     ##! ODOMETER THYMIO EVENTS
     onevent Q_set_odometer
@@ -251,7 +259,7 @@ async function thymioSetupPrograms() {
         call leds.circle(event.args[0],event.args[1],event.args[2],
                          event.args[3],event.args[4],event.args[5],
                          event.args[6],event.args[7])
-     onevent V_leds_top
+    onevent V_leds_top
         call leds.top(event.args[0],event.args[1],event.args[2])
     onevent V_leds_bottom_left
         call leds.bottom.left(event.args[0],event.args[1],event.args[2])
