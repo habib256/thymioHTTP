@@ -181,5 +181,11 @@ app.put('/nodes/M_motor_right/:args', function (req, res) {
   //  console.log('Got a PUT request M_motor_right',args);
     io.sockets.emit('M_motor_right', args);
 });
+app.put('/nodes/M_motor_timed/:left/:right/:time', function (req, res) {
+    res.send('Got a PUT request at M_motor_timed');
+    let args = Int16Array.of(req.params.left,req.params.right,req.params.time);
+  //  console.log('Got a PUT request M_motor_timed',args);
+    io.sockets.emit('M_motor_timed', args);
+});
 
 

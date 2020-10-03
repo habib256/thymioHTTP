@@ -112,6 +112,11 @@ async function thymioM_motor_right(data) {
     await selectedNode.emitEvents({ "M_motor_right": data});
 }
 
+socket.on('M_motor_timed', thymioM_motor_timed);
+async function thymioM_motor_timed(data) {
+    await selectedNode.emitEvents({ "M_motor_timed": data});
+}
+
 
 socket.on('thymio', thymioUpdate);
 function thymioUpdate(data) {
@@ -148,9 +153,10 @@ async function thymioSetupPrograms() {
     ##! it to cooperate with programs like
     ##! Snap! with Nodejs and thymioHTTP REST API
 
-    var R_state[28] ##! [out] Robot FULL State
+    var R_state[29]          ##! [out] Robot FULL State
 
-    var chronometer = 0   ##! High Level Stuff
+    var chronometer = 0      ##! High Level Stuff
+    var busy = 0             ##! LOGO Motor Stuff
     var behavior = 0    
 
     var odo.delta ##! [out] @private instantaneous speed difference
@@ -187,7 +193,7 @@ async function thymioSetupPrograms() {
         R_state[22] = prox.horizontal[5]
         R_state[23] = prox.horizontal[6]
         R_state[24] = temperature     
-        
+
         if (behavior == 1) then
             callsub behavior1
         end
@@ -213,6 +219,7 @@ async function thymioSetupPrograms() {
         R_state[25] = odo.degree
         R_state[26] = odo.x
         R_state[27] = odo.y
+        R_state[28] = busy
         
         emit R_state_update(R_state)
             
@@ -228,6 +235,15 @@ async function thymioSetupPrograms() {
         odo.y += tmp[1]/45
         odo.degree = 90 - (odo.theta / 182)
 
+        if (busy == 1) then
+            chronometer = chronometer - 1
+            if (chronometer == 0) then
+                motor.left.target = 0
+                motor.right.target = 0
+                busy = 0
+            end
+        end
+                
 
     ##! THYMIO INTERNAL EVENTS ##########################################
     ##! #################################################################
@@ -307,6 +323,18 @@ async function thymioSetupPrograms() {
 
     onevent B_behavior
         behavior = event.args[0]
+
+    
+    ##! LOGO SYNC MOTOR THYMIO ACTION STARTING EVENTS
+    onevent M_motor_timed
+        motor.left.target = event.args[0]
+        motor.right.target = event.args[1]
+        chronometer = event.args[2]
+        behavior = 0
+        busy = 1
+
+    
+
 
     ##! THYMIO SUBPROGRAMS
     ##! ############################################
@@ -441,9 +469,12 @@ client.onNodesChanged = async (nodes) => {
                 
                     { name: "B_behavior", fixed_size: 1 },
 
-                    { name: "R_state_update", fixed_size: 28 },
+                    { name: "M_motor_timed", fixed_size: 3 },
+
+                    { name: "R_state_update", fixed_size: 29 },
                     { name: "Q_set_odometer", fixed_size: 3 },
                     { name: "Q_reset", fixed_size: 0 }
+                    
                 ]);
                 thymioSetup();
 
