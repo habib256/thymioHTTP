@@ -5,7 +5,7 @@
 The main goal of this project is to provide an access to the Thymio(s) from the [Berkeley Snap!](https://snap.berkeley.edu/), Scratch+++ like programming langage.
 This is a javascript node-based application that create an ws:// access to the thymio-device-manager running under Thymio Suite 2.x and provide an HTTP REST simple API to control the Thymio(s).
 
-![Screenshot](/Screenshot.png?raw=true "Screenshot")
+![Screenshot](/img/Screenshot.png?raw=true "Screenshot")
 
 ## Getting started
 
@@ -61,7 +61,7 @@ The code is in `src` and gets compiled into `dist`.
 
 ## Snap! DataSprite Librarie
 
-![ThymioDataSprite.png](/ThymioDataSprite.png?raw=true "ThymioDataSprite")
+![ThymioDataSprite.png](/img/ThymioDataSprite.png?raw=true "ThymioDataSprite")
 
 ## What next.
 
