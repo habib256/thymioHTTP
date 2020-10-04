@@ -187,5 +187,11 @@ app.put('/nodes/M_motor_timed/:left/:right/:time', function (req, res) {
   //  console.log('Got a PUT request M_motor_timed',args);
     io.sockets.emit('M_motor_timed', args);
 });
+app.put('/nodes/Q_reset/', function (req, res) {
+    res.send('Got a PUT request at Q_reset');
+    let args = Int16Array.of(req.params.left,req.params.right,req.params.time);
+    console.log('Got THYMIO Q_reset',args);
+    io.sockets.emit('Q_reset', null);
+});
 
 

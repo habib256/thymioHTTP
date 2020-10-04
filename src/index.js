@@ -117,6 +117,11 @@ async function thymioM_motor_timed(data) {
     await selectedNode.emitEvents({ "M_motor_timed": data});
 }
 
+socket.on('Q_reset', thymioQ_reset);
+async function thymioQ_reset(data) {
+    await selectedNode.emitEvents({ "Q_reset": null});
+}
+
 
 socket.on('thymio', thymioUpdate);
 function thymioUpdate(data) {
@@ -155,18 +160,15 @@ async function thymioSetupPrograms() {
 
     var R_state[29]          ##! [out] Robot FULL State
 
-    var chronometer = 0      ##! High Level Stuff
+    var chronometer = 0      ##! BUSY Motors counter
     var busy = 0             ##! LOGO Motor Stuff
-    var behavior = 0    
+    var behavior = 0         ##! High Level Stuff
 
     var odo.delta ##! [out] @private instantaneous speed difference
     var odo.theta = 0 ##! [out] odometer current angle
     var odo.x = 0 ##! [out] odometer x
     var odo.y = 0 ##! [out] odometer y
     var odo.degree ##! [out] odometer direction
-
-    var Qpc = 0                    ##!< [out] program counter
-    var Qnx = 0                    ##!< [out] next pc
 
     # reusable temp vars for event handlers
     var tmp[9]
@@ -316,6 +318,9 @@ async function thymioSetupPrograms() {
 
     ##! Reset the queue and stop motors
     onevent Q_reset
+        chronometer = 0
+        busy = 0
+        behavior = 0  
         motor.left.target = 0
         motor.right.target = 0
 
@@ -336,7 +341,7 @@ async function thymioSetupPrograms() {
     
 
 
-    ##! THYMIO SUBPROGRAMS
+    ##! THYMIO BEHAVIORS SUBPROGRAMS
     ##! ############################################
 
     ##! Follow a black path very fast
