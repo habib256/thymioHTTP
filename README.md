@@ -38,17 +38,6 @@ Open snap4thymio-2.0.xml or snap4thymio-DataSprite-2.0.xml file with Berkeley Sn
 
 ![Screenshot](/img/Screenshot.png?raw=true "Screenshot")
 
-## How does it work?
-
-The thymio API is distributed as a [npm package](https://www.npmjs.com/package/@mobsya-association/thymio-api).
-It can be installed with `npm -i @mobsya-association/thymio-api`.
-
-This demo project also depends on:
-* Webpack to orchestrate the bundling of the application for both node and browser
-* Babel to convert the code in a flavor of Javascript compatible with older versions of web browsers
-* Socket.io to talk with the include HTTP server
-
-The code is in `src` and gets compiled into `dist`.
 
 ## HTTP REST API Access
 
@@ -64,6 +53,18 @@ The code is in `src` and gets compiled into `dist`.
 ## Snap! DataSprite Librarie
 
 ![ThymioDataSprite.png](/img/ThymioDataSprite.png?raw=true "ThymioDataSprite")
+
+## How does it work?
+
+The thymio API is distributed as a [npm package](https://www.npmjs.com/package/@mobsya-association/thymio-api).
+It can be installed with `npm -i @mobsya-association/thymio-api`.
+
+This demo project also depends on:
+* Webpack to orchestrate the bundling of the application for both node and browser
+* Babel to convert the code in a flavor of Javascript compatible with older versions of web browsers
+* Socket.io to talk with the include HTTP server
+
+The code is in `src` and gets compiled into `dist`.
 
 ## What next.
 
