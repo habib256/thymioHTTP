@@ -164,6 +164,14 @@
     onevent M_motor_right
         motor.right.target = event.args[0] 
 
+    ##! SYNC LOGO MOTOR BUSY THYMIO ACTION STARTING EVENT
+    onevent M_motor_timed
+        behavior = 0
+        busy = 1
+        motor.left.target = event.args[0]
+        motor.right.target = event.args[1]
+        chronometer = event.args[2]
+
     ##! Reset the queue and stop motors
     onevent Q_reset
         chronometer = 0
@@ -176,18 +184,6 @@
 
     onevent B_behavior
         behavior = event.args[0]
-
-    
-    ##! LOGO SYNC MOTOR THYMIO ACTION STARTING EVENTS
-    onevent M_motor_timed
-        motor.left.target = event.args[0]
-        motor.right.target = event.args[1]
-        chronometer = event.args[2]
-        behavior = 0
-        busy = 1
-
-    
-
 
     ##! THYMIO BEHAVIORS SUBPROGRAMS
     ##! ############################################
