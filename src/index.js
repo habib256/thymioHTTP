@@ -122,6 +122,8 @@ async function thymioQ_reset(data) {
     await selectedNode.emitEvents({ "Q_reset": null});
 }
 
+// ********** CONTROL THYMIO FROM JAVASCRIPT HERE  ***************
+// ***************************************************************
 
 socket.on('thymio', thymioUpdate);
 function thymioUpdate(data) {
@@ -146,6 +148,9 @@ async function thymioDraw(data) {
     }
 }
 
+
+// ******************  ASEBA PROGRAMS  *****************************
+// ***************************************************************
 async function thymioSetupPrograms() {
 
     // Basic Test
@@ -359,12 +364,14 @@ async function thymioSetupPrograms() {
 
     `);
 
-    // ******************  OTHERS PROGRAMS  *****************************
-    // ***************************************************************
+  
     thymioPrograms.push(`
 
     `);
 }
+
+// ******************  LIBRARY SUBPROGRAMS  **********************
+// ***************************************************************
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -435,6 +442,9 @@ client.onNodesChanged = async (nodes) => {
                     }
                 }
 
+
+                // Thymio Events List 
+                // Need to be updated if you want to create new events in aseba code
                 await node.group.setEventsDescriptions([
                     { name: "ping", fixed_size: 0 },
                     { name: "pong", fixed_size: 1 },
