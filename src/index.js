@@ -358,9 +358,24 @@ async function thymioSetupPrograms() {
             motor.right.target = 350
         end
 
-    ##! Follow a black path slowly
+    ##! Follow a wall
     sub behavior2  
-
+        when prox.horizontal[0] > 150 do
+            motor.left.target = 200
+            motor.right.target = -200	
+        end
+        when prox.horizontal[0] < 150 do
+            motor.left.target = 250
+            motor.right.target = 250
+        end
+        when prox.horizontal[4] > 150 do
+            motor.left.target = -200
+            motor.right.target = 200	
+        end
+        when prox.horizontal[4] < 150 do
+            motor.left.target = 250
+            motor.right.target = 250
+        end
 
     `);
 
