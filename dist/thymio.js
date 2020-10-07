@@ -38933,224 +38933,6 @@ root._=_;}}).call(this);
 
 /***/ }),
 
-/***/ "./node_modules/process/browser.js":
-/*!*****************************************!*\
-  !*** ./node_modules/process/browser.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// shim for using process in browser
-var process = module.exports = {}; // cached from whatever global is present so that test runners that stub it
-// don't break things.  But we need to wrap it in a try catch in case it is
-// wrapped in strict mode code which doesn't define any globals.  It's inside a
-// function because try/catches deoptimize in certain engines.
-
-var cachedSetTimeout;
-var cachedClearTimeout;
-
-function defaultSetTimout() {
-  throw new Error('setTimeout has not been defined');
-}
-
-function defaultClearTimeout() {
-  throw new Error('clearTimeout has not been defined');
-}
-
-(function () {
-  try {
-    if (typeof setTimeout === 'function') {
-      cachedSetTimeout = setTimeout;
-    } else {
-      cachedSetTimeout = defaultSetTimout;
-    }
-  } catch (e) {
-    cachedSetTimeout = defaultSetTimout;
-  }
-
-  try {
-    if (typeof clearTimeout === 'function') {
-      cachedClearTimeout = clearTimeout;
-    } else {
-      cachedClearTimeout = defaultClearTimeout;
-    }
-  } catch (e) {
-    cachedClearTimeout = defaultClearTimeout;
-  }
-})();
-
-function runTimeout(fun) {
-  if (cachedSetTimeout === setTimeout) {
-    //normal enviroments in sane situations
-    return setTimeout(fun, 0);
-  } // if setTimeout wasn't available but was latter defined
-
-
-  if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
-    cachedSetTimeout = setTimeout;
-    return setTimeout(fun, 0);
-  }
-
-  try {
-    // when when somebody has screwed with setTimeout but no I.E. maddness
-    return cachedSetTimeout(fun, 0);
-  } catch (e) {
-    try {
-      // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
-      return cachedSetTimeout.call(null, fun, 0);
-    } catch (e) {
-      // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
-      return cachedSetTimeout.call(this, fun, 0);
-    }
-  }
-}
-
-function runClearTimeout(marker) {
-  if (cachedClearTimeout === clearTimeout) {
-    //normal enviroments in sane situations
-    return clearTimeout(marker);
-  } // if clearTimeout wasn't available but was latter defined
-
-
-  if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
-    cachedClearTimeout = clearTimeout;
-    return clearTimeout(marker);
-  }
-
-  try {
-    // when when somebody has screwed with setTimeout but no I.E. maddness
-    return cachedClearTimeout(marker);
-  } catch (e) {
-    try {
-      // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
-      return cachedClearTimeout.call(null, marker);
-    } catch (e) {
-      // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
-      // Some versions of I.E. have different rules for clearTimeout vs setTimeout
-      return cachedClearTimeout.call(this, marker);
-    }
-  }
-}
-
-var queue = [];
-var draining = false;
-var currentQueue;
-var queueIndex = -1;
-
-function cleanUpNextTick() {
-  if (!draining || !currentQueue) {
-    return;
-  }
-
-  draining = false;
-
-  if (currentQueue.length) {
-    queue = currentQueue.concat(queue);
-  } else {
-    queueIndex = -1;
-  }
-
-  if (queue.length) {
-    drainQueue();
-  }
-}
-
-function drainQueue() {
-  if (draining) {
-    return;
-  }
-
-  var timeout = runTimeout(cleanUpNextTick);
-  draining = true;
-  var len = queue.length;
-
-  while (len) {
-    currentQueue = queue;
-    queue = [];
-
-    while (++queueIndex < len) {
-      if (currentQueue) {
-        currentQueue[queueIndex].run();
-      }
-    }
-
-    queueIndex = -1;
-    len = queue.length;
-  }
-
-  currentQueue = null;
-  draining = false;
-  runClearTimeout(timeout);
-}
-
-process.nextTick = function (fun) {
-  var args = new Array(arguments.length - 1);
-
-  if (arguments.length > 1) {
-    for (var i = 1; i < arguments.length; i++) {
-      args[i - 1] = arguments[i];
-    }
-  }
-
-  queue.push(new Item(fun, args));
-
-  if (queue.length === 1 && !draining) {
-    runTimeout(drainQueue);
-  }
-}; // v8 likes predictible objects
-
-
-function Item(fun, array) {
-  this.fun = fun;
-  this.array = array;
-}
-
-Item.prototype.run = function () {
-  this.fun.apply(null, this.array);
-};
-
-process.title = 'browser';
-process.browser = true;
-process.env = {};
-process.argv = [];
-process.version = ''; // empty string to avoid regexp issues
-
-process.versions = {};
-
-function noop() {}
-
-process.on = noop;
-process.addListener = noop;
-process.once = noop;
-process.off = noop;
-process.removeListener = noop;
-process.removeAllListeners = noop;
-process.emit = noop;
-process.prependListener = noop;
-process.prependOnceListener = noop;
-
-process.listeners = function (name) {
-  return [];
-};
-
-process.binding = function (name) {
-  throw new Error('process.binding is not supported');
-};
-
-process.cwd = function () {
-  return '/';
-};
-
-process.chdir = function (dir) {
-  throw new Error('process.chdir is not supported');
-};
-
-process.umask = function () {
-  return 0;
-};
-
-/***/ }),
-
 /***/ "./node_modules/webpack/buildin/amd-options.js":
 /*!****************************************!*\
   !*** (webpack)/buildin/amd-options.js ***!
@@ -39238,7 +39020,7 @@ module.exports = function (module) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var _mobsya_association_thymio_api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @mobsya-association/thymio-api */ "./node_modules/@mobsya-association/thymio-api/dist/thymio.js");
+/* harmony import */ var _mobsya_association_thymio_api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @mobsya-association/thymio-api */ "./node_modules/@mobsya-association/thymio-api/dist/thymio.js");
 function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -39256,6 +39038,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var client = Object(_mobsya_association_thymio_api__WEBPACK_IMPORTED_MODULE_0__["createClient"])("ws://localhost:8597");
 var allNodes = undefined;
+var selectedNodes = undefined;
 var selectedNode = undefined;
 var thymioPrograms = [];
 var socket = io.connect('ws://localhost:3000'); // PING Events
@@ -40030,16 +39813,17 @@ client.onNodesChanged = /*#__PURE__*/function () {
         switch (_context3.prev = _context3.next) {
           case 0:
             _context3.prev = 0;
-            allNodes = nodes; //Iterate over the nodes
+            allNodes = nodes;
+            console.log("Detection de ", allNodes.length, " Thymio(s) sur le HUB Thymio Suite 2 : ", allNodes); //Iterate over the nodes
 
             _iterator = _createForOfIteratorHelper(nodes);
-            _context3.prev = 3;
+            _context3.prev = 4;
 
             _iterator.s();
 
-          case 5:
+          case 6:
             if ((_step = _iterator.n()).done) {
-              _context3.next = 40;
+              _context3.next = 38;
               break;
             }
 
@@ -40051,24 +39835,23 @@ client.onNodesChanged = /*#__PURE__*/function () {
               break;
             }
 
-            _context3.prev = 9;
+            _context3.prev = 10;
             console.log("Locking ".concat(node.id)); // Lock (take ownership) of the node. We cannot mutate a node (send code to it), until we have a lock on it
             // Once locked, a node will appear busy / unavailable to other clients until we close the connection or call `unlock` explicitely
             // We can lock as many nodes as we want
 
-            _context3.next = 13;
+            _context3.next = 14;
             return node.lock();
 
-          case 13:
+          case 14:
             selectedNode = node;
-            console.log("Node locked");
-            console.log(node);
+            console.log("Node locked : ", node);
             _context3.next = 21;
             break;
 
           case 18:
             _context3.prev = 18;
-            _context3.t0 = _context3["catch"](9);
+            _context3.t0 = _context3["catch"](10);
             console.log("Unable To Log ".concat(node.id, " (").concat(node.name, ")"));
 
           case 21:
@@ -40077,7 +39860,7 @@ client.onNodesChanged = /*#__PURE__*/function () {
               break;
             }
 
-            return _context3.abrupt("continue", 38);
+            return _context3.abrupt("continue", 36);
 
           case 23:
             _context3.prev = 23;
@@ -40085,13 +39868,11 @@ client.onNodesChanged = /*#__PURE__*/function () {
             node.watchSharedVariablesAndEvents(true); //Monitor the shared variables - note that because this callback is set on a group
             //It does not track group changes
 
-            node.group.onVariablesChanged = function (vars) {
-              console.log("shared variables : ", vars);
+            node.group.onVariablesChanged = function (vars) {//console.log("shared variables : ", vars)
             }; //Monitor the event descriptions - note that because this callback is set on a group, it does not track group changes
 
 
-            node.group.onEventsDescriptionsChanged = function (events) {
-              console.log("descriptions", events);
+            node.group.onEventsDescriptionsChanged = function (events) {// console.log("descriptions", events)
             }; //Monitor variable changes
 
 
@@ -40230,59 +40011,55 @@ client.onNodesChanged = /*#__PURE__*/function () {
 
           case 31:
             thymioSetup();
-            _context3.next = 38;
+            _context3.next = 36;
             break;
 
           case 34:
             _context3.prev = 34;
             _context3.t1 = _context3["catch"](23);
-            console.log(_context3.t1);
-            process.exit();
+
+          case 36:
+            _context3.next = 6;
+            break;
 
           case 38:
-            _context3.next = 5;
+            _context3.next = 43;
             break;
 
           case 40:
-            _context3.next = 45;
-            break;
-
-          case 42:
-            _context3.prev = 42;
-            _context3.t2 = _context3["catch"](3);
+            _context3.prev = 40;
+            _context3.t2 = _context3["catch"](4);
 
             _iterator.e(_context3.t2);
 
-          case 45:
-            _context3.prev = 45;
+          case 43:
+            _context3.prev = 43;
 
             _iterator.f();
 
-            return _context3.finish(45);
+            return _context3.finish(43);
 
-          case 48:
-            _context3.next = 54;
+          case 46:
+            _context3.next = 51;
             break;
 
-          case 50:
-            _context3.prev = 50;
+          case 48:
+            _context3.prev = 48;
             _context3.t3 = _context3["catch"](0);
-            console.log(_context3.t3);
-            process.exit();
+            console.log(_context3.t3); //process.exit()
 
-          case 54:
+          case 51:
           case "end":
             return _context3.stop();
         }
       }
-    }, _callee3, null, [[0, 50], [3, 42, 45, 48], [9, 18], [23, 34]]);
+    }, _callee3, null, [[0, 48], [4, 40, 43, 46], [10, 18], [23, 34]]);
   }));
 
   return function (_x26) {
     return _ref2.apply(this, arguments);
   };
 }();
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/process/browser.js */ "./node_modules/process/browser.js")))
 
 /***/ }),
 

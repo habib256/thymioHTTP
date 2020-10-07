@@ -7,6 +7,7 @@ import { createClient, Node, NodeStatus, Request, setup } from '@mobsya-associat
 //We will need some way to get that url
 let client = createClient("ws://localhost:8597");
 let allNodes = undefined;
+let selectedNodes = undefined;
 let selectedNode = undefined;
 let thymioPrograms = [];
 
@@ -406,6 +407,7 @@ client.onClose = async (event) => {
 client.onNodesChanged = async (nodes) => {
     try {
         allNodes = nodes;
+        console.log("Detection de ",allNodes.length," Thymio(s) sur le HUB Thymio Suite 2 : ",allNodes)
         //Iterate over the nodes
         for (let node of nodes) {
             console.log(`${node.id} : ${node.statusAsString}`)
@@ -418,8 +420,7 @@ client.onNodesChanged = async (nodes) => {
                     // We can lock as many nodes as we want
                     await node.lock();
                     selectedNode = node
-                    console.log("Node locked")
-                    console.log(node)
+                    console.log("Node locked : ", node)
                 } catch (e) {
                     console.log(`Unable To Log ${node.id} (${node.name})`)
                 }
@@ -434,12 +435,12 @@ client.onNodesChanged = async (nodes) => {
                 //Monitor the shared variables - note that because this callback is set on a group
                 //It does not track group changes
                 node.group.onVariablesChanged = (vars) => {
-                    console.log("shared variables : ", vars)
+                    //console.log("shared variables : ", vars)
                 }
 
                 //Monitor the event descriptions - note that because this callback is set on a group, it does not track group changes
                 node.group.onEventsDescriptionsChanged = (events) => {
-                    console.log("descriptions", events)
+                   // console.log("descriptions", events)
                 }
 
                 //Monitor variable changes
@@ -506,13 +507,13 @@ client.onNodesChanged = async (nodes) => {
 
             }
             catch (e) {
-                console.log(e)
-                process.exit()
+                //console.log(e)
+                //process.exit()
             }
         }
     } catch (e) {
         console.log(e)
-        process.exit()
+        //process.exit()
     }
 }
 
