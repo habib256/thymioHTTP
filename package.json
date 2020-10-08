@@ -29,23 +29,24 @@
   },
   "scripts": {
     "browser": "npm run build && echo \"Open dist/index.html with a web browser.\"",
-    "start": "npm run build && node --experimental-modules --expose-wasm dist/thymio-node.js",
+    "start": "node thymiohttp.js & firefox 127.0.0.1:3000 https://snap.berkeley.edu/snap/snap.html#",
     "build": "webpack",
     "server": "node thymiohttp.js",
     "all": "npm run build && node thymiohttp.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Mobsya/thymio-js-api-demo.git"
+    "url": "git+https://github.com/habib256/thymioHTTP.git"
   },
   "keywords": [
     "thymio",
-    "demo"
+    "thymioHTTP",
+    "Snap"
   ],
-  "author": "Mobsya",
+  "author": "Mobsya & Verhille",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/Mobsya/thymio-js-api-demo/issues"
+    "url": "https://github.com/habib256/thymioHTTP/issues"
   },
-  "homepage": "https://github.com/Mobsya/thymio-js-api-demo#readme"
+  "homepage": "https://github.com/habib256/thymioHTTP#readme"
 }
