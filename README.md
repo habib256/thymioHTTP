@@ -36,6 +36,8 @@ The web-based version outputs in the browser's console so hit Shift+Control+K to
 
 Open snap4thymio-2.0.xml or snap4thymio-DataSprite-2.0.xml file with Berkeley Snap!
 
+You can use `npm start` on GNU/Linux (Much more pratical way)
+
 ![Screenshot](/img/Screenshot.png?raw=true "Screenshot")
 
 
