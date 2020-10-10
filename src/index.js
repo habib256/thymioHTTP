@@ -20,7 +20,7 @@ var socket = io.connect('ws://localhost:3000');
 socket.on('ping', thymioPing);
 async function thymioPing(data) {
     //console.log('Ping');
-    await selectedNode.emitEvents({ "ping": null });
+    //await selectedNode.emitEvents({ "ping": null });
 }
 
 // B_behavior Events
@@ -415,7 +415,14 @@ client.onNodesChanged = async (nodes) => {
         //console.log("Detection de ",nodes.length," Thymio(s) sur le HUB Thymio Suite 2")
         //Iterate over the nodes
         for (let node of nodes) {
-            //console.log(`${node.id} : ${node.statusAsString}`)
+
+            if ( node.status == NodeStatus.disconnected){
+                myNodes.pop();
+                }
+
+            if ( node.status != NodeStatus.available){
+            console.log(`${node.id} : ${node.statusAsString} : ${node.name} `)
+            }
 
             // Select the first non busy node
             if ( node.status == NodeStatus.available) {
@@ -431,7 +438,6 @@ client.onNodesChanged = async (nodes) => {
                 }
             }
 
-            console.log(`${node.id} : ${node.statusAsString}`)
             
             if (node.status == NodeStatus.available)
                 continue
@@ -443,7 +449,7 @@ client.onNodesChanged = async (nodes) => {
                 //Monitor the shared variables - note that because this callback is set on a group
                 //It does not track group changes
                 node.group.onVariablesChanged = (vars) => {
-                    //console.log("shared variables : ", vars)
+                   // console.log("shared variables : ", vars)
                 }
 
                 //Monitor the event descriptions - note that because this callback is set on a group, it does not track group changes
@@ -520,7 +526,10 @@ client.onNodesChanged = async (nodes) => {
                 //process.exit()
             }
         }
+        // End of  : for (let node of nodes)
 
+
+        //console.log( myNodes.length, "node(s) in myNodes",myNodes)
         
 
 
