@@ -6,9 +6,11 @@ import { createClient, Node, NodeStatus, Request, setup } from '@mobsya-associat
 //Connect to the Thymio Suite
 //We will need some way to get that url
 let client = createClient("ws://localhost:8597");
-let allNodes = undefined;
-let selectedNodes = undefined;
+
+// The Full List of all Thymio(s) nodes
+let myNodes = [];
 let selectedNode = undefined;
+
 let thymioPrograms = [];
 
 var socket = io.connect('ws://localhost:3000');
@@ -17,7 +19,7 @@ var socket = io.connect('ws://localhost:3000');
 // PING Events
 socket.on('ping', thymioPing);
 async function thymioPing(data) {
-    console.log('Ping');
+    //console.log('Ping');
     await selectedNode.emitEvents({ "ping": null });
 }
 
@@ -31,7 +33,7 @@ async function thymioB_behavior(data) {
 // ODOMETER Events
 socket.on('Q_set_odometer', thymioQ_set_odometer);
 async function thymioQ_set_odometer(data) {
-    console.log('Q_set_odometer');
+    //console.log('Q_set_odometer');
     await selectedNode.emitEvents({ "Q_set_odometer": data });
 }
 
@@ -134,10 +136,14 @@ function thymioUpdate(data) {
 async function thymioSetup() {
     try {
         thymioSetupPrograms();
+        if (myNodes.length != 0) {
+        selectedNode = myNodes[0]
         await selectedNode.sendAsebaProgram(thymioPrograms[0]);
         await selectedNode.runProgram();
+        }
+        
     } catch (e) {
-        console.log(e);
+        //console.log(e);
     }
 }
 
@@ -406,26 +412,28 @@ client.onClose = async (event) => {
 //      * disconnected : The node is gone
 client.onNodesChanged = async (nodes) => {
     try {
-        allNodes = nodes;
-        console.log("Detection de ",allNodes.length," Thymio(s) sur le HUB Thymio Suite 2 : ",allNodes)
+        //console.log("Detection de ",nodes.length," Thymio(s) sur le HUB Thymio Suite 2")
         //Iterate over the nodes
         for (let node of nodes) {
-            console.log(`${node.id} : ${node.statusAsString}`)
+            //console.log(`${node.id} : ${node.statusAsString}`)
+
             // Select the first non busy node
-            if ((!selectedNode || selectedNode.status != NodeStatus.ready) && node.status == NodeStatus.available) {
+            if ( node.status == NodeStatus.available) {
                 try {
-                    console.log(`Locking ${node.id}`)
+                    //console.log(`Locking ${node.id}`)
                     // Lock (take ownership) of the node. We cannot mutate a node (send code to it), until we have a lock on it
                     // Once locked, a node will appear busy / unavailable to other clients until we close the connection or call `unlock` explicitely
                     // We can lock as many nodes as we want
                     await node.lock();
-                    selectedNode = node
-                    console.log("Node locked : ", node)
+                    myNodes.push(node);
                 } catch (e) {
                     console.log(`Unable To Log ${node.id} (${node.name})`)
                 }
             }
-            if (!selectedNode)
+
+            console.log(`${node.id} : ${node.statusAsString}`)
+            
+            if (node.status == NodeStatus.available)
                 continue
             try {
 
@@ -503,17 +511,26 @@ client.onNodesChanged = async (nodes) => {
                     { name: "Q_reset", fixed_size: 0 }
                     
                 ]);
-                thymioSetup();
-
+                
             }
             catch (e) {
+       
                 //console.log(e)
+                
                 //process.exit()
             }
         }
+
+        
+
+
     } catch (e) {
-        console.log(e)
+        
+   
+        //console.log(e)
+        
         //process.exit()
     }
+    thymioSetup();
 }
 

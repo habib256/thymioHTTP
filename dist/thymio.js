@@ -39036,9 +39036,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
  //Connect to the Thymio Suite
 //We will need some way to get that url
 
-var client = Object(_mobsya_association_thymio_api__WEBPACK_IMPORTED_MODULE_0__["createClient"])("ws://localhost:8597");
-var allNodes = undefined;
-var selectedNodes = undefined;
+var client = Object(_mobsya_association_thymio_api__WEBPACK_IMPORTED_MODULE_0__["createClient"])("ws://localhost:8597"); // The Full List of all Thymio(s) nodes
+
+var myNodes = [];
 var selectedNode = undefined;
 var thymioPrograms = [];
 var socket = io.connect('ws://localhost:3000'); // PING Events
@@ -39056,13 +39056,12 @@ function _thymioPing() {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
-            console.log('Ping');
-            _context4.next = 3;
+            _context4.next = 2;
             return selectedNode.emitEvents({
               "ping": null
             });
 
-          case 3:
+          case 2:
           case "end":
             return _context4.stop();
         }
@@ -39114,13 +39113,12 @@ function _thymioQ_set_odometer() {
       while (1) {
         switch (_context6.prev = _context6.next) {
           case 0:
-            console.log('Q_set_odometer');
-            _context6.next = 3;
+            _context6.next = 2;
             return selectedNode.emitEvents({
               "Q_set_odometer": data
             });
 
-          case 3:
+          case 2:
           case "end":
             return _context6.stop();
         }
@@ -39691,28 +39689,34 @@ function _thymioSetup() {
           case 0:
             _context27.prev = 0;
             thymioSetupPrograms();
-            _context27.next = 4;
+
+            if (!(myNodes.length != 0)) {
+              _context27.next = 8;
+              break;
+            }
+
+            selectedNode = myNodes[0];
+            _context27.next = 6;
             return selectedNode.sendAsebaProgram(thymioPrograms[0]);
 
-          case 4:
-            _context27.next = 6;
+          case 6:
+            _context27.next = 8;
             return selectedNode.runProgram();
 
-          case 6:
-            _context27.next = 11;
+          case 8:
+            _context27.next = 12;
             break;
 
-          case 8:
-            _context27.prev = 8;
+          case 10:
+            _context27.prev = 10;
             _context27.t0 = _context27["catch"](0);
-            console.log(_context27.t0);
 
-          case 11:
+          case 12:
           case "end":
             return _context27.stop();
         }
       }
-    }, _callee27, null, [[0, 8]]);
+    }, _callee27, null, [[0, 10]]);
   }));
   return _thymioSetup.apply(this, arguments);
 }
@@ -39813,57 +39817,52 @@ client.onNodesChanged = /*#__PURE__*/function () {
         switch (_context3.prev = _context3.next) {
           case 0:
             _context3.prev = 0;
-            allNodes = nodes;
-            console.log("Detection de ", allNodes.length, " Thymio(s) sur le HUB Thymio Suite 2 : ", allNodes); //Iterate over the nodes
-
+            //console.log("Detection de ",nodes.length," Thymio(s) sur le HUB Thymio Suite 2")
+            //Iterate over the nodes
             _iterator = _createForOfIteratorHelper(nodes);
-            _context3.prev = 4;
+            _context3.prev = 2;
 
             _iterator.s();
 
-          case 6:
+          case 4:
             if ((_step = _iterator.n()).done) {
-              _context3.next = 38;
+              _context3.next = 33;
               break;
             }
 
             node = _step.value;
-            console.log("".concat(node.id, " : ").concat(node.statusAsString)); // Select the first non busy node
 
-            if (!((!selectedNode || selectedNode.status != _mobsya_association_thymio_api__WEBPACK_IMPORTED_MODULE_0__["NodeStatus"].ready) && node.status == _mobsya_association_thymio_api__WEBPACK_IMPORTED_MODULE_0__["NodeStatus"].available)) {
-              _context3.next = 21;
+            if (!(node.status == _mobsya_association_thymio_api__WEBPACK_IMPORTED_MODULE_0__["NodeStatus"].available)) {
+              _context3.next = 16;
               break;
             }
 
-            _context3.prev = 10;
-            console.log("Locking ".concat(node.id)); // Lock (take ownership) of the node. We cannot mutate a node (send code to it), until we have a lock on it
-            // Once locked, a node will appear busy / unavailable to other clients until we close the connection or call `unlock` explicitely
-            // We can lock as many nodes as we want
-
-            _context3.next = 14;
+            _context3.prev = 7;
+            _context3.next = 10;
             return node.lock();
 
-          case 14:
-            selectedNode = node;
-            console.log("Node locked : ", node);
-            _context3.next = 21;
+          case 10:
+            myNodes.push(node);
+            _context3.next = 16;
             break;
 
-          case 18:
-            _context3.prev = 18;
-            _context3.t0 = _context3["catch"](10);
+          case 13:
+            _context3.prev = 13;
+            _context3.t0 = _context3["catch"](7);
             console.log("Unable To Log ".concat(node.id, " (").concat(node.name, ")"));
 
-          case 21:
-            if (selectedNode) {
-              _context3.next = 23;
+          case 16:
+            console.log("".concat(node.id, " : ").concat(node.statusAsString));
+
+            if (!(node.status == _mobsya_association_thymio_api__WEBPACK_IMPORTED_MODULE_0__["NodeStatus"].available)) {
+              _context3.next = 19;
               break;
             }
 
-            return _context3.abrupt("continue", 36);
+            return _context3.abrupt("continue", 31);
 
-          case 23:
-            _context3.prev = 23;
+          case 19:
+            _context3.prev = 19;
             //This is requiered in order to receive the variables and node of a group
             node.watchSharedVariablesAndEvents(true); //Monitor the shared variables - note that because this callback is set on a group
             //It does not track group changes
@@ -39910,7 +39909,7 @@ client.onNodesChanged = /*#__PURE__*/function () {
             // Need to be updated if you want to create new events in aseba code
 
 
-            _context3.next = 31;
+            _context3.next = 27;
             return node.group.setEventsDescriptions([{
               name: "ping",
               fixed_size: 0
@@ -40009,51 +40008,52 @@ client.onNodesChanged = /*#__PURE__*/function () {
               fixed_size: 0
             }]);
 
+          case 27:
+            _context3.next = 31;
+            break;
+
+          case 29:
+            _context3.prev = 29;
+            _context3.t1 = _context3["catch"](19);
+
           case 31:
-            thymioSetup();
-            _context3.next = 36;
+            _context3.next = 4;
             break;
 
-          case 34:
-            _context3.prev = 34;
-            _context3.t1 = _context3["catch"](23);
-
-          case 36:
-            _context3.next = 6;
+          case 33:
+            _context3.next = 38;
             break;
 
-          case 38:
-            _context3.next = 43;
-            break;
-
-          case 40:
-            _context3.prev = 40;
-            _context3.t2 = _context3["catch"](4);
+          case 35:
+            _context3.prev = 35;
+            _context3.t2 = _context3["catch"](2);
 
             _iterator.e(_context3.t2);
 
-          case 43:
-            _context3.prev = 43;
+          case 38:
+            _context3.prev = 38;
 
             _iterator.f();
 
-            return _context3.finish(43);
+            return _context3.finish(38);
 
-          case 46:
-            _context3.next = 51;
+          case 41:
+            _context3.next = 45;
             break;
 
-          case 48:
-            _context3.prev = 48;
+          case 43:
+            _context3.prev = 43;
             _context3.t3 = _context3["catch"](0);
-            console.log(_context3.t3); //process.exit()
 
-          case 51:
+          case 45:
+            thymioSetup();
+
+          case 46:
           case "end":
             return _context3.stop();
         }
       }
-    }, _callee3, null, [[0, 48], [4, 40, 43, 46], [10, 18], [23, 34]]);
+    }, _callee3, null, [[0, 43], [2, 35, 38, 41], [7, 13], [19, 29]]);
   }));
 
   return function (_x26) {
