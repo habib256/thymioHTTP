@@ -180,6 +180,13 @@ function thymioUpdate(data) {
 async function thymioSetup() {
     try {
         thymioSetupPrograms();
+        for (let i=0; i < myNodes.length; i++){
+            if (myNodes[i].status == NodeStatus.disconnected){
+                myNodes.splice(i, 1);
+                i--;
+            }
+
+        }
         for (let node of myNodes) {
             await node.sendAsebaProgram(thymioPrograms[0]);
             await node.runProgram();
@@ -187,7 +194,7 @@ async function thymioSetup() {
 
     } catch (e) {
         //console.log(e);
-        console.log("Aseba code : ",e);
+        console.log("Aseba code error : ",e);
     }
 }
 
@@ -224,10 +231,6 @@ client.onNodesChanged = async (nodes) => {
         //console.log("Detection de ",nodes.length," Thymio(s) sur le HUB Thymio Suite 2")
         //Iterate over the nodes
         for (let node of nodes) {
-
-            if (node.status == NodeStatus.disconnected) {
-                myNodes.pop();
-            }
 
             if (node.status != NodeStatus.available) {
                 console.log(`${node.id} : ${node.statusAsString} : ${node.name} `)
