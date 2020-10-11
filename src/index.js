@@ -9,7 +9,6 @@ let client = createClient("ws://localhost:8597");
 
 // The Full List of all Thymio(s) nodes
 let myNodes = [];
-let selectedNode = undefined;
 
 let thymioPrograms = [];
 
@@ -180,20 +179,22 @@ function thymioUpdate(data) {
 async function thymioSetup() {
     try {
         thymioSetupPrograms();
+
+        // Supprimer les nodes deconnectés
         for (let i=0; i < myNodes.length; i++){
             if (myNodes[i].status == NodeStatus.disconnected){
                 myNodes.splice(i, 1);
                 i--;
             }
-
         }
+
+        // Charger le programme aseba sur chaque(s) Thymio(s)
         for (let node of myNodes) {
             await node.sendAsebaProgram(thymioPrograms[0]);
             await node.runProgram();
         }
 
     } catch (e) {
-        //console.log(e);
         console.log("Aseba code error : ",e);
     }
 }

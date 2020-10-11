@@ -39039,7 +39039,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var client = Object(_mobsya_association_thymio_api__WEBPACK_IMPORTED_MODULE_0__["createClient"])("ws://localhost:8597"); // The Full List of all Thymio(s) nodes
 
 var myNodes = [];
-var selectedNode = undefined;
 var thymioPrograms = [];
 var socket = io.connect('ws://localhost:3000'); // PING Events
 
@@ -40462,14 +40461,15 @@ function _thymioSetup() {
         switch (_context27.prev = _context27.next) {
           case 0:
             _context27.prev = 0;
-            thymioSetupPrograms();
+            thymioSetupPrograms(); // Supprimer les nodes deconnectés
 
             for (i = 0; i < myNodes.length; i++) {
               if (myNodes[i].status == _mobsya_association_thymio_api__WEBPACK_IMPORTED_MODULE_0__["NodeStatus"].disconnected) {
                 myNodes.splice(i, 1);
                 i--;
               }
-            }
+            } // Charger le programme aseba sur chaque(s) Thymio(s)
+
 
             _iterator24 = _createForOfIteratorHelper(myNodes);
             _context27.prev = 4;
@@ -40518,7 +40518,6 @@ function _thymioSetup() {
           case 24:
             _context27.prev = 24;
             _context27.t1 = _context27["catch"](0);
-            //console.log(e);
             console.log("Aseba code error : ", _context27.t1);
 
           case 27:
