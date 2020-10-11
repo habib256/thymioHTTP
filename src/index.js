@@ -19,8 +19,11 @@ var socket = io.connect('ws://localhost:3000');
 // PING Events
 socket.on('ping', thymioPing);
 async function thymioPing(data) {
-    //console.log('Ping');
-    //await selectedNode.emitEvents({ "ping": null });
+    console.log('Ping to ', myNodes);
+
+    for (let node of myNodes) {
+      await node.emitEvents({ "ping": null });
+   }
 }
 
 // B_behavior Events
@@ -40,89 +43,89 @@ async function thymioQ_set_odometer(data) {
 //LEDs Events from Socket.io to Thymio
 socket.on('V_leds_prox_h', thymioV_leds_prox_h);
 async function thymioV_leds_prox_h(data) {
-    await selectedNode.emitEvents({ "V_leds_prox_h": data});
+    await selectedNode.emitEvents({ "V_leds_prox_h": data });
 }
 socket.on('V_leds_circle', thymioV_leds_circle);
 async function thymioV_leds_circle(data) {
-    await selectedNode.emitEvents({ "V_leds_circle": data});
+    await selectedNode.emitEvents({ "V_leds_circle": data });
 }
 socket.on('V_leds_top', thymioV_leds_top);
 async function thymioV_leds_top(data) {
-    await selectedNode.emitEvents({ "V_leds_top": data});
+    await selectedNode.emitEvents({ "V_leds_top": data });
 }
 socket.on('V_leds_bottom_left', thymioV_leds_bottom_left);
 async function thymioV_leds_bottom_left(data) {
-    await selectedNode.emitEvents({ "V_leds_bottom_left": data});
+    await selectedNode.emitEvents({ "V_leds_bottom_left": data });
 }
 socket.on('V_leds_bottom_right', thymioV_leds_bottom_right);
 async function thymioV_leds_bottom_right(data) {
-    await selectedNode.emitEvents({ "V_leds_bottom_right": data});
+    await selectedNode.emitEvents({ "V_leds_bottom_right": data });
 }
 socket.on('V_leds_prox_v', thymioV_leds_prox_v);
 async function thymioV_leds_prox_v(data) {
-    await selectedNode.emitEvents({ "V_leds_prox_v": data});
+    await selectedNode.emitEvents({ "V_leds_prox_v": data });
 }
 socket.on('V_leds_buttons', thymioV_leds_buttons);
 async function thymioV_leds_buttons(data) {
-    await selectedNode.emitEvents({ "V_leds_buttons": data});
+    await selectedNode.emitEvents({ "V_leds_buttons": data });
 }
 socket.on('V_leds_rc', thymioV_leds_rc);
 async function thymioV_leds_rc(data) {
-    await selectedNode.emitEvents({ "V_leds_rc": data});
+    await selectedNode.emitEvents({ "V_leds_rc": data });
 }
 socket.on('V_leds_temperature', thymioV_leds_temperature);
 async function thymioV_leds_temperature(data) {
-    await selectedNode.emitEvents({ "V_leds_temperature": data});
+    await selectedNode.emitEvents({ "V_leds_temperature": data });
 }
 socket.on('V_leds_sound', thymioV_leds_sound);
 async function thymioV_leds_sound(data) {
-    await selectedNode.emitEvents({ "V_leds_sound": data});
+    await selectedNode.emitEvents({ "V_leds_sound": data });
 }
 
 // Sound Events from Socket.io to Thymio
 socket.on('A_sound_system', thymioA_sound_system);
 async function thymioA_sound_system(data) {
-    await selectedNode.emitEvents({ "A_sound_system": data});
+    await selectedNode.emitEvents({ "A_sound_system": data });
 }
 socket.on('A_sound_freq', thymioA_sound_freq);
 async function thymioA_sound_freq(data) {
-    await selectedNode.emitEvents({ "A_sound_freq": data});
+    await selectedNode.emitEvents({ "A_sound_freq": data });
 }
 socket.on('A_sound_play', thymioA_sound_play);
 async function thymioA_sound_play(data) {
-    await selectedNode.emitEvents({ "A_sound_play": data});
+    await selectedNode.emitEvents({ "A_sound_play": data });
 }
 socket.on('A_sound_record', thymioA_sound_record);
 async function thymioA_sound_record(data) {
-    await selectedNode.emitEvents({ "A_sound_record": data});
+    await selectedNode.emitEvents({ "A_sound_record": data });
 }
 socket.on('A_sound_replay', thymioA_sound_replay);
 async function thymioA_sound_replay(data) {
-    await selectedNode.emitEvents({ "A_sound_replay": data});
+    await selectedNode.emitEvents({ "A_sound_replay": data });
 }
 
 // Motors Events from Socket.io to Thymio
 socket.on('M_motor_both', thymioM_motor_both);
 async function thymioM_motor_both(data) {
-    await selectedNode.emitEvents({ "M_motor_both": data});
+    await selectedNode.emitEvents({ "M_motor_both": data });
 }
 socket.on('M_motor_left', thymioM_motor_left);
 async function thymioM_motor_left(data) {
-    await selectedNode.emitEvents({ "M_motor_left": data});
+    await selectedNode.emitEvents({ "M_motor_left": data });
 }
 socket.on('M_motor_right', thymioM_motor_right);
 async function thymioM_motor_right(data) {
-    await selectedNode.emitEvents({ "M_motor_right": data});
+    await selectedNode.emitEvents({ "M_motor_right": data });
 }
 
 socket.on('M_motor_timed', thymioM_motor_timed);
 async function thymioM_motor_timed(data) {
-    await selectedNode.emitEvents({ "M_motor_timed": data});
+    await selectedNode.emitEvents({ "M_motor_timed": data });
 }
 
 socket.on('Q_reset', thymioQ_reset);
 async function thymioQ_reset(data) {
-    await selectedNode.emitEvents({ "Q_reset": null});
+    await selectedNode.emitEvents({ "Q_reset": null });
 }
 
 // ********** CONTROL THYMIO FROM JAVASCRIPT HERE  ***************
@@ -136,12 +139,11 @@ function thymioUpdate(data) {
 async function thymioSetup() {
     try {
         thymioSetupPrograms();
-        if (myNodes.length != 0) {
-        selectedNode = myNodes[0]
-        await selectedNode.sendAsebaProgram(thymioPrograms[0]);
-        await selectedNode.runProgram();
+        for (let node of myNodes) {
+            await node.sendAsebaProgram(thymioPrograms[0]);
+            await node.runProgram();
         }
-        
+
     } catch (e) {
         //console.log(e);
     }
@@ -386,7 +388,7 @@ async function thymioSetupPrograms() {
 
     `);
 
-  
+
     thymioPrograms.push(`
 
     `);
@@ -416,16 +418,16 @@ client.onNodesChanged = async (nodes) => {
         //Iterate over the nodes
         for (let node of nodes) {
 
-            if ( node.status == NodeStatus.disconnected){
+            if (node.status == NodeStatus.disconnected) {
                 myNodes.pop();
-                }
+            }
 
-            if ( node.status != NodeStatus.available){
-            console.log(`${node.id} : ${node.statusAsString} : ${node.name} `)
+            if (node.status != NodeStatus.available) {
+                console.log(`${node.id} : ${node.statusAsString} : ${node.name} `)
             }
 
             // Select the first non busy node
-            if ( node.status == NodeStatus.available) {
+            if (node.status == NodeStatus.available) {
                 try {
                     //console.log(`Locking ${node.id}`)
                     // Lock (take ownership) of the node. We cannot mutate a node (send code to it), until we have a lock on it
@@ -438,7 +440,7 @@ client.onNodesChanged = async (nodes) => {
                 }
             }
 
-            
+
             if (node.status == NodeStatus.available)
                 continue
             try {
@@ -449,12 +451,12 @@ client.onNodesChanged = async (nodes) => {
                 //Monitor the shared variables - note that because this callback is set on a group
                 //It does not track group changes
                 node.group.onVariablesChanged = (vars) => {
-                   // console.log("shared variables : ", vars)
+                    // console.log("shared variables : ", vars)
                 }
 
                 //Monitor the event descriptions - note that because this callback is set on a group, it does not track group changes
                 node.group.onEventsDescriptionsChanged = (events) => {
-                   // console.log("descriptions", events)
+                    // console.log("descriptions", events)
                 }
 
                 //Monitor variable changes
@@ -507,7 +509,7 @@ client.onNodesChanged = async (nodes) => {
                     { name: "Q_motion_started", fixed_size: 5 },
                     { name: "Q_motion_ended", fixed_size: 5 },
                     { name: "Q_motion_noneleft", fixed_size: 1 },
-                
+
                     { name: "B_behavior", fixed_size: 1 },
 
                     { name: "M_motor_timed", fixed_size: 3 },
@@ -515,29 +517,22 @@ client.onNodesChanged = async (nodes) => {
                     { name: "R_state_update", fixed_size: 29 },
                     { name: "Q_set_odometer", fixed_size: 3 },
                     { name: "Q_reset", fixed_size: 0 }
-                    
+
                 ]);
-                
+
             }
             catch (e) {
-       
+
                 //console.log(e)
-                
                 //process.exit()
             }
         }
         // End of  : for (let node of nodes)
-
-
-        //console.log( myNodes.length, "node(s) in myNodes",myNodes)
-        
-
+       // console.log( myNodes.length, "node(s) in myNodes",myNodes)
 
     } catch (e) {
-        
-   
-        //console.log(e)
-        
+
+        console.log(e)
         //process.exit()
     }
     thymioSetup();

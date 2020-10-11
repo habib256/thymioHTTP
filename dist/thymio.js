@@ -39052,15 +39052,57 @@ function thymioPing(_x) {
 
 function _thymioPing() {
   _thymioPing = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(data) {
+    var _iterator2, _step2, node;
+
     return regeneratorRuntime.wrap(function _callee4$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
+            console.log('Ping to ', myNodes);
+            _iterator2 = _createForOfIteratorHelper(myNodes);
+            _context4.prev = 2;
+
+            _iterator2.s();
+
+          case 4:
+            if ((_step2 = _iterator2.n()).done) {
+              _context4.next = 10;
+              break;
+            }
+
+            node = _step2.value;
+            _context4.next = 8;
+            return node.emitEvents({
+              "ping": null
+            });
+
+          case 8:
+            _context4.next = 4;
+            break;
+
+          case 10:
+            _context4.next = 15;
+            break;
+
+          case 12:
+            _context4.prev = 12;
+            _context4.t0 = _context4["catch"](2);
+
+            _iterator2.e(_context4.t0);
+
+          case 15:
+            _context4.prev = 15;
+
+            _iterator2.f();
+
+            return _context4.finish(15);
+
+          case 18:
           case "end":
             return _context4.stop();
         }
       }
-    }, _callee4);
+    }, _callee4, null, [[2, 12, 15, 18]]);
   }));
   return _thymioPing.apply(this, arguments);
 }
@@ -39677,40 +39719,68 @@ function thymioSetup() {
 
 function _thymioSetup() {
   _thymioSetup = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee27() {
+    var _iterator3, _step3, node;
+
     return regeneratorRuntime.wrap(function _callee27$(_context27) {
       while (1) {
         switch (_context27.prev = _context27.next) {
           case 0:
             _context27.prev = 0;
             thymioSetupPrograms();
+            _iterator3 = _createForOfIteratorHelper(myNodes);
+            _context27.prev = 3;
 
-            if (!(myNodes.length != 0)) {
-              _context27.next = 8;
+            _iterator3.s();
+
+          case 5:
+            if ((_step3 = _iterator3.n()).done) {
+              _context27.next = 13;
               break;
             }
 
-            selectedNode = myNodes[0];
-            _context27.next = 6;
-            return selectedNode.sendAsebaProgram(thymioPrograms[0]);
+            node = _step3.value;
+            _context27.next = 9;
+            return node.sendAsebaProgram(thymioPrograms[0]);
 
-          case 6:
-            _context27.next = 8;
-            return selectedNode.runProgram();
+          case 9:
+            _context27.next = 11;
+            return node.runProgram();
 
-          case 8:
-            _context27.next = 12;
+          case 11:
+            _context27.next = 5;
             break;
 
-          case 10:
-            _context27.prev = 10;
-            _context27.t0 = _context27["catch"](0);
+          case 13:
+            _context27.next = 18;
+            break;
 
-          case 12:
+          case 15:
+            _context27.prev = 15;
+            _context27.t0 = _context27["catch"](3);
+
+            _iterator3.e(_context27.t0);
+
+          case 18:
+            _context27.prev = 18;
+
+            _iterator3.f();
+
+            return _context27.finish(18);
+
+          case 21:
+            _context27.next = 25;
+            break;
+
+          case 23:
+            _context27.prev = 23;
+            _context27.t1 = _context27["catch"](0);
+
+          case 25:
           case "end":
             return _context27.stop();
         }
       }
-    }, _callee27, null, [[0, 10]]);
+    }, _callee27, null, [[0, 23], [3, 15, 18, 21]]);
   }));
   return _thymioSetup.apply(this, arguments);
 }
@@ -40039,17 +40109,18 @@ client.onNodesChanged = /*#__PURE__*/function () {
             return _context3.finish(39);
 
           case 42:
-            _context3.next = 46;
+            _context3.next = 47;
             break;
 
           case 44:
             _context3.prev = 44;
             _context3.t3 = _context3["catch"](0);
-
-          case 46:
-            thymioSetup();
+            console.log(_context3.t3); //process.exit()
 
           case 47:
+            thymioSetup();
+
+          case 48:
           case "end":
             return _context3.stop();
         }
