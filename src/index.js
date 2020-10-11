@@ -19,8 +19,7 @@ var socket = io.connect('ws://localhost:3000');
 // PING Events
 socket.on('ping', thymioPing);
 async function thymioPing(data) {
-    console.log('Ping to ', myNodes);
-
+    console.log('Ping to all', myNodes);
     for (let node of myNodes) {
       await node.emitEvents({ "ping": null });
    }
@@ -101,32 +100,44 @@ async function thymioA_sound_record(data) {
 }
 socket.on('A_sound_replay', thymioA_sound_replay);
 async function thymioA_sound_replay(data) {
-    await selectedNode.emitEvents({ "A_sound_replay": data });
+    for (let node of myNodes) {
+    await node.emitEvents({ "A_sound_replay": data });
+    }
 }
 
 // Motors Events from Socket.io to Thymio
 socket.on('M_motor_both', thymioM_motor_both);
 async function thymioM_motor_both(data) {
-    await selectedNode.emitEvents({ "M_motor_both": data });
+    for (let node of myNodes) {
+    await node.emitEvents({ "M_motor_both": data });
+    }
 }
 socket.on('M_motor_left', thymioM_motor_left);
 async function thymioM_motor_left(data) {
-    await selectedNode.emitEvents({ "M_motor_left": data });
+    for (let node of myNodes) {
+    await node.emitEvents({ "M_motor_left": data });
+    }
 }
 socket.on('M_motor_right', thymioM_motor_right);
 async function thymioM_motor_right(data) {
-    await selectedNode.emitEvents({ "M_motor_right": data });
+    for (let node of myNodes) {
+    await node.emitEvents({ "M_motor_right": data });
+    }
 }
 
 socket.on('M_motor_timed', thymioM_motor_timed);
 async function thymioM_motor_timed(data) {
-    await selectedNode.emitEvents({ "M_motor_timed": data });
+    for (let node of myNodes) {
+    await node.emitEvents({ "M_motor_timed": data });
+    }
 }
 
 socket.on('Q_reset', thymioQ_reset);
 async function thymioQ_reset(data) {
-    await selectedNode.emitEvents({ "Q_reset": null });
-}
+    for (let node of myNodes) {
+    await node.emitEvents({ "Q_reset": null });
+    }
+    }
 
 // ********** CONTROL THYMIO FROM JAVASCRIPT HERE  ***************
 // ***************************************************************

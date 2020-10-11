@@ -39058,7 +39058,7 @@ function _thymioPing() {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
-            console.log('Ping to ', myNodes);
+            console.log('Ping to all', myNodes);
             _iterator2 = _createForOfIteratorHelper(myNodes);
             _context4.prev = 2;
 
@@ -39552,21 +39552,56 @@ function thymioA_sound_replay(_x18) {
 
 function _thymioA_sound_replay() {
   _thymioA_sound_replay = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee21(data) {
+    var _iterator3, _step3, node;
+
     return regeneratorRuntime.wrap(function _callee21$(_context21) {
       while (1) {
         switch (_context21.prev = _context21.next) {
           case 0:
-            _context21.next = 2;
-            return selectedNode.emitEvents({
+            _iterator3 = _createForOfIteratorHelper(myNodes);
+            _context21.prev = 1;
+
+            _iterator3.s();
+
+          case 3:
+            if ((_step3 = _iterator3.n()).done) {
+              _context21.next = 9;
+              break;
+            }
+
+            node = _step3.value;
+            _context21.next = 7;
+            return node.emitEvents({
               "A_sound_replay": data
             });
 
-          case 2:
+          case 7:
+            _context21.next = 3;
+            break;
+
+          case 9:
+            _context21.next = 14;
+            break;
+
+          case 11:
+            _context21.prev = 11;
+            _context21.t0 = _context21["catch"](1);
+
+            _iterator3.e(_context21.t0);
+
+          case 14:
+            _context21.prev = 14;
+
+            _iterator3.f();
+
+            return _context21.finish(14);
+
+          case 17:
           case "end":
             return _context21.stop();
         }
       }
-    }, _callee21);
+    }, _callee21, null, [[1, 11, 14, 17]]);
   }));
   return _thymioA_sound_replay.apply(this, arguments);
 }
@@ -39579,21 +39614,56 @@ function thymioM_motor_both(_x19) {
 
 function _thymioM_motor_both() {
   _thymioM_motor_both = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee22(data) {
+    var _iterator4, _step4, node;
+
     return regeneratorRuntime.wrap(function _callee22$(_context22) {
       while (1) {
         switch (_context22.prev = _context22.next) {
           case 0:
-            _context22.next = 2;
-            return selectedNode.emitEvents({
+            _iterator4 = _createForOfIteratorHelper(myNodes);
+            _context22.prev = 1;
+
+            _iterator4.s();
+
+          case 3:
+            if ((_step4 = _iterator4.n()).done) {
+              _context22.next = 9;
+              break;
+            }
+
+            node = _step4.value;
+            _context22.next = 7;
+            return node.emitEvents({
               "M_motor_both": data
             });
 
-          case 2:
+          case 7:
+            _context22.next = 3;
+            break;
+
+          case 9:
+            _context22.next = 14;
+            break;
+
+          case 11:
+            _context22.prev = 11;
+            _context22.t0 = _context22["catch"](1);
+
+            _iterator4.e(_context22.t0);
+
+          case 14:
+            _context22.prev = 14;
+
+            _iterator4.f();
+
+            return _context22.finish(14);
+
+          case 17:
           case "end":
             return _context22.stop();
         }
       }
-    }, _callee22);
+    }, _callee22, null, [[1, 11, 14, 17]]);
   }));
   return _thymioM_motor_both.apply(this, arguments);
 }
@@ -39606,21 +39676,56 @@ function thymioM_motor_left(_x20) {
 
 function _thymioM_motor_left() {
   _thymioM_motor_left = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee23(data) {
+    var _iterator5, _step5, node;
+
     return regeneratorRuntime.wrap(function _callee23$(_context23) {
       while (1) {
         switch (_context23.prev = _context23.next) {
           case 0:
-            _context23.next = 2;
-            return selectedNode.emitEvents({
+            _iterator5 = _createForOfIteratorHelper(myNodes);
+            _context23.prev = 1;
+
+            _iterator5.s();
+
+          case 3:
+            if ((_step5 = _iterator5.n()).done) {
+              _context23.next = 9;
+              break;
+            }
+
+            node = _step5.value;
+            _context23.next = 7;
+            return node.emitEvents({
               "M_motor_left": data
             });
 
-          case 2:
+          case 7:
+            _context23.next = 3;
+            break;
+
+          case 9:
+            _context23.next = 14;
+            break;
+
+          case 11:
+            _context23.prev = 11;
+            _context23.t0 = _context23["catch"](1);
+
+            _iterator5.e(_context23.t0);
+
+          case 14:
+            _context23.prev = 14;
+
+            _iterator5.f();
+
+            return _context23.finish(14);
+
+          case 17:
           case "end":
             return _context23.stop();
         }
       }
-    }, _callee23);
+    }, _callee23, null, [[1, 11, 14, 17]]);
   }));
   return _thymioM_motor_left.apply(this, arguments);
 }
@@ -39633,21 +39738,56 @@ function thymioM_motor_right(_x21) {
 
 function _thymioM_motor_right() {
   _thymioM_motor_right = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee24(data) {
+    var _iterator6, _step6, node;
+
     return regeneratorRuntime.wrap(function _callee24$(_context24) {
       while (1) {
         switch (_context24.prev = _context24.next) {
           case 0:
-            _context24.next = 2;
-            return selectedNode.emitEvents({
+            _iterator6 = _createForOfIteratorHelper(myNodes);
+            _context24.prev = 1;
+
+            _iterator6.s();
+
+          case 3:
+            if ((_step6 = _iterator6.n()).done) {
+              _context24.next = 9;
+              break;
+            }
+
+            node = _step6.value;
+            _context24.next = 7;
+            return node.emitEvents({
               "M_motor_right": data
             });
 
-          case 2:
+          case 7:
+            _context24.next = 3;
+            break;
+
+          case 9:
+            _context24.next = 14;
+            break;
+
+          case 11:
+            _context24.prev = 11;
+            _context24.t0 = _context24["catch"](1);
+
+            _iterator6.e(_context24.t0);
+
+          case 14:
+            _context24.prev = 14;
+
+            _iterator6.f();
+
+            return _context24.finish(14);
+
+          case 17:
           case "end":
             return _context24.stop();
         }
       }
-    }, _callee24);
+    }, _callee24, null, [[1, 11, 14, 17]]);
   }));
   return _thymioM_motor_right.apply(this, arguments);
 }
@@ -39660,21 +39800,56 @@ function thymioM_motor_timed(_x22) {
 
 function _thymioM_motor_timed() {
   _thymioM_motor_timed = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee25(data) {
+    var _iterator7, _step7, node;
+
     return regeneratorRuntime.wrap(function _callee25$(_context25) {
       while (1) {
         switch (_context25.prev = _context25.next) {
           case 0:
-            _context25.next = 2;
-            return selectedNode.emitEvents({
+            _iterator7 = _createForOfIteratorHelper(myNodes);
+            _context25.prev = 1;
+
+            _iterator7.s();
+
+          case 3:
+            if ((_step7 = _iterator7.n()).done) {
+              _context25.next = 9;
+              break;
+            }
+
+            node = _step7.value;
+            _context25.next = 7;
+            return node.emitEvents({
               "M_motor_timed": data
             });
 
-          case 2:
+          case 7:
+            _context25.next = 3;
+            break;
+
+          case 9:
+            _context25.next = 14;
+            break;
+
+          case 11:
+            _context25.prev = 11;
+            _context25.t0 = _context25["catch"](1);
+
+            _iterator7.e(_context25.t0);
+
+          case 14:
+            _context25.prev = 14;
+
+            _iterator7.f();
+
+            return _context25.finish(14);
+
+          case 17:
           case "end":
             return _context25.stop();
         }
       }
-    }, _callee25);
+    }, _callee25, null, [[1, 11, 14, 17]]);
   }));
   return _thymioM_motor_timed.apply(this, arguments);
 }
@@ -39689,21 +39864,56 @@ function thymioQ_reset(_x23) {
 
 function _thymioQ_reset() {
   _thymioQ_reset = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee26(data) {
+    var _iterator8, _step8, node;
+
     return regeneratorRuntime.wrap(function _callee26$(_context26) {
       while (1) {
         switch (_context26.prev = _context26.next) {
           case 0:
-            _context26.next = 2;
-            return selectedNode.emitEvents({
+            _iterator8 = _createForOfIteratorHelper(myNodes);
+            _context26.prev = 1;
+
+            _iterator8.s();
+
+          case 3:
+            if ((_step8 = _iterator8.n()).done) {
+              _context26.next = 9;
+              break;
+            }
+
+            node = _step8.value;
+            _context26.next = 7;
+            return node.emitEvents({
               "Q_reset": null
             });
 
-          case 2:
+          case 7:
+            _context26.next = 3;
+            break;
+
+          case 9:
+            _context26.next = 14;
+            break;
+
+          case 11:
+            _context26.prev = 11;
+            _context26.t0 = _context26["catch"](1);
+
+            _iterator8.e(_context26.t0);
+
+          case 14:
+            _context26.prev = 14;
+
+            _iterator8.f();
+
+            return _context26.finish(14);
+
+          case 17:
           case "end":
             return _context26.stop();
         }
       }
-    }, _callee26);
+    }, _callee26, null, [[1, 11, 14, 17]]);
   }));
   return _thymioQ_reset.apply(this, arguments);
 }
@@ -39719,7 +39929,7 @@ function thymioSetup() {
 
 function _thymioSetup() {
   _thymioSetup = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee27() {
-    var _iterator3, _step3, node;
+    var _iterator9, _step9, node;
 
     return regeneratorRuntime.wrap(function _callee27$(_context27) {
       while (1) {
@@ -39727,18 +39937,18 @@ function _thymioSetup() {
           case 0:
             _context27.prev = 0;
             thymioSetupPrograms();
-            _iterator3 = _createForOfIteratorHelper(myNodes);
+            _iterator9 = _createForOfIteratorHelper(myNodes);
             _context27.prev = 3;
 
-            _iterator3.s();
+            _iterator9.s();
 
           case 5:
-            if ((_step3 = _iterator3.n()).done) {
+            if ((_step9 = _iterator9.n()).done) {
               _context27.next = 13;
               break;
             }
 
-            node = _step3.value;
+            node = _step9.value;
             _context27.next = 9;
             return node.sendAsebaProgram(thymioPrograms[0]);
 
@@ -39758,12 +39968,12 @@ function _thymioSetup() {
             _context27.prev = 15;
             _context27.t0 = _context27["catch"](3);
 
-            _iterator3.e(_context27.t0);
+            _iterator9.e(_context27.t0);
 
           case 18:
             _context27.prev = 18;
 
-            _iterator3.f();
+            _iterator9.f();
 
             return _context27.finish(18);
 
