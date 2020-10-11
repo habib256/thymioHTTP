@@ -18,7 +18,7 @@ var socket = io.connect('ws://localhost:3000');
 // PING Events
 socket.on('ping', thymioPing);
 async function thymioPing(data) {
-    console.log('Ping to all', myNodes);
+    console.log('Ping to all myNodes: ', myNodes);
     for (let node of myNodes) {
         await node.emitEvents({ "ping": null });
     }
@@ -368,12 +368,13 @@ async function thymioSetupPrograms() {
     var chronometer = 0      ##! BUSY Motors counter
     var busy = 0             ##! LOGO Motor Stuff
     var behavior = 0         ##! High Level Stuff
-
-    var odo.delta ##! [out] @private instantaneous speed difference
-    var odo.theta = 0 ##! [out] odometer current angle
-    var odo.x = 0 ##! [out] odometer x
-    var odo.y = 0 ##! [out] odometer y
-    var odo.degree ##! [out] odometer direction
+    
+    var odometer = 0         ##! Odometer calculation
+    var odo.delta            ##! [out] @private instantaneous speed difference
+    var odo.theta = 0        ##! [out] odometer current angle
+    var odo.x = 0            ##! [out] odometer x
+    var odo.y = 0            ##! [out] odometer y
+    var odo.degree           ##! [out] odometer direction
 
     # reusable temp vars for event handlers
     var tmp[9]
@@ -408,6 +409,8 @@ async function thymioSetupPrograms() {
             callsub behavior2
         end
 
+        emit R_state_update(R_state)
+
     ##! 20 Hz THYMIO
     onevent buttons
         R_state[4] = button.backward
@@ -427,20 +430,20 @@ async function thymioSetupPrograms() {
         R_state[26] = odo.x
         R_state[27] = odo.y
         R_state[28] = busy
-        
-        emit R_state_update(R_state)
-            
+           
 
     ##! 100 Hz THYMIO
     onevent motor # loop runs at 100 Hz
-        odo.delta = (motor.right.target + motor.left.target) / 2
-        call math.muldiv(tmp[0], (motor.right.target - motor.left.target), 3406, 10000)
-        odo.theta += tmp[0]
-        call math.cos(tmp[0:1],[odo.theta,16384-odo.theta])
-        call math.muldiv(tmp[0:1], [odo.delta,odo.delta],tmp[0:1], [32767,32767])
-        odo.x += tmp[0]/45
-        odo.y += tmp[1]/45
-        odo.degree = 90 - (odo.theta / 182)
+        if (odometer == 1) then
+            odo.delta = (motor.right.target + motor.left.target) / 2
+            call math.muldiv(tmp[0], (motor.right.target - motor.left.target), 3406, 10000)
+            odo.theta += tmp[0]
+            call math.cos(tmp[0:1],[odo.theta,16384-odo.theta])
+            call math.muldiv(tmp[0:1], [odo.delta,odo.delta],tmp[0:1], [32767,32767])
+            odo.x += tmp[0]/45
+            odo.y += tmp[1]/45
+            odo.degree = 90 - (odo.theta / 182)
+        end
 
         if (busy == 1) then
             chronometer = chronometer - 1
@@ -468,6 +471,7 @@ async function thymioSetupPrograms() {
 
     ##! ODOMETER THYMIO EVENTS
     onevent Q_set_odometer
+        odometer = 1
         odo.theta = (((event.args[0] + 360) % 360) - 90) * 182
         odo.x = event.args[1] * 28
         odo.y = event.args[2] * 28
