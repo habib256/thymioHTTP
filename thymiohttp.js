@@ -19,6 +19,15 @@ function newConnection(_socket) {
     socket.on('thymio', thymioMsg);
 }
 
+io.sockets.on('myNodes', updateNodes);
+function updateNodes(_socket) {
+    console.log('socket on myNode')
+    console.log(_socket)
+   // socket = _socket;
+   // console.log('new connection: ' + socket.id);
+   // socket.on('thymio', thymioMsg);
+}
+
 //
 function thymioMsg(_data) {
     data = _data;

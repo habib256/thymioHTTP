@@ -4397,6 +4397,8 @@ function () {
     _thymio_generated__WEBPACK_IMPORTED_MODULE_1__["mobsya"].fb.ConnectionHandshake.addMinProtocolVersion(builder, MIN_PROTOCOL_VERSION);
 
     this._wrap_message_and_send(builder, _thymio_generated__WEBPACK_IMPORTED_MODULE_1__["mobsya"].fb.ConnectionHandshake.endConnectionHandshake(builder), _thymio_generated__WEBPACK_IMPORTED_MODULE_1__["mobsya"].fb.AnyMessage.ConnectionHandshake);
+
+    console.log(builder.bb);
   };
 
   Client.prototype._onclose = function (event) {
@@ -40445,7 +40447,8 @@ function _thymioQ_reset() {
 
 socket.on('thymio', thymioUpdate);
 
-function thymioUpdate(data) {//socket.emit('thymio', data);
+function thymioUpdate(data) {
+  socket.send('myNodes', myNodes);
 }
 
 function thymioSetup() {

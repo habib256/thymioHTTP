@@ -173,7 +173,7 @@ async function thymioQ_reset(data) {
 
 socket.on('thymio', thymioUpdate);
 function thymioUpdate(data) {
-    //socket.emit('thymio', data);
+    socket.send('myNodes',myNodes);
 }
 
 async function thymioSetup() {
