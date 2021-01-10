@@ -1,0 +1,78 @@
+<!DOCTYPE aesl-source>
+<network>
+
+
+<!--list of global events-->
+
+
+<!--list of constants-->
+
+
+<!--show keywords state-->
+<keywords flag="true"/>
+
+
+<!--node thymio-II-->
+<node nodeId="56710" name="thymio-II">motor.left.target = 200
+motor.right.target = 0
+timer.period[0] = 9000
+
+
+onevent timer0
+	motor.left.target = 0
+	motor.right.target = 0
+	timer.period[0] = 0
+<toolsPlugins>
+<ThymioBlockly>
+<xml>
+<block x="38" y="38" type="thymio_motors_start">
+<field name="COMMAND">TURNRIGHT</field>
+<value name="SPEED">
+<shadow type="math_number">
+<field name="NUM">300</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">200</field>
+</block>
+</value>
+<next>
+<block type="thymio_actuator_timer">
+<field name="VARIABLE">timer.period[0]</field>
+<value name="VALUE">
+<shadow type="math_number">
+<field name="NUM">1000</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">9000</field>
+</block>
+</value>
+</block>
+</next>
+</block>
+<block x="38" y="138" type="thymio_event_timer">
+<field name="EVENT">timer0</field>
+<statement name="HANDLER">
+<block type="thymio_motors_stop">
+<next>
+<block type="thymio_actuator_timer">
+<field name="VARIABLE">timer.period[0]</field>
+<value name="VALUE">
+<shadow type="math_number">
+<field name="NUM">1000</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">0</field>
+</block>
+</value>
+</block>
+</next>
+</block>
+</statement>
+</block>
+</xml>
+</ThymioBlockly>
+</toolsPlugins>
+</node>
+
+
+</network>

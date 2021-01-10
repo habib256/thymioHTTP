@@ -1,0 +1,1276 @@
+<!DOCTYPE aesl-source>
+<network>
+
+
+<!--list of global events-->
+
+
+<!--list of constants-->
+
+
+<!--show keywords state-->
+<keywords flag="true"/>
+
+
+<!--node thymio-II-->
+<node nodeId="56710" name="thymio-II">var passage
+
+
+passage = 0
+motor.left.target = 0
+motor.right.target = 0
+timer.period[0] = 10
+
+
+onevent timer0
+	passage = passage + 1
+	if passage == 32 then
+		timer.period[0] = 0
+		motor.left.target = 0
+		motor.right.target = 0
+	else
+		if passage == 1 or passage == 29 then
+			timer.period[0] = 1540
+			motor.left.target = 200
+			motor.right.target = 200
+		else
+			if passage == 2 or (passage == 4 or (passage == 10 or (passage == 14 or (passage == 16 or (passage == 20 or (passage == 26 or (passage == 28 or passage == 30))))))) then
+				timer.period[0] = 2260
+				motor.left.target = 100
+				motor.right.target = -100
+			else
+				if passage == 6 or (passage == 8 or (passage == 12 or (passage == 18 or (passage == 22 or passage == 24)))) then
+					timer.period[0] = 2260
+					motor.left.target = -100
+					motor.right.target = 100
+				else
+					if (passage == 3 or (passage == 5 or (passage == 7 or (passage == 9 or (passage == 11 or passage == 13))))) or ((passage == 15 or (passage == 17 or (passage == 19 or passage == 21))) or (passage == 23 or (passage == 25 or passage == 27))) then
+						timer.period[0] = 308
+						motor.left.target = 200
+						motor.right.target = 200
+					else
+						if passage == 31 then
+							timer.period[0] = 2772
+							motor.left.target = 200
+							motor.right.target = 200
+						end
+					end
+				end
+			end
+		end
+	end
+<toolsPlugins>
+<ThymioBlockly>
+<xml>
+<block x="37" y="13" type="thymio_variable_set">
+<field name="VAR">passage</field>
+<value name="VALUE">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+</value>
+<next>
+<block type="thymio_motors_stop">
+<next>
+<block type="thymio_actuator_timer">
+<field name="VARIABLE">timer.period[0]</field>
+<value name="VALUE">
+<shadow type="math_number">
+<field name="NUM">1000</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">10</field>
+</block>
+</value>
+</block>
+</next>
+</block>
+</next>
+</block>
+<block x="38" y="138" type="thymio_event_timer">
+<field name="EVENT">timer0</field>
+<statement name="HANDLER">
+<block type="thymio_variable_set">
+<field name="VAR">passage</field>
+<value name="VALUE">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="thymio_arithmetic">
+<field name="OP">+</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">1</field>
+</shadow>
+<block type="thymio_variable_get">
+<field name="VAR">passage</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number">
+<field name="NUM">1</field>
+</shadow>
+</value>
+</block>
+</value>
+<next>
+<block type="controls_if">
+<mutation else="1"/>
+<value name="IF0">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="thymio_compare">
+<field name="OP">EQ</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="thymio_variable_get">
+<field name="VAR">passage</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">32</field>
+</block>
+</value>
+</block>
+</value>
+<statement name="DO0">
+<block type="thymio_actuator_timer">
+<field name="VARIABLE">timer.period[0]</field>
+<value name="VALUE">
+<shadow type="math_number">
+<field name="NUM">1000</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">0</field>
+</block>
+</value>
+<next>
+<block type="thymio_motors_stop"/>
+</next>
+</block>
+</statement>
+<statement name="ELSE">
+<block type="controls_if">
+<mutation else="1"/>
+<value name="IF0">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="logic_operation">
+<field name="OP">OR</field>
+<value name="A">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="thymio_compare">
+<field name="OP">EQ</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="thymio_variable_get">
+<field name="VAR">passage</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">1</field>
+</block>
+</value>
+</block>
+</value>
+<value name="B">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="thymio_compare">
+<field name="OP">EQ</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="thymio_variable_get">
+<field name="VAR">passage</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">29</field>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+<statement name="DO0">
+<block type="thymio_actuator_timer">
+<field name="VARIABLE">timer.period[0]</field>
+<value name="VALUE">
+<shadow type="math_number">
+<field name="NUM">1000</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">1540</field>
+</block>
+</value>
+<next>
+<block type="thymio_motors_start">
+<field name="COMMAND">FORWARD</field>
+<value name="SPEED">
+<shadow type="math_number">
+<field name="NUM">300</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">200</field>
+</block>
+</value>
+</block>
+</next>
+</block>
+</statement>
+<statement name="ELSE">
+<block type="controls_if">
+<mutation else="1"/>
+<value name="IF0">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="logic_operation">
+<field name="OP">OR</field>
+<value name="A">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="thymio_compare">
+<field name="OP">EQ</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="thymio_variable_get">
+<field name="VAR">passage</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">2</field>
+</block>
+</value>
+</block>
+</value>
+<value name="B">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="logic_operation">
+<field name="OP">OR</field>
+<value name="A">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="thymio_compare">
+<field name="OP">EQ</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="thymio_variable_get">
+<field name="VAR">passage</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">4</field>
+</block>
+</value>
+</block>
+</value>
+<value name="B">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="logic_operation">
+<field name="OP">OR</field>
+<value name="A">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="thymio_compare">
+<field name="OP">EQ</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="thymio_variable_get">
+<field name="VAR">passage</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">10</field>
+</block>
+</value>
+</block>
+</value>
+<value name="B">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="logic_operation">
+<field name="OP">OR</field>
+<value name="A">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="thymio_compare">
+<field name="OP">EQ</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="thymio_variable_get">
+<field name="VAR">passage</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">14</field>
+</block>
+</value>
+</block>
+</value>
+<value name="B">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="logic_operation">
+<field name="OP">OR</field>
+<value name="A">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="thymio_compare">
+<field name="OP">EQ</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="thymio_variable_get">
+<field name="VAR">passage</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">16</field>
+</block>
+</value>
+</block>
+</value>
+<value name="B">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="logic_operation">
+<field name="OP">OR</field>
+<value name="A">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="thymio_compare">
+<field name="OP">EQ</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="thymio_variable_get">
+<field name="VAR">passage</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">20</field>
+</block>
+</value>
+</block>
+</value>
+<value name="B">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="logic_operation">
+<field name="OP">OR</field>
+<value name="A">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="thymio_compare">
+<field name="OP">EQ</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="thymio_variable_get">
+<field name="VAR">passage</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">26</field>
+</block>
+</value>
+</block>
+</value>
+<value name="B">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="logic_operation">
+<field name="OP">OR</field>
+<value name="A">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="thymio_compare">
+<field name="OP">EQ</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="thymio_variable_get">
+<field name="VAR">passage</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">28</field>
+</block>
+</value>
+</block>
+</value>
+<value name="B">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="thymio_compare">
+<field name="OP">EQ</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="thymio_variable_get">
+<field name="VAR">passage</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">30</field>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+<statement name="DO0">
+<block type="thymio_actuator_timer">
+<field name="VARIABLE">timer.period[0]</field>
+<value name="VALUE">
+<shadow type="math_number">
+<field name="NUM">1000</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">2260</field>
+</block>
+</value>
+<next>
+<block type="thymio_motors_start">
+<field name="COMMAND">SPINCW</field>
+<value name="SPEED">
+<shadow type="math_number">
+<field name="NUM">300</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">100</field>
+</block>
+</value>
+</block>
+</next>
+</block>
+</statement>
+<statement name="ELSE">
+<block type="controls_if">
+<mutation else="1"/>
+<value name="IF0">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="logic_operation">
+<field name="OP">OR</field>
+<value name="A">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="thymio_compare">
+<field name="OP">EQ</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="thymio_variable_get">
+<field name="VAR">passage</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">6</field>
+</block>
+</value>
+</block>
+</value>
+<value name="B">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="logic_operation">
+<field name="OP">OR</field>
+<value name="A">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="thymio_compare">
+<field name="OP">EQ</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="thymio_variable_get">
+<field name="VAR">passage</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">8</field>
+</block>
+</value>
+</block>
+</value>
+<value name="B">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="logic_operation">
+<field name="OP">OR</field>
+<value name="A">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="thymio_compare">
+<field name="OP">EQ</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="thymio_variable_get">
+<field name="VAR">passage</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">12</field>
+</block>
+</value>
+</block>
+</value>
+<value name="B">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="logic_operation">
+<field name="OP">OR</field>
+<value name="A">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="thymio_compare">
+<field name="OP">EQ</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="thymio_variable_get">
+<field name="VAR">passage</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">18</field>
+</block>
+</value>
+</block>
+</value>
+<value name="B">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="logic_operation">
+<field name="OP">OR</field>
+<value name="A">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="thymio_compare">
+<field name="OP">EQ</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="thymio_variable_get">
+<field name="VAR">passage</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">22</field>
+</block>
+</value>
+</block>
+</value>
+<value name="B">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="thymio_compare">
+<field name="OP">EQ</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="thymio_variable_get">
+<field name="VAR">passage</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">24</field>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+<statement name="DO0">
+<block type="thymio_actuator_timer">
+<field name="VARIABLE">timer.period[0]</field>
+<value name="VALUE">
+<shadow type="math_number">
+<field name="NUM">1000</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">2260</field>
+</block>
+</value>
+<next>
+<block type="thymio_motors_start">
+<field name="COMMAND">SPINCCW</field>
+<value name="SPEED">
+<shadow type="math_number">
+<field name="NUM">300</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">100</field>
+</block>
+</value>
+</block>
+</next>
+</block>
+</statement>
+<statement name="ELSE">
+<block type="controls_if">
+<mutation else="1"/>
+<value name="IF0">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="logic_operation">
+<field name="OP">OR</field>
+<value name="A">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="logic_operation">
+<field name="OP">OR</field>
+<value name="A">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="thymio_compare">
+<field name="OP">EQ</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="thymio_variable_get">
+<field name="VAR">passage</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">3</field>
+</block>
+</value>
+</block>
+</value>
+<value name="B">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="logic_operation">
+<field name="OP">OR</field>
+<value name="A">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="thymio_compare">
+<field name="OP">EQ</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="thymio_variable_get">
+<field name="VAR">passage</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">5</field>
+</block>
+</value>
+</block>
+</value>
+<value name="B">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="logic_operation">
+<field name="OP">OR</field>
+<value name="A">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="thymio_compare">
+<field name="OP">EQ</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="thymio_variable_get">
+<field name="VAR">passage</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">7</field>
+</block>
+</value>
+</block>
+</value>
+<value name="B">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="logic_operation">
+<field name="OP">OR</field>
+<value name="A">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="thymio_compare">
+<field name="OP">EQ</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="thymio_variable_get">
+<field name="VAR">passage</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">9</field>
+</block>
+</value>
+</block>
+</value>
+<value name="B">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="logic_operation">
+<field name="OP">OR</field>
+<value name="A">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="thymio_compare">
+<field name="OP">EQ</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="thymio_variable_get">
+<field name="VAR">passage</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">11</field>
+</block>
+</value>
+</block>
+</value>
+<value name="B">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="thymio_compare">
+<field name="OP">EQ</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="thymio_variable_get">
+<field name="VAR">passage</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">13</field>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+<value name="B">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="logic_operation">
+<field name="OP">OR</field>
+<value name="A">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="logic_operation">
+<field name="OP">OR</field>
+<value name="A">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="thymio_compare">
+<field name="OP">EQ</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="thymio_variable_get">
+<field name="VAR">passage</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">15</field>
+</block>
+</value>
+</block>
+</value>
+<value name="B">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="logic_operation">
+<field name="OP">OR</field>
+<value name="A">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="thymio_compare">
+<field name="OP">EQ</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="thymio_variable_get">
+<field name="VAR">passage</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">17</field>
+</block>
+</value>
+</block>
+</value>
+<value name="B">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="logic_operation">
+<field name="OP">OR</field>
+<value name="A">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="thymio_compare">
+<field name="OP">EQ</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="thymio_variable_get">
+<field name="VAR">passage</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">19</field>
+</block>
+</value>
+</block>
+</value>
+<value name="B">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="thymio_compare">
+<field name="OP">EQ</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="thymio_variable_get">
+<field name="VAR">passage</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">21</field>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+<value name="B">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="logic_operation">
+<field name="OP">OR</field>
+<value name="A">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="thymio_compare">
+<field name="OP">EQ</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="thymio_variable_get">
+<field name="VAR">passage</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">23</field>
+</block>
+</value>
+</block>
+</value>
+<value name="B">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="logic_operation">
+<field name="OP">OR</field>
+<value name="A">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="thymio_compare">
+<field name="OP">EQ</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="thymio_variable_get">
+<field name="VAR">passage</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">25</field>
+</block>
+</value>
+</block>
+</value>
+<value name="B">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="thymio_compare">
+<field name="OP">EQ</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="thymio_variable_get">
+<field name="VAR">passage</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">27</field>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+</block>
+</value>
+<statement name="DO0">
+<block type="thymio_actuator_timer">
+<field name="VARIABLE">timer.period[0]</field>
+<value name="VALUE">
+<shadow type="math_number">
+<field name="NUM">1000</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">308</field>
+</block>
+</value>
+<next>
+<block type="thymio_motors_start">
+<field name="COMMAND">FORWARD</field>
+<value name="SPEED">
+<shadow type="math_number">
+<field name="NUM">300</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">200</field>
+</block>
+</value>
+</block>
+</next>
+</block>
+</statement>
+<statement name="ELSE">
+<block type="controls_if">
+<value name="IF0">
+<shadow type="logic_boolean">
+<field name="BOOL">TRUE</field>
+</shadow>
+<block type="thymio_compare">
+<field name="OP">EQ</field>
+<value name="A">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="thymio_variable_get">
+<field name="VAR">passage</field>
+</block>
+</value>
+<value name="B">
+<shadow type="math_number">
+<field name="NUM">0</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">31</field>
+</block>
+</value>
+</block>
+</value>
+<statement name="DO0">
+<block type="thymio_actuator_timer">
+<field name="VARIABLE">timer.period[0]</field>
+<value name="VALUE">
+<shadow type="math_number">
+<field name="NUM">1000</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">2772</field>
+</block>
+</value>
+<next>
+<block type="thymio_motors_start">
+<field name="COMMAND">FORWARD</field>
+<value name="SPEED">
+<shadow type="math_number">
+<field name="NUM">300</field>
+</shadow>
+<block type="math_number">
+<field name="NUM">200</field>
+</block>
+</value>
+</block>
+</next>
+</block>
+</statement>
+</block>
+</statement>
+</block>
+</statement>
+</block>
+</statement>
+</block>
+</statement>
+</block>
+</statement>
+</block>
+</next>
+</block>
+</statement>
+</block>
+</xml>
+</ThymioBlockly>
+</toolsPlugins>
+</node>
+
+
+</network>
