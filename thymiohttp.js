@@ -2,10 +2,17 @@
 // APACHE 2.0 License - VERHILLE Arnaud
 
 var express = require('express');
+var bodyParser = require('body-parser')
 var cors = require('cors')
 var app = express();
 app.use(cors())
 var server = app.listen(3000);
+
+// create application/json parser
+var jsonParser = bodyParser.json()
+ 
+// create application/x-www-form-urlencoded parser
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 var data = [0];
 
@@ -200,5 +207,25 @@ app.put('/nodes/Q_reset/', function (req, res) {
     //console.log('Got THYMIO Q_reset');
     io.sockets.emit('Q_reset', null);
 });
+
+app.put('/nodes/code/' , function (req, res) {
+    res.send('Got a PUT request at THYMIO code upload request');
+    let args = res;
+    console.log('Got THYMIO code upload request');
+    console.log(args);
+    //io.sockets.emit('code', args)
+});
+
+// POST /login gets urlencoded bodies  jsonParser
+//app.post('/nodes/code/', urlencodedParser, function (req, res) {
+//    res.send('welcome, ' + req.body)
+//    console.log(req)
+//  })
+   
+  // POST /api/users gets JSON bodies
+  app.post('/nodes/code/' , function (req, res) {
+    res.send('welcome, ' + req)
+    console.log(req)
+  })
 
 
