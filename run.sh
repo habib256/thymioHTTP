@@ -7,7 +7,7 @@ cd /opt/thymioHTTP
 node thymiohttp.js & 
 
 #chromium-browser 127.0.0.1:3000 "https://snap.berkeley.edu/snap/snap.html#present:Username=gist&ProjectName=snap4thymio-2.1&editMode&noRun"
-#firefox 127.0.0.1:3000 "file:///opt/Snap/snap.html#run:http://127.0.0.1:3000/snap4thymio-2.1.xml&editMode&noRun"
+#firefox 127.0.0.1:3000 "file:///opt/Snap/snap.html#run:http://127.0.0.1:3000/snaptoaseba.xml&editMode&noRun"
 
 chromium-browser 127.0.0.1:3000 "file:///opt/Snap/snap.html#run:http://127.0.0.1:3000/snap4thymio-2.1.xml&editMode&noRun"
 

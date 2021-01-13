@@ -17,11 +17,11 @@ var socket = io.connect('ws://localhost:3000');
 // CODE Upload Events
 socket.on('code', thymioCode);
 async function thymioCode(data) {
-    console.log("Upload program : ", data)
-    // Charger le programme aseba sur chaque(s) Thymio(s)
-    
+    var s_obj = new String(data);
+    console.log("Upload Program",s_obj)
+
     for (let node of myNodes) {
-        await node.sendAsebaProgram(thymioPrograms[0]);
+        await node.sendAsebaProgram(s_obj)
         await node.runProgram();
     }
 }

@@ -39054,60 +39054,60 @@ function thymioCode(_x) {
 
 function _thymioCode() {
   _thymioCode = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(data) {
-    var _iterator2, _step2, _node2;
+    var s_obj, _iterator2, _step2, _node2;
 
     return regeneratorRuntime.wrap(function _callee4$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
-            console.log("Upload program : ", data); // Charger le programme aseba sur chaque(s) Thymio(s)
-
+            s_obj = new String(data);
+            console.log("Upload Program", s_obj);
             _iterator2 = _createForOfIteratorHelper(myNodes);
-            _context4.prev = 2;
+            _context4.prev = 3;
 
             _iterator2.s();
 
-          case 4:
+          case 5:
             if ((_step2 = _iterator2.n()).done) {
-              _context4.next = 12;
+              _context4.next = 13;
               break;
             }
 
             _node2 = _step2.value;
-            _context4.next = 8;
-            return _node2.sendAsebaProgram(thymioPrograms[0]);
+            _context4.next = 9;
+            return _node2.sendAsebaProgram(s_obj);
 
-          case 8:
-            _context4.next = 10;
+          case 9:
+            _context4.next = 11;
             return _node2.runProgram();
 
-          case 10:
-            _context4.next = 4;
+          case 11:
+            _context4.next = 5;
             break;
 
-          case 12:
-            _context4.next = 17;
+          case 13:
+            _context4.next = 18;
             break;
 
-          case 14:
-            _context4.prev = 14;
-            _context4.t0 = _context4["catch"](2);
+          case 15:
+            _context4.prev = 15;
+            _context4.t0 = _context4["catch"](3);
 
             _iterator2.e(_context4.t0);
 
-          case 17:
-            _context4.prev = 17;
+          case 18:
+            _context4.prev = 18;
 
             _iterator2.f();
 
-            return _context4.finish(17);
+            return _context4.finish(18);
 
-          case 20:
+          case 21:
           case "end":
             return _context4.stop();
         }
       }
-    }, _callee4, null, [[2, 14, 17, 20]]);
+    }, _callee4, null, [[3, 15, 18, 21]]);
   }));
   return _thymioCode.apply(this, arguments);
 }

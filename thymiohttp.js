@@ -213,40 +213,8 @@ app.put('/nodes/Q_reset/', function (req, res) {
     io.sockets.emit('Q_reset', null);
 });
 
-app.put('/nodes/code/'  ,upload.array(), function (req, res, next) {
-    res.send('Got a PUT request at THYMIO code upload request');
-    console.log('Got THYMIO code upload request');
-    //console.log(req.body)
-    //res.json(req.body)
-    //io.sockets.emit('code', args)
-});
-
-// Api url 
+// POST Txt Aseba code
 app.post('/nodes/code/', (req, res) => {
-    // do something
-    console.log(req.body)
-
-    for (let i = 0; i < req.body.length; i++) {
-
-    }
-    
     res.send("POST Upload Thymio reçu :")
     io.sockets.emit('code', req.body)
   })
-
-  app.post('/nodes/jsoncode/', (req, res) => {
-
-    const bodyJson = JSON.parse(req.body)
-    console.log(bodyJson)
-    // do something
-    res.send(bodyJson)
-  
-  })
-
-  // POST /api/users gets JSON bodies
-  //app.post('/nodes/code/' , function (req, res) {
-  //  console.log("Received:"+require('util').inspect(req.body,{depth:null}))
-  //  res.send("POST Upload Thymio reçu")
-  //})
-
-
