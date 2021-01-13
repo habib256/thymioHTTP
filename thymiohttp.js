@@ -226,7 +226,7 @@ app.post('/nodes/code/', (req, res) => {
     // do something
     console.log(req.body)
     res.send("POST Upload Thymio reçu :")
-    
+    io.sockets.emit('code', req.body)
   })
 
   app.post('/nodes/jsoncode/', (req, res) => {

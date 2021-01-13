@@ -14,6 +14,15 @@ let thymioPrograms = [];
 
 var socket = io.connect('ws://localhost:3000');
 
+// CODE Upload Events
+socket.on('code', thymioCode);
+async function thymioCode(data) {
+    console.log(data)
+    //console.log('Ping to all myNodes: ', myNodes);
+    //for (let node of myNodes) {
+    //    await node.emitEvents({ "ping": null });
+   // }
+}
 
 // PING Events
 socket.on('ping', thymioPing);
