@@ -225,6 +225,11 @@ app.put('/nodes/code/'  ,upload.array(), function (req, res, next) {
 app.post('/nodes/code/', (req, res) => {
     // do something
     console.log(req.body)
+
+    for (let i = 0; i < req.body.length; i++) {
+
+    }
+    
     res.send("POST Upload Thymio reçu :")
     io.sockets.emit('code', req.body)
   })

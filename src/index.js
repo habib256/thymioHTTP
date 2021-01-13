@@ -7,7 +7,7 @@ import { createClient, Node, NodeStatus, Request, setup } from '@mobsya-associat
 //We will need some way to get that url
 let client = createClient("ws://localhost:8597");
 
-// The Full List of all Thymio(s) nodes
+// The Full List of all working Thymio(s) nodes
 let myNodes = [];
 
 let thymioPrograms = [];
@@ -17,11 +17,13 @@ var socket = io.connect('ws://localhost:3000');
 // CODE Upload Events
 socket.on('code', thymioCode);
 async function thymioCode(data) {
-    console.log(data)
-    //console.log('Ping to all myNodes: ', myNodes);
-    //for (let node of myNodes) {
-    //    await node.emitEvents({ "ping": null });
-   // }
+    console.log("Upload program : ", data)
+    // Charger le programme aseba sur chaque(s) Thymio(s)
+    
+    for (let node of myNodes) {
+        await node.sendAsebaProgram(thymioPrograms[0]);
+        await node.runProgram();
+    }
 }
 
 // PING Events
@@ -182,7 +184,7 @@ async function thymioQ_reset(data) {
 
 socket.on('thymio', thymioUpdate);
 function thymioUpdate(data) {
-    socket.send('myNodes',myNodes);
+    socket.send('myNodes', myNodes);
 }
 
 async function thymioSetup() {
@@ -190,8 +192,8 @@ async function thymioSetup() {
         thymioSetupPrograms();
 
         // Supprimer les nodes deconnectés
-        for (let i=0; i < myNodes.length; i++){
-            if (myNodes[i].status == NodeStatus.disconnected){
+        for (let i = 0; i < myNodes.length; i++) {
+            if (myNodes[i].status == NodeStatus.disconnected) {
                 myNodes.splice(i, 1);
                 i--;
             }
@@ -204,7 +206,7 @@ async function thymioSetup() {
         }
 
     } catch (e) {
-        console.log("Aseba code error : ",e);
+        console.log("Aseba code error : ", e);
     }
 }
 
