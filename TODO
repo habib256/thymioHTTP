@@ -1,5 +1,4 @@
 TODO LIST
 
-- Détecter et gérer plusieurs thymio(s)
 - Gestion d'erreur pour les blocs de mouvement
-- Busy flag for async actions
+
