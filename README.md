@@ -9,6 +9,9 @@ This is a javascript node-based application that create an ws:// access to the t
 
 ![ThymioHTTP.png](/doc/ThymioHTTP.png?raw=true "ThymioHTTP")
 
+
+![SnapToAseba.png](/doc/SnapToAseba.png?raw=true "SnapToAseba")
+
 ## Getting started
 
 ### Install Thymio Suite 2.x
