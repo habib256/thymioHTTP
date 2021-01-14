@@ -12,6 +12,7 @@ This is a javascript node-based application that create an ws:// access to the t
 
 Because we want the Thymio to be indépendant from USB, we created SnapToAseba, a codification tool that convert Thymio Snap! code to Aseba code and run it on the Real device :
 
+
 ![SnapToAseba.png](/doc/SnapToAseba.png?raw=true "SnapToAseba")
 
 ## Getting started
