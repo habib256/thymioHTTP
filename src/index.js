@@ -12,6 +12,8 @@ let myNodes = [];
 
 let thymioPrograms = [];
 
+let thymioNb
+
 var socket = io.connect('ws://localhost:3000');
 
 // CODE Upload Events
@@ -20,10 +22,25 @@ async function thymioCode(data) {
     var s_obj = new String(data);
     console.log("Upload Program",s_obj)
 
-    for (let node of myNodes) {
-        await node.sendAsebaProgram(s_obj)
-        await node.runProgram();
+    if ((thymioNb > myNodes.length) || (thymioNb ==0)) {
+        console.log ('ERROR: Thymio ',thymioNb,' do not exist !!')
+    } else {
+    await myNodes[thymioNb-1].sendAsebaProgram(s_obj)
+    await myNodes[thymioNb-1].runProgram();
     }
+    
+    //for (let node of myNodes) {
+    //    await node.sendAsebaProgram(s_obj)
+    //    await node.runProgram();
+    //}
+}
+
+// Select Thymio
+socket.on('thymio', thymioSelect);
+async function thymioSelect(data) {
+    thymioNb = parseInt(data)
+    console.log ('Select Thymio : ', thymioNb)
+
 }
 
 // PING Events
@@ -31,7 +48,7 @@ socket.on('ping', thymioPing);
 async function thymioPing(data) {
     console.log('Ping to all myNodes: ', myNodes);
     for (let node of myNodes) {
-        await node.emitEvents({ "ping": null });
+        //await node.emitEvents({ "ping": null });
     }
 }
 

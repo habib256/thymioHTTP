@@ -214,7 +214,9 @@ app.put('/nodes/Q_reset/', function (req, res) {
 });
 
 // POST Txt Aseba code
-app.post('/nodes/code/', (req, res) => {
-    res.send("POST Upload Thymio reçu :")
+app.post('/nodes/code/:nb', (req, res) => {
+    res.send("POST Upload Thymio reçu")
+    io.sockets.emit('thymio', req.params.nb)
     io.sockets.emit('code', req.body)
+    console.log('Upload PRG for thymio : ', req.params.nb);
   })
