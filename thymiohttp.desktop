@@ -1,6 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=ThymioHTTP Snap!
-Exec=lxterminal -e /opt/thymioHTTP/run.sh
-Categories=Development;IDE;
-Icon=thymio
