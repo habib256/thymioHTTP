@@ -20,15 +20,20 @@ var socket = io.connect('ws://localhost:3000');
 // CODE Upload Events
 socket.on('code', thymioCode);
 async function thymioCode(data) {
-    var s_obj = new String(data);
-    console.log("Upload Program", s_obj)
+    try {
+        var s_obj = new String(data);
+        console.log("Upload Program", s_obj)
 
-    if ((thymioNb > myNodes.length) || (thymioNb == 0)) {
-        console.log('ERROR: Thymio ', thymioNb, ' do not exist !!')
-    } else {
-        await myNodes[thymioNb - 1].sendAsebaProgram(s_obj)
-        await myNodes[thymioNb - 1].runProgram();
+        if ((thymioNb > myNodes.length) || (thymioNb == 0)) {
+            console.log('ERROR: Thymio ', thymioNb, ' do not exist !!')
+        } else {
+            await myNodes[thymioNb - 1].sendAsebaProgram(s_obj)
+            await myNodes[thymioNb - 1].runProgram();
+        }
+    } catch (e) {
+        console.log("Upload Aseba code error : ", e);
     }
+
 }
 
 // Select Thymio
@@ -36,11 +41,11 @@ socket.on('thymio', thymioSelect);
 async function thymioSelect(data) {
     try {
         thymioNb = parseInt(data)
-        console.log('Select Thymio : ', thymioNb)    
+        console.log('Select Thymio : ', thymioNb)
     } catch (e) {
-        //console.log("Aseba code error : ", e);
+        console.log("Select Thymio error : ", e);
     }
-   
+
 }
 
 // PING Events
@@ -254,7 +259,7 @@ async function thymioDraw(data) {
                 thymio_state[5] = mydata[1]
                 // console.log("variable button.center: " + mydata[1])
             }
-            if (mydata[0] == "button.backward") {
+            if (mydata[0] == "button.forward") {
                 thymio_state[6] = mydata[1]
                 // console.log("variable button.backward: " + mydata[1])
             }
@@ -309,7 +314,6 @@ async function thymioDraw(data) {
                 thymio_state[24] = mydata[1]
                 //console.log("variable temperature: " + thymio_state[24])
             }
-
             if (mydata[0] == "motorbusy") {
                 thymio_state[25] = mydata[1]
                 // console.log("variable motorbusy: " + mydata[1])
@@ -532,7 +536,7 @@ client.onNodesChanged = async (nodes) => {
 
     } catch (e) {
 
-        console.log(e)
+        //console.log(e)
         //process.exit()
     }
     thymioSetup();
@@ -655,98 +659,6 @@ async function thymioSetupPrograms() {
         b = b % 20
         call leds.top(r,g,b)
 
-    `);
-
-
-    // Thymio Comportement Explorateur
-    thymioPrograms.push(`
-
-    var temp
-    var temp2
-    var speed=200
-    var vmin=-600
-    var vmax=600
-
-    var l[8]
-    var led_state=0 
-    var fixed
-    var led_pulse
-
-    timer.period[0]=20
-
-    onevent buttons
-    when button.forward==1 do #increase speed
-        speed=speed+50
-        if speed>500 then
-            speed=500
-        end
-    end
-    when button.backward==1 do #decrease speed
-        speed=speed-50
-        if speed <-300 then
-            speed=-300
-        end
-    end
-
-    onevent button.center	
-    when button.center==1 do #stop robot
-        speed=0
-        motor.left.target=0
-        motor.right.target=0
-    end
-
-    onevent timer0	
-	    #Led ring animation
-	    call math.fill(l, 0)
-	    led_state = led_state + 2
-	    if  led_state > 255 then
-	    	led_state = 0
-	    end
-	    fixed = led_state /32
-	    l[fixed] = 32
-	    #l[(fixed - 1) < 0x7] = 32 - (led_state < 0x1F)
-	    #l[(fixed + 1) < 0x7] = led_state < 0x1F
-	    call leds.circle(l[0], l[1], l[2], l[3], l[4], l[5], l[6], l[7])
-
-        #Body color pulse
-	    led_pulse = led_pulse + 1
-	    if led_pulse > 0 then
-		    call leds.top(led_pulse, led_pulse, 0)
-		    if led_pulse > 40 then
-			    led_pulse = -64
-		    end
-	    else 
-	    temp=-led_pulse/2
-	    call leds.top(temp, temp, 0)
-	    end
-
-
-    onevent prox 
-	    #Breintenberg obtacle avoidance
-	    if speed >0 then
-		    temp=(prox.horizontal[0]*1+prox.horizontal[1]*2+prox.horizontal[2]*3+prox.horizontal[3]*2+prox.horizontal[4]*1)
-		    temp2=prox.horizontal[0]*-4+prox.horizontal[1]*-3+prox.horizontal[3]*3+prox.horizontal[4]*4
-		    motor.left.target=speed-(temp+temp2)/(2000/speed)
-		    motor.right.target=speed-(temp-temp2)/(2000/speed)
-	    elseif speed < 0 then
-		    temp=-300/speed
-		    motor.left.target=speed+prox.horizontal[6]/temp
-		    motor.right.target=speed+prox.horizontal[5]/temp
-		    call math.min(motor.left.target, motor.left.target, vmax)
-		    call math.max(motor.left.target, motor.left.target, vmin)
-		    call math.min(motor.right.target, motor.right.target, vmax)
-		    call math.max(motor.right.target, motor.right.target, vmin)
-	    end
-	    #Detecte table border 
-	    if prox.ground.reflected[0]<130 or prox.ground.reflected[1]<130 then 
-		    motor.left.target=0
-		    motor.right.target=0
-		    call leds.bottom.left(32,0,0)
-		    call leds.bottom.right(32,0,0)
-	    else
-		    call leds.bottom.left(0,0,0)
-		    call leds.bottom.right(0,0,0)
-	    end
     `);
 }
 

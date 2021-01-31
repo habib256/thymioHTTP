@@ -39059,32 +39059,42 @@ function _thymioCode() {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
+            _context4.prev = 0;
             s_obj = new String(data);
             console.log("Upload Program", s_obj);
 
             if (!(thymioNb > myNodes.length || thymioNb == 0)) {
-              _context4.next = 6;
+              _context4.next = 7;
               break;
             }
 
             console.log('ERROR: Thymio ', thymioNb, ' do not exist !!');
-            _context4.next = 10;
+            _context4.next = 11;
             break;
 
-          case 6:
-            _context4.next = 8;
+          case 7:
+            _context4.next = 9;
             return myNodes[thymioNb - 1].sendAsebaProgram(s_obj);
 
-          case 8:
-            _context4.next = 10;
+          case 9:
+            _context4.next = 11;
             return myNodes[thymioNb - 1].runProgram();
 
-          case 10:
+          case 11:
+            _context4.next = 16;
+            break;
+
+          case 13:
+            _context4.prev = 13;
+            _context4.t0 = _context4["catch"](0);
+            console.log("Upload Aseba code error : ", _context4.t0);
+
+          case 16:
           case "end":
             return _context4.stop();
         }
       }
-    }, _callee4);
+    }, _callee4, null, [[0, 13]]);
   }));
   return _thymioCode.apply(this, arguments);
 }
@@ -39105,7 +39115,8 @@ function _thymioSelect() {
             try {
               thymioNb = parseInt(data);
               console.log('Select Thymio : ', thymioNb);
-            } catch (e) {//console.log("Aseba code error : ", e);
+            } catch (e) {
+              console.log("Select Thymio error : ", e);
             }
 
           case 1:
@@ -40624,7 +40635,7 @@ function _thymioDraw() {
                     thymio_state[5] = mydata[1]; // console.log("variable button.center: " + mydata[1])
                   }
 
-                  if (mydata[0] == "button.backward") {
+                  if (mydata[0] == "button.forward") {
                     thymio_state[6] = mydata[1]; // console.log("variable button.backward: " + mydata[1])
                   }
 
@@ -41017,18 +41028,17 @@ client.onNodesChanged = /*#__PURE__*/function () {
             return _context3.finish(38);
 
           case 41:
-            _context3.next = 46;
+            _context3.next = 45;
             break;
 
           case 43:
             _context3.prev = 43;
             _context3.t3 = _context3["catch"](0);
-            console.log(_context3.t3); //process.exit()
 
-          case 46:
+          case 45:
             thymioSetup();
 
-          case 47:
+          case 46:
           case "end":
             return _context3.stop();
         }
@@ -41054,11 +41064,9 @@ function _thymioSetupPrograms() {
         switch (_context31.prev = _context31.next) {
           case 0:
             // Thymio Motion AESL for Control by HTTP
-            thymioPrograms.push("\n    ##! Basic Thymio Motion AESL\n    ##! David J Sherman - david.sherman@inria.fr\n    ##! Nathalie Carrie - IREM de la R\xE9union\n    ##! Arnaud Verhille - gist974arobasegmailpointcom\n    ##! This AESL program defines high-level behaviors for the Thymio-II robot that enable\n    ##! it to cooperate with programs like Snap! using Nodejs and thymioHTTP REST API\n    var motorbusy\n    var i\n    var r\n    var g\n    var b\n    motorbusy = 0\n    i = 0\n    mic.threshold = 12\n    call sound.system(3)\n    ##! MOTOR THYMIO EVENTS\n    \n    onevent M_motor_both\n        motor.left.target=event.args[0]\n        motor.right.target=event.args[1]\n    \n    \n    onevent M_motor_timed\n        motor.left.target=event.args[0]\n        motor.right.target=event.args[1]\n        timer.period[0] = event.args[2]\n        motorbusy = 1\n    \n    \n    onevent timer0\n        motor.left.target=0\n        motor.right.target=0\n        timer.period[0] = 0\n        motorbusy = 0\n    \n    ##! LED THYMIO EVENTS\n    \n    onevent V_leds_prox_h\n        call leds.prox.h(event.args[0],event.args[1],event.args[2],event.args[3],event.args[4],event.args[5],event.args[6],event.args[7])\n    \n    \n    onevent V_leds_circle\n        call leds.circle(event.args[0],event.args[1],event.args[2],event.args[3],event.args[4],event.args[5],event.args[6],event.args[7])\n    \n    \n    onevent V_leds_top\n        call leds.top(event.args[0],event.args[1],event.args[2])\n    \n    \n    onevent V_leds_bottom_left\n        call leds.bottom.left(event.args[0],event.args[1],event.args[2])\n    \n    \n    onevent V_leds_bottom_right\n        call leds.bottom.right(event.args[0],event.args[1],event.args[2])\n    \n    \n    onevent V_leds_prox_v\n        call leds.prox.v(event.args[0],event.args[1])\n    \n    \n    onevent V_leds_buttons\n        call leds.buttons(event.args[0],event.args[1],event.args[2],event.args[3])\n    \n    \n    onevent V_leds_rc\n        call leds.rc(event.args[0])\n    \n    \n    onevent V_leds_temperature\n        call leds.temperature(event.args[0],event.args[1])\n    \n    \n    onevent V_leds_sound\n        call leds.sound(event.args[0])\n    \n    ##! SOUND THYMIO EVENTS\n    \n    onevent A_sound_system\n        call sound.system(event.args[0])\n    \n    \n    onevent A_sound_play\n        call sound.play(event.args[0])\n    \n    \n    onevent A_sound_replay\n        call sound.replay(event.args[0])\n    \n    \n    onevent A_sound_record\n        call sound.record(event.args[0])\n    \n    \n    onevent A_sound_freq\n        call sound.freq(event.args[0],event.args[1])\n    \n    ##! BUTTONS THYMIO EVENTS\n    \n    onevent button.center\n        call math.rand(r)\n        r = abs r\n        r = r % 20\n        call math.rand(g)\n        g = abs g\n        g = g % 20\n        call math.rand(b)\n        b = abs b\n        b = b % 20\n        call leds.top(r,g,b)\n\n    "); // Thymio Comportement Explorateur
+            thymioPrograms.push("\n    ##! Basic Thymio Motion AESL\n    ##! David J Sherman - david.sherman@inria.fr\n    ##! Nathalie Carrie - IREM de la R\xE9union\n    ##! Arnaud Verhille - gist974arobasegmailpointcom\n    ##! This AESL program defines high-level behaviors for the Thymio-II robot that enable\n    ##! it to cooperate with programs like Snap! using Nodejs and thymioHTTP REST API\n    var motorbusy\n    var i\n    var r\n    var g\n    var b\n    motorbusy = 0\n    i = 0\n    mic.threshold = 12\n    call sound.system(3)\n    ##! MOTOR THYMIO EVENTS\n    \n    onevent M_motor_both\n        motor.left.target=event.args[0]\n        motor.right.target=event.args[1]\n    \n    \n    onevent M_motor_timed\n        motor.left.target=event.args[0]\n        motor.right.target=event.args[1]\n        timer.period[0] = event.args[2]\n        motorbusy = 1\n    \n    \n    onevent timer0\n        motor.left.target=0\n        motor.right.target=0\n        timer.period[0] = 0\n        motorbusy = 0\n    \n    ##! LED THYMIO EVENTS\n    \n    onevent V_leds_prox_h\n        call leds.prox.h(event.args[0],event.args[1],event.args[2],event.args[3],event.args[4],event.args[5],event.args[6],event.args[7])\n    \n    \n    onevent V_leds_circle\n        call leds.circle(event.args[0],event.args[1],event.args[2],event.args[3],event.args[4],event.args[5],event.args[6],event.args[7])\n    \n    \n    onevent V_leds_top\n        call leds.top(event.args[0],event.args[1],event.args[2])\n    \n    \n    onevent V_leds_bottom_left\n        call leds.bottom.left(event.args[0],event.args[1],event.args[2])\n    \n    \n    onevent V_leds_bottom_right\n        call leds.bottom.right(event.args[0],event.args[1],event.args[2])\n    \n    \n    onevent V_leds_prox_v\n        call leds.prox.v(event.args[0],event.args[1])\n    \n    \n    onevent V_leds_buttons\n        call leds.buttons(event.args[0],event.args[1],event.args[2],event.args[3])\n    \n    \n    onevent V_leds_rc\n        call leds.rc(event.args[0])\n    \n    \n    onevent V_leds_temperature\n        call leds.temperature(event.args[0],event.args[1])\n    \n    \n    onevent V_leds_sound\n        call leds.sound(event.args[0])\n    \n    ##! SOUND THYMIO EVENTS\n    \n    onevent A_sound_system\n        call sound.system(event.args[0])\n    \n    \n    onevent A_sound_play\n        call sound.play(event.args[0])\n    \n    \n    onevent A_sound_replay\n        call sound.replay(event.args[0])\n    \n    \n    onevent A_sound_record\n        call sound.record(event.args[0])\n    \n    \n    onevent A_sound_freq\n        call sound.freq(event.args[0],event.args[1])\n    \n    ##! BUTTONS THYMIO EVENTS\n    \n    onevent button.center\n        call math.rand(r)\n        r = abs r\n        r = r % 20\n        call math.rand(g)\n        g = abs g\n        g = g % 20\n        call math.rand(b)\n        b = abs b\n        b = b % 20\n        call leds.top(r,g,b)\n\n    ");
 
-            thymioPrograms.push("\n\n    var temp\n    var temp2\n    var speed=200\n    var vmin=-600\n    var vmax=600\n\n    var l[8]\n    var led_state=0 \n    var fixed\n    var led_pulse\n\n    timer.period[0]=20\n\n    onevent buttons\n    when button.forward==1 do #increase speed\n        speed=speed+50\n        if speed>500 then\n            speed=500\n        end\n    end\n    when button.backward==1 do #decrease speed\n        speed=speed-50\n        if speed <-300 then\n            speed=-300\n        end\n    end\n\n    onevent button.center\t\n    when button.center==1 do #stop robot\n        speed=0\n        motor.left.target=0\n        motor.right.target=0\n    end\n\n    onevent timer0\t\n\t    #Led ring animation\n\t    call math.fill(l, 0)\n\t    led_state = led_state + 2\n\t    if  led_state > 255 then\n\t    \tled_state = 0\n\t    end\n\t    fixed = led_state /32\n\t    l[fixed] = 32\n\t    #l[(fixed - 1) < 0x7] = 32 - (led_state < 0x1F)\n\t    #l[(fixed + 1) < 0x7] = led_state < 0x1F\n\t    call leds.circle(l[0], l[1], l[2], l[3], l[4], l[5], l[6], l[7])\n\n        #Body color pulse\n\t    led_pulse = led_pulse + 1\n\t    if led_pulse > 0 then\n\t\t    call leds.top(led_pulse, led_pulse, 0)\n\t\t    if led_pulse > 40 then\n\t\t\t    led_pulse = -64\n\t\t    end\n\t    else \n\t    temp=-led_pulse/2\n\t    call leds.top(temp, temp, 0)\n\t    end\n\n\n    onevent prox \n\t    #Breintenberg obtacle avoidance\n\t    if speed >0 then\n\t\t    temp=(prox.horizontal[0]*1+prox.horizontal[1]*2+prox.horizontal[2]*3+prox.horizontal[3]*2+prox.horizontal[4]*1)\n\t\t    temp2=prox.horizontal[0]*-4+prox.horizontal[1]*-3+prox.horizontal[3]*3+prox.horizontal[4]*4\n\t\t    motor.left.target=speed-(temp+temp2)/(2000/speed)\n\t\t    motor.right.target=speed-(temp-temp2)/(2000/speed)\n\t    elseif speed < 0 then\n\t\t    temp=-300/speed\n\t\t    motor.left.target=speed+prox.horizontal[6]/temp\n\t\t    motor.right.target=speed+prox.horizontal[5]/temp\n\t\t    call math.min(motor.left.target, motor.left.target, vmax)\n\t\t    call math.max(motor.left.target, motor.left.target, vmin)\n\t\t    call math.min(motor.right.target, motor.right.target, vmax)\n\t\t    call math.max(motor.right.target, motor.right.target, vmin)\n\t    end\n\t    #Detecte table border \n\t    if prox.ground.reflected[0]<130 or prox.ground.reflected[1]<130 then \n\t\t    motor.left.target=0\n\t\t    motor.right.target=0\n\t\t    call leds.bottom.left(32,0,0)\n\t\t    call leds.bottom.right(32,0,0)\n\t    else\n\t\t    call leds.bottom.left(0,0,0)\n\t\t    call leds.bottom.right(0,0,0)\n\t    end\n    ");
-
-          case 2:
+          case 1:
           case "end":
             return _context31.stop();
         }
