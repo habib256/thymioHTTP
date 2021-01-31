@@ -4397,8 +4397,6 @@ function () {
     _thymio_generated__WEBPACK_IMPORTED_MODULE_1__["mobsya"].fb.ConnectionHandshake.addMinProtocolVersion(builder, MIN_PROTOCOL_VERSION);
 
     this._wrap_message_and_send(builder, _thymio_generated__WEBPACK_IMPORTED_MODULE_1__["mobsya"].fb.ConnectionHandshake.endConnectionHandshake(builder), _thymio_generated__WEBPACK_IMPORTED_MODULE_1__["mobsya"].fb.AnyMessage.ConnectionHandshake);
-
-    console.log(builder.bb);
   };
 
   Client.prototype._onclose = function (event) {
@@ -39042,8 +39040,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var client = Object(_mobsya_association_thymio_api__WEBPACK_IMPORTED_MODULE_0__["createClient"])("ws://localhost:8597"); // The Full List of all working Thymio(s) nodes
 
 var myNodes = [];
-var thymioPrograms = [];
 var thymioNb;
+var thymioPrograms = [];
+var thymio_state = [];
 var socket = io.connect('ws://localhost:3000'); // CODE Upload Events
 
 socket.on('code', thymioCode);
@@ -39103,10 +39102,13 @@ function _thymioSelect() {
       while (1) {
         switch (_context5.prev = _context5.next) {
           case 0:
-            thymioNb = parseInt(data);
-            console.log('Select Thymio : ', thymioNb);
+            try {
+              thymioNb = parseInt(data);
+              console.log('Select Thymio : ', thymioNb);
+            } catch (e) {//console.log("Aseba code error : ", e);
+            }
 
-          case 2:
+          case 1:
           case "end":
             return _context5.stop();
         }
@@ -40588,11 +40590,195 @@ function thymioDraw(_x26) {
 
 function _thymioDraw() {
   _thymioDraw = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee30(data) {
+    var _data, _iterator25, _step25, mydata;
+
     return regeneratorRuntime.wrap(function _callee30$(_context30) {
       while (1) {
         switch (_context30.prev = _context30.next) {
           case 0:
-            try {//socket.emit('thymio', data);
+            try {
+              // Thymio Firmware send all updated variables here
+              _data = JSON.stringify(Array.from(data.entries()));
+              _data = JSON.parse(_data);
+              _iterator25 = _createForOfIteratorHelper(_data);
+
+              try {
+                for (_iterator25.s(); !(_step25 = _iterator25.n()).done;) {
+                  mydata = _step25.value;
+
+                  if (mydata[0] == "acc") {
+                    thymio_state[0] = mydata[1][0];
+                    thymio_state[1] = mydata[1][1];
+                    thymio_state[2] = mydata[1][2]; //  console.log("variable acc:  \tax: " + thymio_state[0] + "  \tay: " + thymio_state[1] + " \taz: " + thymio_state[2])
+                  }
+
+                  if (mydata[0] == "mic.intensity") {
+                    thymio_state[3] = mydata[1]; // console.log("variable mic.intensity: " + thymio_state[3])
+                  }
+
+                  if (mydata[0] == "button.backward") {
+                    thymio_state[4] = mydata[1]; // console.log("variable button.backward: " + mydata[1])
+                  }
+
+                  if (mydata[0] == "button.center") {
+                    thymio_state[5] = mydata[1]; // console.log("variable button.center: " + mydata[1])
+                  }
+
+                  if (mydata[0] == "button.backward") {
+                    thymio_state[6] = mydata[1]; // console.log("variable button.backward: " + mydata[1])
+                  }
+
+                  if (mydata[0] == "button.left") {
+                    thymio_state[7] = mydata[1]; // console.log("variable button.left: " + mydata[1])
+                  }
+
+                  if (mydata[0] == "button.right") {
+                    thymio_state[8] = mydata[1]; //  console.log("variable button.right: " + mydata[1])
+                  }
+
+                  if (mydata[0] == "motor.left.target") {
+                    thymio_state[9] = mydata[1]; //  console.log("variable motor.left.target: " + mydata[1])
+                  }
+
+                  if (mydata[0] == "motor.right.target") {
+                    thymio_state[10] = mydata[1]; // console.log("variable motor.right.target: " + mydata[1])
+                  }
+
+                  if (mydata[0] == "motor.left.speed") {
+                    thymio_state[11] = mydata[1]; //  console.log("variable motor.left.speed: " + mydata[1])
+                  }
+
+                  if (mydata[0] == "motor.right.speed") {
+                    thymio_state[12] = mydata[1]; // console.log("variable motor.right.speed: " + mydata[1])
+                  }
+
+                  if (mydata[0] == "prox.comm.rx") {
+                    thymio_state[13] = mydata[1]; // console.log("variable prox.comm.rx: " + mydata[1])
+                  }
+
+                  if (mydata[0] == "prox.comm.tx") {
+                    thymio_state[14] = mydata[1]; //  console.log("variable prox.comm.tx: " + mydata[1])
+                  }
+
+                  if (mydata[0] == "prox.ground.delta") {
+                    thymio_state[15] = mydata[1][0];
+                    thymio_state[16] = mydata[1][1]; //  console.log("variable prox].ground.delta: " + mydata[1])
+                  }
+
+                  if (mydata[0] == "prox.horizontal") {
+                    thymio_state[17] = mydata[1][0];
+                    thymio_state[18] = mydata[1][1];
+                    thymio_state[19] = mydata[1][2];
+                    thymio_state[20] = mydata[1][3];
+                    thymio_state[21] = mydata[1][4];
+                    thymio_state[22] = mydata[1][5];
+                    thymio_state[23] = mydata[1][6]; //  console.log("variable prox.horizontal: " + mydata[1])
+                  }
+
+                  if (mydata[0] == "temperature") {
+                    thymio_state[24] = mydata[1]; //console.log("variable temperature: " + thymio_state[24])
+                  }
+
+                  if (mydata[0] == "motorbusy") {
+                    thymio_state[25] = mydata[1]; // console.log("variable motorbusy: " + mydata[1])
+                  } // Need to work with the variables under the line
+                  /////////////////////////////////////////////////
+
+
+                  if (mydata[0] == "_fwversion") {// console.log("variable _fwversion: " + mydata[1])
+                  }
+
+                  if (mydata[0] == "_id") {// console.log("variable _id: " + mydata[1])
+                  }
+
+                  if (mydata[0] == "_imot") {//console.log("variable _imot: " + mydata[1])
+                  }
+
+                  if (mydata[0] == "_integrator") {// console.log("variable _integrator: " + mydata[1])
+                  }
+
+                  if (mydata[0] == "_productId") {//console.log("variable _productId: " + mydata[1])
+                  }
+
+                  if (mydata[0] == "_vbat") {// console.log("variable _vbat: " + mydata[1])
+                  }
+
+                  if (mydata[0] == "acc._tap") {// console.log("variable acc._tap: " + mydata[1])
+                  }
+
+                  if (mydata[0] == "buttons._mean") {// console.log("variable buttons._mean: " + mydata[1])
+                  }
+
+                  if (mydata[0] == "buttons._noise") {// console.log("variable buttons._noise: " + mydata[1])
+                  }
+
+                  if (mydata[0] == "buttons._raw") {// console.log("variable buttons._raw: " + mydata[1])
+                  }
+
+                  if (mydata[0] == "event.args") {// console.log("variable event.args: " + mydata[1])
+                  }
+
+                  if (mydata[0] == "event.source") {// console.log("variable event.source: " + mydata[1])
+                  }
+
+                  if (mydata[0] == "leds.bottom.left") {// console.log("variable leds.bottom.left: " + mydata[1])
+                  }
+
+                  if (mydata[0] == "leds.bottom.right") {// console.log("variable leds.bottom.right: " + mydata[1])
+                  }
+
+                  if (mydata[0] == "leds.circle") {//  console.log("variable leds.circle: " + mydata[1])
+                  }
+
+                  if (mydata[0] == "leds.top") {//  console.log("variable leds.top: " + mydata[1])
+                  }
+
+                  if (mydata[0] == "mic._mean") {//  console.log("variable mic._mean: " + mydata[1])
+                  }
+
+                  if (mydata[0] == "mic.threshold") {// console.log("variable mic.threshold: " + mydata[1])
+                  }
+
+                  if (mydata[0] == "motor.left.pwm") {//  console.log("variable motor.left.pwm: " + mydata[1])
+                  }
+
+                  if (mydata[0] == "motor.right.pwm") {//  console.log("variable motor.right.pwm: " + mydata[1])
+                  }
+
+                  if (mydata[0] == "prox.comm.rx._intensities") {// console.log("variable prox.comm.rx._intensities: " + mydata[1])
+                  }
+
+                  if (mydata[0] == "prox.comm.rx._payloads") {//  console.log("variable prox.comm.rx._payloads: " + mydata[1])
+                  }
+
+                  if (mydata[0] == "prox.ground.ambiant") {//  console.log("variable prox.ground.ambiant: " + mydata[1])
+                  }
+
+                  if (mydata[0] == "prox.ground.reflected") {//  console.log("variable prox.ground.reflected: " + mydata[1])
+                  }
+
+                  if (mydata[0] == "rc5.address") {//  console.log("variable rc5.address: " + mydata[1])
+                  }
+
+                  if (mydata[0] == "rc5.command") {// console.log("variable rc5.command: " + mydata[1])
+                  }
+
+                  if (mydata[0] == "sd.present") {//  console.log("variable sd.present: " + mydata[1])
+                  }
+
+                  if (mydata[0] == "timer.period") {//  console.log("variable timer.period: " + mydata[1])
+                  }
+                } //console.log(thymio_state)
+                //io.socket.emit('update_vars', datatest);
+                //socket.emit('update_vars', datatest)
+
+              } catch (err) {
+                _iterator25.e(err);
+              } finally {
+                _iterator25.f();
+              }
+
+              socket.emit('thymio', thymio_state);
             } catch (e) {
               console.log(e);
             }
@@ -40715,24 +40901,15 @@ client.onNodesChanged = /*#__PURE__*/function () {
 
             _node.onVariablesChanged = function (vars) {
               thymioDraw(vars);
-            }; //Monitor events
+            }; // Monitor events from thymio
 
 
             _node.onEvents = /*#__PURE__*/function () {
               var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(events) {
-                var pong;
                 return regeneratorRuntime.wrap(function _callee2$(_context2) {
                   while (1) {
                     switch (_context2.prev = _context2.next) {
                       case 0:
-                        //console.log("events", events)
-                        // Mainly R_state_update Broadcast to socket.io
-                        socket.emit('thymio', events);
-                        pong = events.pong;
-
-                        if (pong) {}
-
-                      case 3:
                       case "end":
                         return _context2.stop();
                     }
@@ -40751,9 +40928,6 @@ client.onNodesChanged = /*#__PURE__*/function () {
             return _node.group.setEventsDescriptions([{
               name: "ping",
               fixed_size: 0
-            }, {
-              name: "pong",
-              fixed_size: 1
             }, {
               name: "V_leds_prox_h",
               fixed_size: 8
@@ -40809,41 +40983,8 @@ client.onNodesChanged = /*#__PURE__*/function () {
               name: "M_motor_right",
               fixed_size: 1
             }, {
-              name: "Q_add_motion",
-              fixed_size: 4
-            }, {
-              name: "Q_cancel_motion",
-              fixed_size: 1
-            }, {
-              name: "Q_motion_added",
-              fixed_size: 5
-            }, {
-              name: "Q_motion_cancelled",
-              fixed_size: 5
-            }, {
-              name: "Q_motion_started",
-              fixed_size: 5
-            }, {
-              name: "Q_motion_ended",
-              fixed_size: 5
-            }, {
-              name: "Q_motion_noneleft",
-              fixed_size: 1
-            }, {
-              name: "B_behavior",
-              fixed_size: 1
-            }, {
               name: "M_motor_timed",
               fixed_size: 3
-            }, {
-              name: "R_state_update",
-              fixed_size: 29
-            }, {
-              name: "Q_set_odometer",
-              fixed_size: 3
-            }, {
-              name: "Q_reset",
-              fixed_size: 0
             }]);
 
           case 27:
@@ -40913,7 +41054,7 @@ function _thymioSetupPrograms() {
         switch (_context31.prev = _context31.next) {
           case 0:
             // Thymio Motion AESL for Control by HTTP
-            thymioPrograms.push("\n    ##! Basic Thymio Motion AESL \n    ##! David J Sherman - david.sherman@inria.fr\n    ##! Arnaud Verhille - gist974arobasegmailpointcom\n    ##!\n    ##! This AESL program defines high-level behaviors for the Thymio-II robot that enable\n    ##! it to cooperate with programs like\n    ##! Snap! with Nodejs and thymioHTTP REST API\n\n    var R_state[29]          ##! [out] Robot FULL State\n\n    var chronometer = 0      ##! BUSY Motors counter\n    var busy = 0             ##! LOGO Motor Stuff\n    var behavior = 0         ##! High Level Stuff\n    \n    var odometer = 0         ##! Odometer calculation\n    var odo.delta            ##! [out] @private instantaneous speed difference\n    var odo.theta = 0        ##! [out] odometer current angle\n    var odo.x = 0            ##! [out] odometer x\n    var odo.y = 0            ##! [out] odometer y\n    var odo.degree           ##! [out] odometer direction\n\n    # reusable temp vars for event handlers\n    var tmp[9]\n    var rgb[3]\n    var i = 0\n\n    # default value\n    mic.threshold = 12\n\n    ##! THYMIO UPDATE REPORTERS ##### 10Hz, 20 Hz, 100Hz ################\n    ##! #################################################################   \n\n    ##! 10 Hz THYMIO BROADCAST STATE\n    onevent prox\n        R_state[13] = prox.comm.rx\n        R_state[14] = prox.comm.tx\n        R_state[15] = prox.ground.delta[0]\n        R_state[16] = prox.ground.delta[1]\n        R_state[17] = prox.horizontal[0]\n        R_state[18] = prox.horizontal[1]\n        R_state[19] = prox.horizontal[2]\n        R_state[20] = prox.horizontal[3]\n        R_state[21] = prox.horizontal[4]\n        R_state[22] = prox.horizontal[5]\n        R_state[23] = prox.horizontal[6]\n        R_state[24] = temperature     \n\n        if (behavior == 1) then\n            callsub behavior1\n        end\n        if (behavior == 2) then\n            callsub behavior2\n        end\n\n        emit R_state_update(R_state)\n\n    ##! 20 Hz THYMIO\n    onevent buttons\n        R_state[4] = button.backward\n        R_state[5] = button.center\n        R_state[6] = button.forward\n        R_state[7] = button.left\n        R_state[8] = button.right\n        R_state[0] = acc[0]\n        R_state[1] = acc[1]\n        R_state[2] = acc[2]\n        R_state[3] = mic.intensity \n        R_state[9] = motor.left.target\n        R_state[10] = motor.right.target\n        R_state[11] = motor.left.speed\n        R_state[12] = motor.right.speed\n        R_state[25] = odo.degree\n        R_state[26] = odo.x\n        R_state[27] = odo.y\n        R_state[28] = busy\n           \n\n    ##! 100 Hz THYMIO\n    onevent motor # loop runs at 100 Hz\n        if (odometer == 1) then\n            odo.delta = (motor.right.target + motor.left.target) / 2\n            call math.muldiv(tmp[0], (motor.right.target - motor.left.target), 3406, 10000)\n            odo.theta += tmp[0]\n            call math.cos(tmp[0:1],[odo.theta,16384-odo.theta])\n            call math.muldiv(tmp[0:1], [odo.delta,odo.delta],tmp[0:1], [32767,32767])\n            odo.x += tmp[0]/45\n            odo.y += tmp[1]/45\n            odo.degree = 90 - (odo.theta / 182)\n        end\n\n        if (busy == 1) then\n            chronometer = chronometer - 1\n            if (chronometer == 0) then\n                motor.left.target = 0\n                motor.right.target = 0\n                busy = 0\n            end\n        end\n                \n\n    ##! THYMIO INTERNAL EVENTS ##########################################\n    ##! #################################################################\n\n    ##! PING THYMIO EVENTS\n    onevent ping\n        call math.rand(rgb)\n        for i in 0:2 do\n            rgb[i] = abs rgb[i]\n            rgb[i] = rgb[i] % 20\n        end\n        call leds.top(rgb[0], rgb[1], rgb[2])\n        i++\n    ##!     emit pong i  \n\n    ##! ODOMETER THYMIO EVENTS\n    onevent Q_set_odometer\n        odometer = 1\n        odo.theta = (((event.args[0] + 360) % 360) - 90) * 182\n        odo.x = event.args[1] * 28\n        odo.y = event.args[2] * 28\n\n\n    ##! LED THYMIO EVENTS\n    onevent V_leds_prox_h\n        call leds.prox.h(event.args[0],event.args[1],event.args[2],\n                         event.args[3],event.args[4],event.args[5],\n                         event.args[6],event.args[7])\n    onevent V_leds_circle\n        call leds.circle(event.args[0],event.args[1],event.args[2],\n                         event.args[3],event.args[4],event.args[5],\n                         event.args[6],event.args[7])\n    onevent V_leds_top\n        call leds.top(event.args[0],event.args[1],event.args[2])\n    onevent V_leds_bottom_left\n        call leds.bottom.left(event.args[0],event.args[1],event.args[2])\n    onevent V_leds_bottom_right\n        call leds.bottom.right(event.args[0],event.args[1],event.args[2])\n    onevent V_leds_prox_v\n        call leds.prox.v(event.args[0],event.args[1])\n    onevent V_leds_buttons\n        call leds.buttons(event.args[0],event.args[1],\n                          event.args[2],event.args[3])    \n    onevent V_leds_rc\n        call leds.rc(event.args[0])   \n    onevent V_leds_temperature\n        call leds.temperature(event.args[0],event.args[1])\n    onevent V_leds_sound\n        call leds.sound(event.args[0])\n    \n    ##! SOUND THYMIO EVENTS\n    onevent A_sound_freq\n        call sound.freq(event.args[0],event.args[1])\n    onevent A_sound_play\n        call sound.play(event.args[0])\n    onevent A_sound_system\n        call sound.system(event.args[0])\n    onevent A_sound_replay\n        call sound.replay(event.args[0])\n    onevent A_sound_record\n        call sound.record(event.args[0])\n    \n    ##! MOTOR THYMIO EVENTS\n    onevent M_motor_both \n        motor.left.target = event.args[0]\n        motor.right.target = event.args[1] \n    onevent M_motor_left\n        motor.left.target = event.args[0]\n    onevent M_motor_right\n        motor.right.target = event.args[0] \n\n    ##! SYNC LOGO MOTOR BUSY THYMIO ACTION STARTING EVENT\n    onevent M_motor_timed\n        behavior = 0\n        busy = 1\n        motor.left.target = event.args[0]\n        motor.right.target = event.args[1]\n        chronometer = event.args[2]\n\n    ##! Reset the queue and stop motors\n    onevent Q_reset\n        chronometer = 0\n        busy = 0\n        behavior = 0  \n        motor.left.target = 0\n        motor.right.target = 0\n\n    ##! THYMIO BEHAVIOR EVENTS\n\n    onevent B_behavior\n        behavior = event.args[0]\n\n    ##! THYMIO BEHAVIORS SUBPROGRAMS\n    ##! ############################################\n\n    ##! Follow a black path very fast\n    sub behavior1 \n        if (prox.ground.delta[1] > 400) then\n            motor.left.target = 100\n            motor.right.target = 500\n        elseif (prox.ground.delta[0] > 400) then\n            motor.left.target = 500\n            motor.right.target = 100\n        else\n            motor.left.target = 350\n            motor.right.target = 350\n        end\n\n    ##! Follow a wall\n    sub behavior2  \n        when prox.horizontal[0] > 150 do\n            motor.left.target = 200\n            motor.right.target = -200\t\n        end\n        when prox.horizontal[0] < 150 do\n            motor.left.target = 250\n            motor.right.target = 250\n        end\n        when prox.horizontal[4] > 150 do\n            motor.left.target = -200\n            motor.right.target = 200\t\n        end\n        when prox.horizontal[4] < 150 do\n            motor.left.target = 250\n            motor.right.target = 250\n        end\n\n    "); // Thymio Comportement Explorateur
+            thymioPrograms.push("\n    ##! Basic Thymio Motion AESL\n    ##! David J Sherman - david.sherman@inria.fr\n    ##! Nathalie Carrie - IREM de la R\xE9union\n    ##! Arnaud Verhille - gist974arobasegmailpointcom\n    ##! This AESL program defines high-level behaviors for the Thymio-II robot that enable\n    ##! it to cooperate with programs like Snap! using Nodejs and thymioHTTP REST API\n    var motorbusy\n    var i\n    var r\n    var g\n    var b\n    motorbusy = 0\n    i = 0\n    mic.threshold = 12\n    call sound.system(3)\n    ##! MOTOR THYMIO EVENTS\n    \n    onevent M_motor_both\n        motor.left.target=event.args[0]\n        motor.right.target=event.args[1]\n    \n    \n    onevent M_motor_timed\n        motor.left.target=event.args[0]\n        motor.right.target=event.args[1]\n        timer.period[0] = event.args[2]\n        motorbusy = 1\n    \n    \n    onevent timer0\n        motor.left.target=0\n        motor.right.target=0\n        timer.period[0] = 0\n        motorbusy = 0\n    \n    ##! LED THYMIO EVENTS\n    \n    onevent V_leds_prox_h\n        call leds.prox.h(event.args[0],event.args[1],event.args[2],event.args[3],event.args[4],event.args[5],event.args[6],event.args[7])\n    \n    \n    onevent V_leds_circle\n        call leds.circle(event.args[0],event.args[1],event.args[2],event.args[3],event.args[4],event.args[5],event.args[6],event.args[7])\n    \n    \n    onevent V_leds_top\n        call leds.top(event.args[0],event.args[1],event.args[2])\n    \n    \n    onevent V_leds_bottom_left\n        call leds.bottom.left(event.args[0],event.args[1],event.args[2])\n    \n    \n    onevent V_leds_bottom_right\n        call leds.bottom.right(event.args[0],event.args[1],event.args[2])\n    \n    \n    onevent V_leds_prox_v\n        call leds.prox.v(event.args[0],event.args[1])\n    \n    \n    onevent V_leds_buttons\n        call leds.buttons(event.args[0],event.args[1],event.args[2],event.args[3])\n    \n    \n    onevent V_leds_rc\n        call leds.rc(event.args[0])\n    \n    \n    onevent V_leds_temperature\n        call leds.temperature(event.args[0],event.args[1])\n    \n    \n    onevent V_leds_sound\n        call leds.sound(event.args[0])\n    \n    ##! SOUND THYMIO EVENTS\n    \n    onevent A_sound_system\n        call sound.system(event.args[0])\n    \n    \n    onevent A_sound_play\n        call sound.play(event.args[0])\n    \n    \n    onevent A_sound_replay\n        call sound.replay(event.args[0])\n    \n    \n    onevent A_sound_record\n        call sound.record(event.args[0])\n    \n    \n    onevent A_sound_freq\n        call sound.freq(event.args[0],event.args[1])\n    \n    ##! BUTTONS THYMIO EVENTS\n    \n    onevent button.center\n        call math.rand(r)\n        r = abs r\n        r = r % 20\n        call math.rand(g)\n        g = abs g\n        g = g % 20\n        call math.rand(b)\n        b = abs b\n        b = b % 20\n        call leds.top(r,g,b)\n\n    "); // Thymio Comportement Explorateur
 
             thymioPrograms.push("\n\n    var temp\n    var temp2\n    var speed=200\n    var vmin=-600\n    var vmax=600\n\n    var l[8]\n    var led_state=0 \n    var fixed\n    var led_pulse\n\n    timer.period[0]=20\n\n    onevent buttons\n    when button.forward==1 do #increase speed\n        speed=speed+50\n        if speed>500 then\n            speed=500\n        end\n    end\n    when button.backward==1 do #decrease speed\n        speed=speed-50\n        if speed <-300 then\n            speed=-300\n        end\n    end\n\n    onevent button.center\t\n    when button.center==1 do #stop robot\n        speed=0\n        motor.left.target=0\n        motor.right.target=0\n    end\n\n    onevent timer0\t\n\t    #Led ring animation\n\t    call math.fill(l, 0)\n\t    led_state = led_state + 2\n\t    if  led_state > 255 then\n\t    \tled_state = 0\n\t    end\n\t    fixed = led_state /32\n\t    l[fixed] = 32\n\t    #l[(fixed - 1) < 0x7] = 32 - (led_state < 0x1F)\n\t    #l[(fixed + 1) < 0x7] = led_state < 0x1F\n\t    call leds.circle(l[0], l[1], l[2], l[3], l[4], l[5], l[6], l[7])\n\n        #Body color pulse\n\t    led_pulse = led_pulse + 1\n\t    if led_pulse > 0 then\n\t\t    call leds.top(led_pulse, led_pulse, 0)\n\t\t    if led_pulse > 40 then\n\t\t\t    led_pulse = -64\n\t\t    end\n\t    else \n\t    temp=-led_pulse/2\n\t    call leds.top(temp, temp, 0)\n\t    end\n\n\n    onevent prox \n\t    #Breintenberg obtacle avoidance\n\t    if speed >0 then\n\t\t    temp=(prox.horizontal[0]*1+prox.horizontal[1]*2+prox.horizontal[2]*3+prox.horizontal[3]*2+prox.horizontal[4]*1)\n\t\t    temp2=prox.horizontal[0]*-4+prox.horizontal[1]*-3+prox.horizontal[3]*3+prox.horizontal[4]*4\n\t\t    motor.left.target=speed-(temp+temp2)/(2000/speed)\n\t\t    motor.right.target=speed-(temp-temp2)/(2000/speed)\n\t    elseif speed < 0 then\n\t\t    temp=-300/speed\n\t\t    motor.left.target=speed+prox.horizontal[6]/temp\n\t\t    motor.right.target=speed+prox.horizontal[5]/temp\n\t\t    call math.min(motor.left.target, motor.left.target, vmax)\n\t\t    call math.max(motor.left.target, motor.left.target, vmin)\n\t\t    call math.min(motor.right.target, motor.right.target, vmax)\n\t\t    call math.max(motor.right.target, motor.right.target, vmin)\n\t    end\n\t    #Detecte table border \n\t    if prox.ground.reflected[0]<130 or prox.ground.reflected[1]<130 then \n\t\t    motor.left.target=0\n\t\t    motor.right.target=0\n\t\t    call leds.bottom.left(32,0,0)\n\t\t    call leds.bottom.right(32,0,0)\n\t    else\n\t\t    call leds.bottom.left(0,0,0)\n\t\t    call leds.bottom.right(0,0,0)\n\t    end\n    ");
 
