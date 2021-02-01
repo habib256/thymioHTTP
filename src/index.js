@@ -548,6 +548,7 @@ async function thymioSetupPrograms() {
 
     // Thymio Motion AESL for Control by HTTP
     thymioPrograms.push(`
+    
     ##! Basic Thymio Motion AESL
     ##! David J Sherman - david.sherman@inria.fr
     ##! Nathalie Carrie - IREM de la Réunion
@@ -562,6 +563,8 @@ async function thymioSetupPrograms() {
     motorbusy = 0
     i = 0
     mic.threshold = 12
+    motor.left.target=0
+    motor.right.target=0
     call sound.system(3)
     ##! MOTOR THYMIO EVENTS
     
@@ -580,8 +583,8 @@ async function thymioSetupPrograms() {
     onevent timer0
         motor.left.target=0
         motor.right.target=0
-        timer.period[0] = 0
         motorbusy = 0
+        timer.period[0] = 0
     
     ##! LED THYMIO EVENTS
     
