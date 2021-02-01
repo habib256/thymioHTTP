@@ -5,200 +5,140 @@ import { createClient, Node, NodeStatus, Request, setup } from '@mobsya-associat
 
 //Connect to the Thymio Suite
 //We will need some way to get that url
-let client = createClient("ws://localhost:8597");
+let client = createClient("ws://localhost:8597")
 
 // The Full List of all working Thymio(s) nodes
-let myNodes = [];
+let myNodes = []
 
-let thymioNb
-let thymioPrograms = [];
+let thymioSelected = 1
+let thymioPrograms = []
 
-let thymio_state = [];
+let thymio_state = []
 
-var socket = io.connect('ws://localhost:3000');
-
-// CODE Upload Events
-socket.on('code', thymioCode);
-async function thymioCode(data) {
-    try {
-        var s_obj = new String(data);
-        console.log("Upload Program", s_obj)
-
-        if ((thymioNb > myNodes.length) || (thymioNb == 0)) {
-            console.log('ERROR: Thymio ', thymioNb, ' do not exist !!')
-        } else {
-            await myNodes[thymioNb - 1].sendAsebaProgram(s_obj)
-            await myNodes[thymioNb - 1].runProgram();
-        }
-    } catch (e) {
-        console.log("Upload Aseba code error : ", e);
-    }
-
-}
+var socket = io.connect('ws://localhost:3000')
 
 // Select Thymio
-socket.on('thymio', thymioSelect);
+socket.on('thymio', thymioSelect)
 async function thymioSelect(data) {
     try {
-        thymioNb = parseInt(data)
-        console.log('Select Thymio : ', thymioNb)
+        thymioSelected = parseInt(data)
+        console.log('Select Thymio : ', thymioSelected)
     } catch (e) {
-        console.log("Select Thymio error : ", e);
+        console.log("Select Thymio error : ", e)
     }
+}
 
+// CODE Upload Events
+socket.on('code', thymioCode)
+async function thymioCode(data) {
+    try {
+        var s_obj = new String(data)
+        console.log("Upload Program", s_obj)
+
+        if ((thymioSelected > myNodes.length) || (thymioSelected == 0)) {
+            console.log('ERROR: Thymio ', thymioSelected, ' do not exist !!')
+        } else {
+            await myNodes[thymioSelected - 1].sendAsebaProgram(s_obj)
+            await myNodes[thymioSelected - 1].runProgram();
+        }
+    } catch (e) {
+        console.log("Upload Aseba code error : ", e)
+    }
 }
 
 // PING Events
 socket.on('ping', thymioPing);
 async function thymioPing(data) {
-    console.log('Ping to all myNodes: ', myNodes);
-    for (let node of myNodes) {
-        //await node.emitEvents({ "ping": null });
-    }
-}
-
-// B_behavior Events
-socket.on('B_behavior', thymioB_behavior);
-async function thymioB_behavior(data) {
-    //console.log('B_behavior');
-    for (let node of myNodes) {
-        await node.emitEvents({ "B_behavior": data });
-    }
-}
-
-// ODOMETER Events
-socket.on('Q_set_odometer', thymioQ_set_odometer);
-async function thymioQ_set_odometer(data) {
-    //console.log('Q_set_odometer');
-    for (let node of myNodes) {
-        await node.emitEvents({ "Q_set_odometer": data });
-    }
+    console.log('Ping to selected thymio node: ', myNodes)
+    await myNodes[thymioSelected-1].emitEvents({ "ping": null })
 }
 
 //LEDs Events from Socket.io to Thymio
-socket.on('V_leds_prox_h', thymioV_leds_prox_h);
+socket.on('V_leds_prox_h', thymioV_leds_prox_h)
 async function thymioV_leds_prox_h(data) {
-    for (let node of myNodes) {
-        await node.emitEvents({ "V_leds_prox_h": data });
-    }
+        await myNodes[thymioSelected-1].emitEvents({ "V_leds_prox_h": data })
 }
-socket.on('V_leds_circle', thymioV_leds_circle);
+socket.on('V_leds_circle', thymioV_leds_circle)
 async function thymioV_leds_circle(data) {
-    for (let node of myNodes) {
-        await node.emitEvents({ "V_leds_circle": data });
-    }
+        await myNodes[thymioSelected-1].emitEvents({ "V_leds_circle": data })
 }
-socket.on('V_leds_top', thymioV_leds_top);
+socket.on('V_leds_top', thymioV_leds_top)
 async function thymioV_leds_top(data) {
-    for (let node of myNodes) {
-        await node.emitEvents({ "V_leds_top": data });
-    }
+        await myNodes[thymioSelected-1].emitEvents({ "V_leds_top": data })
 }
-socket.on('V_leds_bottom_left', thymioV_leds_bottom_left);
+socket.on('V_leds_bottom_left', thymioV_leds_bottom_left)
 async function thymioV_leds_bottom_left(data) {
-    for (let node of myNodes) {
-        await node.emitEvents({ "V_leds_bottom_left": data });
-    }
+        await myNodes[thymioSelected-1].emitEvents({ "V_leds_bottom_left": data })
 }
-socket.on('V_leds_bottom_right', thymioV_leds_bottom_right);
+socket.on('V_leds_bottom_right', thymioV_leds_bottom_right)
 async function thymioV_leds_bottom_right(data) {
-    for (let node of myNodes) {
-        await node.emitEvents({ "V_leds_bottom_right": data });
-    }
+        await myNodes[thymioSelected-1].emitEvents({ "V_leds_bottom_right": data })
 }
-socket.on('V_leds_prox_v', thymioV_leds_prox_v);
+socket.on('V_leds_prox_v', thymioV_leds_prox_v)
 async function thymioV_leds_prox_v(data) {
-    for (let node of myNodes) {
-        await node.emitEvents({ "V_leds_prox_v": data });
-    }
+        await myNodes[thymioSelected-1].emitEvents({ "V_leds_prox_v": data })
 }
 socket.on('V_leds_buttons', thymioV_leds_buttons);
 async function thymioV_leds_buttons(data) {
-    for (let node of myNodes) {
-        await node.emitEvents({ "V_leds_buttons": data });
-    }
+        await myNodes[thymioSelected-1].emitEvents({ "V_leds_buttons": data })
 }
-socket.on('V_leds_rc', thymioV_leds_rc);
+socket.on('V_leds_rc', thymioV_leds_rc)
 async function thymioV_leds_rc(data) {
-    for (let node of myNodes) {
-        await node.emitEvents({ "V_leds_rc": data });
-    }
+        await myNodes[thymioSelected-1].emitEvents({ "V_leds_rc": data })
 }
-socket.on('V_leds_temperature', thymioV_leds_temperature);
+socket.on('V_leds_temperature', thymioV_leds_temperature)
 async function thymioV_leds_temperature(data) {
-    for (let node of myNodes) {
-        await node.emitEvents({ "V_leds_temperature": data });
-    }
+        await myNodes[thymioSelected-1].emitEvents({ "V_leds_temperature": data })
 }
-socket.on('V_leds_sound', thymioV_leds_sound);
+socket.on('V_leds_sound', thymioV_leds_sound)
 async function thymioV_leds_sound(data) {
-    for (let node of myNodes) {
-        await node.emitEvents({ "V_leds_sound": data });
-    }
+        await myNodes[thymioSelected-1].emitEvents({ "V_leds_sound": data })
 }
 
 // Sound Events from Socket.io to Thymio
-socket.on('A_sound_system', thymioA_sound_system);
+socket.on('A_sound_system', thymioA_sound_system)
 async function thymioA_sound_system(data) {
-    for (let node of myNodes) {
-        await node.emitEvents({ "A_sound_system": data });
-    }
+        await myNodes[thymioSelected-1].emitEvents({ "A_sound_system": data })
 }
 socket.on('A_sound_freq', thymioA_sound_freq);
 async function thymioA_sound_freq(data) {
-    for (let node of myNodes) {
-        await node.emitEvents({ "A_sound_freq": data });
-    }
+        await myNodes[thymioSelected-1].emitEvents({ "A_sound_freq": data })
 }
-socket.on('A_sound_play', thymioA_sound_play);
+socket.on('A_sound_play', thymioA_sound_play)
 async function thymioA_sound_play(data) {
-    for (let node of myNodes) {
-        await node.emitEvents({ "A_sound_play": data });
-    }
+        await myNodes[thymioSelected-1].emitEvents({ "A_sound_play": data })
 }
-socket.on('A_sound_record', thymioA_sound_record);
+socket.on('A_sound_record', thymioA_sound_record)
 async function thymioA_sound_record(data) {
-    await node.emitEvents({ "A_sound_record": data });
+    await myNodes[thymioSelected-1].emitEvents({ "A_sound_record": data })
 }
-socket.on('A_sound_replay', thymioA_sound_replay);
+socket.on('A_sound_replay', thymioA_sound_replay)
 async function thymioA_sound_replay(data) {
-    for (let node of myNodes) {
-        await node.emitEvents({ "A_sound_replay": data });
-    }
+        await myNodes[thymioSelected-1].emitEvents({ "A_sound_replay": data })
 }
 
 // Motors Events from Socket.io to Thymio
-socket.on('M_motor_both', thymioM_motor_both);
+socket.on('M_motor_both', thymioM_motor_both)
 async function thymioM_motor_both(data) {
-    for (let node of myNodes) {
-        await node.emitEvents({ "M_motor_both": data });
-    }
+    await myNodes[thymioSelected-1].emitEvents({ "M_motor_both": data })
 }
-socket.on('M_motor_left', thymioM_motor_left);
+socket.on('M_motor_left', thymioM_motor_left)
 async function thymioM_motor_left(data) {
-    for (let node of myNodes) {
-        await node.emitEvents({ "M_motor_left": data });
-    }
+        await myNodes[thymioSelected-1].emitEvents({ "M_motor_left": data })
 }
-socket.on('M_motor_right', thymioM_motor_right);
+socket.on('M_motor_right', thymioM_motor_right)
 async function thymioM_motor_right(data) {
-    for (let node of myNodes) {
-        await node.emitEvents({ "M_motor_right": data });
-    }
+        await myNodes[thymioSelected-1].emitEvents({ "M_motor_right": data })
 }
 
-socket.on('M_motor_timed', thymioM_motor_timed);
+socket.on('M_motor_timed', thymioM_motor_timed)
 async function thymioM_motor_timed(data) {
-    for (let node of myNodes) {
-        await node.emitEvents({ "M_motor_timed": data });
-    }
+        await myNodes[thymioSelected-1].emitEvents({ "M_motor_timed": data })
 }
 
-socket.on('Q_reset', thymioQ_reset);
+socket.on('Q_reset', thymioQ_reset)
 async function thymioQ_reset(data) {
-    for (let node of myNodes) {
-        await node.emitEvents({ "Q_reset": null });
-    }
+        await myNodes[thymioSelected-1].emitEvents({ "Q_reset": null })
 }
 
 // ********** CONTROL THYMIO FROM JAVASCRIPT HERE  ***************

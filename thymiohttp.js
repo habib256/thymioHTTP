@@ -213,6 +213,14 @@ app.put('/nodes/Q_reset/', function (req, res) {
     io.sockets.emit('Q_reset', null);
 });
 
+// Select thymio
+app.put('/nodes/select/:nb', (req, res) => {
+    res.send("Got a PUT request for Select Thymio")
+    //let args = Int16Array.of(req.params.nb);
+    io.sockets.emit('thymio', req.params.nb)
+    console.log('Select Thymio : ', req.params.nb);
+  })
+
 // POST Txt Aseba code
 app.post('/nodes/code/:nb', (req, res) => {
     res.send("POST Upload Thymio reçu")
@@ -220,3 +228,4 @@ app.post('/nodes/code/:nb', (req, res) => {
     io.sockets.emit('code', req.body)
     console.log('Upload PRG for thymio : ', req.params.nb);
   })
+
