@@ -15,6 +15,11 @@ nodeurl = "http://127.0.0.1:3000/nodes"
 # Fonctions pour accéder à l'interface HTTP REST de ThymioHTTP #
 ################################################################
 
+def runCode(code):
+    url = nodeurl + "/code" + "/" + str(code)
+    r = requests.put(url)
+    time.sleep(0.05)
+
 def lireCapteurs():
     # Affiche les valeurs des capteurs du Thymio
     #   thymioCapteurs[0] = acc[0]
@@ -89,20 +94,22 @@ def danse1():
 def suiviDeLigne1():
     while (True) :
         capteurs = lireCapteurs()
-        print (capteurs)
         
         #thymioCapteurs[16] = prox.ground.delta[1]
         if capteurs[16] > 400 :
-            moteurs(60,250)
+            moteurs(30,100)
         else :
             #thymioCapteurs[15] = prox.ground.delta[0]
             if capteurs[15] > 400 :
-                moteurs(250,60)
+                moteurs(100,30)
             else :
-                moteurs(250,250)
+                moteurs(100,100)
 
 #############################################
 # Programme principal du thymio en Python 3 #
 #############################################
+
+capteurs = lireCapteurs()      
+print (capteurs)
 
 suiviDeLigne1()
