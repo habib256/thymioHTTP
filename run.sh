@@ -10,4 +10,5 @@ node thymiohttp.js &
 #firefox 127.0.0.1:3000 "file:///opt/Snap/snap.html#run:http://127.0.0.1:3000/snaptoaseba.xml&editMode&noRun"
 
 chromium-browser  "file:///opt/Snap/snap.html#run:http://127.0.0.1:3000/snap4thymio.xml&editMode&noRun" 127.0.0.1:3000
+chromium  "file:///opt/Snap/snap.html#run:http://127.0.0.1:3000/snap4thymio.xml&editMode&noRun" 127.0.0.1:3000
 
