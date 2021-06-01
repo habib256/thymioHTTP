@@ -62,22 +62,22 @@ def lireCapteurs():
 def avance(vitesse):
     url = nodeurl + "/M_motor_both" + "/" + str(vitesse) + "/" + str(vitesse)
     r = requests.put(url)
-    time.sleep(0.05)
+    time.sleep(0.02)
 
 def moteurs(vg,vd):
     url = nodeurl + "/M_motor_both" + "/" + str(vg) + "/" + str(vd)
     r = requests.put(url)
-    time.sleep(0.05)
+    time.sleep(0.02)
 
 def stop():
     url = nodeurl + "/M_motor_both/0/0"
     r = requests.put(url)
-    time.sleep(0.05)
+    time.sleep(0.02)
 
 def ping():
     url = nodeurl + "/ping"
     r = requests.put(url)
-    time.sleep(0.05)
+    time.sleep(0.02)
 
 ##################################################
 # Exemples de programmes pour thymio en Python 3 #
@@ -102,13 +102,13 @@ def suiviDeLigne1():
         
         #thymioCapteurs[16] = prox.ground.delta[1]
         if capteurs[16] > 400 :
-            moteurs(30,100)
+            moteurs(80,150)
         else :
             #thymioCapteurs[15] = prox.ground.delta[0]
             if capteurs[15] > 400 :
-                moteurs(100,30)
+                moteurs(150,80)
             else :
-                moteurs(100,100)
+                moteurs(150,150)
 
 def drawGraph():
     xy = XY(stroke=False)
@@ -127,5 +127,6 @@ capteurs = lireCapteurs()
 print (capteurs)
 
 #drawGraph()
+danse1()
 
-suiviDeLigne1()
+#suiviDeLigne1()
